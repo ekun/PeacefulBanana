@@ -18,3 +18,4 @@ stacktrace.log
 *.iml
 .idea
 /target-eclipse/
+/bin/
