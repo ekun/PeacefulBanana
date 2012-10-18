@@ -15,5 +15,6 @@ stacktrace.log
 /out/
 /web-app/plugins
 /web-app/WEB-INF/classes
-/target-eclipse/
 *.iml
+.idea
+/target-eclipse/
