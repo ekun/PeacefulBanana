@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d38e2f9f-9706-4d9a-a194-855521c95ba3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/peacefulbanana/SettingsController.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/settings/index.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/peacefulbanana/SettingsControllerTests.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -65,7 +68,7 @@
       <file leaf-file-name="main.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/main.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="12" selection-start="2781" selection-end="2781" vertical-scroll-proportion="-12.952381">
+            <state line="45" column="12" selection-start="1902" selection-end="1902" vertical-scroll-proportion="-12.952381">
               <folding>
                 <element signature="tag#style#0;tag#head#0;tag#html#0;tag#html#0" expanded="false" />
               </folding>
@@ -76,7 +79,7 @@
       <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="1" selection-start="173" selection-end="173" vertical-scroll-proportion="0.36144578">
+            <state line="16" column="16" selection-start="195" selection-end="195" vertical-scroll-proportion="0.38554215">
               <folding />
             </state>
           </provider>
@@ -85,7 +88,7 @@
       <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/repositories/index.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="21" selection-start="128" selection-end="128" vertical-scroll-proportion="-1.6363636">
+            <state line="20" column="21" selection-start="908" selection-end="908" vertical-scroll-proportion="-1.6363636">
               <folding />
             </state>
           </provider>
@@ -94,7 +97,7 @@
       <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/index.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="6" selection-start="13" selection-end="13" vertical-scroll-proportion="-0.5714286">
+            <state line="15" column="6" selection-start="767" selection-end="767" vertical-scroll-proportion="-0.5714286">
               <folding />
             </state>
           </provider>
@@ -625,21 +628,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/index.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="6" selection-start="13" selection-end="13" vertical-scroll-proportion="-0.5714286">
+        <state line="15" column="6" selection-start="767" selection-end="767" vertical-scroll-proportion="-0.5714286">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/repositories/index.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="21" selection-start="128" selection-end="128" vertical-scroll-proportion="-1.6363636">
+        <state line="20" column="21" selection-start="908" selection-end="908" vertical-scroll-proportion="-1.6363636">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/main.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="12" selection-start="2781" selection-end="2781" vertical-scroll-proportion="-12.952381">
+        <state line="45" column="12" selection-start="1902" selection-end="1902" vertical-scroll-proportion="-12.952381">
           <folding>
             <element signature="tag#style#0;tag#head#0;tag#html#0;tag#html#0" expanded="false" />
           </folding>
@@ -648,7 +651,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="1" selection-start="173" selection-end="173" vertical-scroll-proportion="0.36144578">
+        <state line="16" column="16" selection-start="195" selection-end="195" vertical-scroll-proportion="0.38554215">
           <folding />
         </state>
       </provider>
