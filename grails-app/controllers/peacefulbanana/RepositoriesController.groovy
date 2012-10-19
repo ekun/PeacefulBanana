@@ -1,16 +1,16 @@
 package peacefulbanana
 
-import org.peaceful.banana.domain.Repository
+import org.eclipse.egit.github.core.service.RepositoryService
+import org.eclipse.egit.github.core.Repository
 
 class RepositoriesController {
 
     def index() {
-        def Repositories = new ArrayList<Repository>()
+        def RepositoryService service = new RepositoryService();
 
-        for (int i=0; i < 10; i++) {
-            Repositories.add(new Repository(ident: i,title: i + "" , description: i + ""))
-        }
+        def ArrayList<Repository> repositories = service.getRepositories("tkbremnes")
 
-        [myRepos: Repositories.findAll()]
+        [myRepos: repositories.findAll()]
+
     }
 }
