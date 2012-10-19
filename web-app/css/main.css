@@ -1,596 +1,584 @@
-/* FONT STACK */
-body,
-input, select, textarea {
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	line-height: 1.1;
-}
-
 /* BASE LAYOUT */
-
-html {
-	background-color: #ddd;
-	background-image: -moz-linear-gradient(center top, #aaa, #ddd);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
-	background-image: linear-gradient(top, #aaa, #ddd);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');
-	background-repeat: no-repeat;
-	height: 100%;
-	/* change the box model to exclude the padding from the calculation of 100% height (IE8+) */
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-	        box-sizing: border-box;
-}
-
-html.no-cssgradients {
-	background-color: #aaa;
-}
-
-.ie6 html {
-	height: 100%;
-}
-
-html * {
-	margin: 0;
-}
-
-body {
-	background: #ffffff;
-	color: #333333;
-	margin: 0 auto;
-	max-width: 960px;
-	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
-	   -moz-box-shadow: 0 0 0.3em #255b17;
-	-webkit-box-shadow: 0 0 0.3em #255b17;
-	        box-shadow: 0 0 0.3em #255b17;
-}
-
-#grailsLogo {
-	background-color: #abbf78;
-}
-
-/* replace with .no-boxshadow body if you have modernizr available */
-.ie6 body,
-.ie7 body,
-.ie8 body {
-	border-color: #255b17;
-	border-style: solid;
-	border-width: 0 1px;
-}
-
-.ie6 body {
-	height: 100%;
-}
-
-a:link, a:visited, a:hover {
-	color: #48802c;
-}
-
-a:hover, a:active {
-	outline: none; /* prevents outline in webkit on active links but retains it for tab focus */
-}
-
-h1 {
-	color: #48802c;
-	font-weight: normal;
-	font-size: 1.25em;
-	margin: 0.8em 0 0.3em 0;
-}
-
-ul {
-	padding: 0;
-}
-
-img {
-	border: 0;
-}
-
-/* GENERAL */
-
-#grailsLogo a {
-	display: inline-block;
-	margin: 1em;
-}
-
-.content {
-}
-
-.content h1 {
-	border-bottom: 1px solid #CCCCCC;
-	margin: 0.8em 1em 0.3em;
-	padding: 0 0.25em;
-}
-
-.scaffold-list h1 {
-	border: none;
-}
-
-.footer {
-	background: #abbf78;
-	color: #000;
-	clear: both;
-	font-size: 0.8em;
-	margin-top: 1.5em;
-	padding: 1em;
-	min-height: 1em;
-}
-
-.footer a {
-	color: #255b17;
-}
-
-.spinner {
-	background: url(../images/spinner.gif) 50% 50% no-repeat transparent;
-	height: 16px;
-	width: 16px;
-    padding: 0.5em;
-    position: absolute;
-    right: 0;
-	top: 0;
-	text-indent: -9999px;
-}
-
-/* NAVIGATION MENU */
-
-.nav {
-	background-color: #efefef;
-	padding: 0.5em 0.75em;
-	   -moz-box-shadow: 0 0 3px 1px #aaaaaa;
-	-webkit-box-shadow: 0 0 3px 1px #aaaaaa;
-	        box-shadow: 0 0 3px 1px #aaaaaa;
-	zoom: 1;
-}
-
-.nav ul {
-	overflow: hidden;
-	padding-left: 0;
-	zoom: 1;
-}
-
-.nav li {
-	display: block;
-	float: left;
-	list-style-type: none;
-	margin-right: 0.5em;
-	padding: 0;
-}
-
-.nav a {
-	color: #666666;
-	display: block;
-	padding: 0.25em 0.7em;
-	text-decoration: none;
-	   -moz-border-radius: 0.3em;
-	-webkit-border-radius: 0.3em;
-	        border-radius: 0.3em;
-}
-
-.nav a:active, .nav a:visited {
-	color: #666666;
-}
-
-.nav a:focus, .nav a:hover {
-	background-color: #999999;
-	color: #ffffff;
-	outline: none;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-}
-
-.no-borderradius .nav a:focus, .no-borderradius .nav a:hover {
-	background-color: transparent;
-	color: #444444;
-	text-decoration: underline;
-}
-
-.nav a.home, .nav a.list, .nav a.create {
-	background-position: 0.7em center;
-	background-repeat: no-repeat;
-	text-indent: 25px;
-}
-
-.nav a.home {
-	background-image: url(../images/skin/house.png);
-}
-
-.nav a.list {
-	background-image: url(../images/skin/database_table.png);
-}
-
-.nav a.create {
-	background-image: url(../images/skin/database_add.png);
-}
-
-/* CREATE/EDIT FORMS AND SHOW PAGES */
-
-fieldset,
-.property-list {
-	margin: 0.6em 1.25em 0 1.25em;
-	padding: 0.3em 1.8em 1.25em;
-	position: relative;
-	zoom: 1;
-	border: none;
-}
-
-.property-list .fieldcontain {
-	list-style: none;
-	overflow: hidden;
-	zoom: 1;
-}
-
-.fieldcontain {
-	margin-top: 1em;
-}
-
-.fieldcontain label,
-.fieldcontain .property-label {
-	color: #666666;
-	text-align: right;
-	width: 25%;
-}
-
-.fieldcontain .property-label {
-	float: left;
-}
-
-.fieldcontain .property-value {
-	display: block;
-	margin-left: 27%;
-}
-
-label {
-	cursor: pointer;
-	display: inline-block;
-	margin: 0 0.25em 0 0;
-}
-
-input, select, textarea {
-	background-color: #fcfcfc;
-	border: 1px solid #cccccc;
-	font-size: 1em;
-	padding: 0.2em 0.4em;
-}
-
-select {
-	padding: 0.2em 0.2em 0.2em 0;
-}
-
-select[multiple] {
-	vertical-align: top;
-}
-
-textarea {
-	width: 250px;
-	height: 150px;
-	overflow: auto; /* IE always renders vertical scrollbar without this */
-	vertical-align: top;
-}
-
-input[type=checkbox], input[type=radio] {
-	background-color: transparent;
-	border: 0;
-	padding: 0;
-}
-
-input:focus, select:focus, textarea:focus {
-	background-color: #ffffff;
-	border: 1px solid #eeeeee;
-	outline: 0;
-	   -moz-box-shadow: 0 0 0.5em #ffffff;
-	-webkit-box-shadow: 0 0 0.5em #ffffff;
-	        box-shadow: 0 0 0.5em #ffffff;
-}
-
-.required-indicator {
-	color: #48802C;
-	display: inline-block;
-	font-weight: bold;
-	margin-left: 0.3em;
-	position: relative;
-	top: 0.1em;
-}
-
-ul.one-to-many {
-	display: inline-block;
-	list-style-position: inside;
-	vertical-align: top;
-}
-
-.ie6 ul.one-to-many, .ie7 ul.one-to-many {
-	display: inline;
-	zoom: 1;
-}
-
-ul.one-to-many li.add {
-	list-style-type: none;
-}
-
-/* EMBEDDED PROPERTIES */
-
-fieldset.embedded {
-	background-color: transparent;
-	border: 1px solid #CCCCCC;
-	margin-left: 0;
-	margin-right: 0;
-	padding-left: 0;
-	padding-right: 0;
-	   -moz-box-shadow: none;
-	-webkit-box-shadow: none;
-	        box-shadow: none;
-}
-
-fieldset.embedded legend {
-	margin: 0 1em;
-}
-
-/* MESSAGES AND ERRORS */
-
-.errors,
-.message {
-	font-size: 0.8em;
-	line-height: 2;
-	margin: 1em 2em;
-	padding: 0.25em;
-}
-
-.message {
-	background: #f3f3ff;
-	border: 1px solid #b2d1ff;
-	color: #006dba;
-	   -moz-box-shadow: 0 0 0.25em #b2d1ff;
-	-webkit-box-shadow: 0 0 0.25em #b2d1ff;
-	        box-shadow: 0 0 0.25em #b2d1ff;
-}
-
-.errors {
-	background: #fff3f3;
-	border: 1px solid #ffaaaa;
-	color: #cc0000;
-	   -moz-box-shadow: 0 0 0.25em #ff8888;
-	-webkit-box-shadow: 0 0 0.25em #ff8888;
-	        box-shadow: 0 0 0.25em #ff8888;
-}
-
-.errors ul,
-.message {
-	padding: 0;
-}
-
-.errors li {
-	list-style: none;
-	background: transparent url(../images/skin/exclamation.png) 0.5em 50% no-repeat;
-	text-indent: 2.2em;
-}
-
-.message {
-	background: transparent url(../images/skin/information.png) 0.5em 50% no-repeat;
-	text-indent: 2.2em;
-}
-
-/* form fields with errors */
-
-.error input, .error select, .error textarea {
-	background: #fff3f3;
-	border-color: #ffaaaa;
-	color: #cc0000;
-}
-
-.error input:focus, .error select:focus, .error textarea:focus {
-	   -moz-box-shadow: 0 0 0.5em #ffaaaa;
-	-webkit-box-shadow: 0 0 0.5em #ffaaaa;
-	        box-shadow: 0 0 0.5em #ffaaaa;
-}
-
-/* same effects for browsers that support HTML5 client-side validation (these have to be specified separately or IE will ignore the entire rule) */
-
-input:invalid, select:invalid, textarea:invalid {
-	background: #fff3f3;
-	border-color: #ffaaaa;
-	color: #cc0000;
-}
-
-input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
-	   -moz-box-shadow: 0 0 0.5em #ffaaaa;
-	-webkit-box-shadow: 0 0 0.5em #ffaaaa;
-	        box-shadow: 0 0 0.5em #ffaaaa;
-}
-
-/* TABLES */
-
-table {
-	border-top: 1px solid #DFDFDF;
-	border-collapse: collapse;
-	width: 100%;
-	margin-bottom: 1em;
-}
-
-tr {
-	border: 0;
-}
-
-tr>td:first-child, tr>th:first-child {
-	padding-left: 1.25em;
-}
-
-tr>td:last-child, tr>th:last-child {
-	padding-right: 1.25em;
-}
-
-td, th {
-	line-height: 1.5em;
-	padding: 0.5em 0.6em;
-	text-align: left;
-	vertical-align: top;
-}
-
-th {
-	background-color: #efefef;
-	background-image: -moz-linear-gradient(top, #ffffff, #eaeaea);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #eaeaea));
-	    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ffffff', EndColorStr = '#eaeaea');
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#eaeaea')";
-	color: #666666;
-	font-weight: bold;
-	line-height: 1.7em;
-	padding: 0.2em 0.6em;
-}
-
-thead th {
-	white-space: nowrap;
-}
-
-th a {
-	display: block;
-	text-decoration: none;
-}
-
-th a:link, th a:visited {
-	color: #666666;
-}
-
-th a:hover, th a:focus {
-	color: #333333;
-}
-
-th.sortable a {
-	background-position: right;
-	background-repeat: no-repeat;
-	padding-right: 1.1em;
-}
-
-th.asc a {
-	background-image: url(../images/skin/sorted_asc.gif);
-}
-
-th.desc a {
-	background-image: url(../images/skin/sorted_desc.gif);
-}
-
-.odd {
-	background: #f7f7f7;
-}
-
-.even {
-	background: #ffffff;
-}
-
-th:hover, tr:hover {
-	background: #E1F2B6;
-}
-
-/* PAGINATION */
-
-.pagination {
-	border-top: 0;
-	margin: 0;
-	padding: 0.3em 0.2em;
-	text-align: center;
-	   -moz-box-shadow: 0 0 3px 1px #AAAAAA;
-	-webkit-box-shadow: 0 0 3px 1px #AAAAAA;
-	        box-shadow: 0 0 3px 1px #AAAAAA;
-	background-color: #EFEFEF;
-}
-
-.pagination a,
-.pagination .currentStep {
-	color: #666666;
-	display: inline-block;
-	margin: 0 0.1em;
-	padding: 0.25em 0.7em;
-	text-decoration: none;
-	   -moz-border-radius: 0.3em;
-	-webkit-border-radius: 0.3em;
-	        border-radius: 0.3em;
-}
-
-.pagination a:hover, .pagination a:focus,
-.pagination .currentStep {
-	background-color: #999999;
-	color: #ffffff;
-	outline: none;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-}
-
-.no-borderradius .pagination a:hover, .no-borderradius .pagination a:focus,
-.no-borderradius .pagination .currentStep {
-	background-color: transparent;
-	color: #444444;
-	text-decoration: underline;
-}
-
-/* ACTION BUTTONS */
-
-.buttons {
-	background-color: #efefef;
-	overflow: hidden;
-	padding: 0.3em;
-	   -moz-box-shadow: 0 0 3px 1px #aaaaaa;
-	-webkit-box-shadow: 0 0 3px 1px #aaaaaa;
-	        box-shadow: 0 0 3px 1px #aaaaaa;
-	margin: 0.1em 0 0 0;
-	border: none;
-}
-
-.buttons input,
-.buttons a {
-	background-color: transparent;
-	border: 0;
-	color: #666666;
-	cursor: pointer;
-	display: inline-block;
-	margin: 0 0.25em 0;
-	overflow: visible;
-	padding: 0.25em 0.7em;
-	text-decoration: none;
-
-	   -moz-border-radius: 0.3em;
-	-webkit-border-radius: 0.3em;
-	        border-radius: 0.3em;
-}
-
-.buttons input:hover, .buttons input:focus,
-.buttons a:hover, .buttons a:focus {
-	background-color: #999999;
-	color: #ffffff;
-	outline: none;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-	   -moz-box-shadow: none;
-	-webkit-box-shadow: none;
-	        box-shadow: none;
-}
-
-.no-borderradius .buttons input:hover, .no-borderradius .buttons input:focus,
-.no-borderradius .buttons a:hover, .no-borderradius .buttons a:focus {
-	background-color: transparent;
-	color: #444444;
-	text-decoration: underline;
-}
-
-.buttons .delete, .buttons .edit, .buttons .save {
-	background-position: 0.7em center;
-	background-repeat: no-repeat;
-	text-indent: 25px;
-}
-
-.ie6 .buttons input.delete, .ie6 .buttons input.edit, .ie6 .buttons input.save,
-.ie7 .buttons input.delete, .ie7 .buttons input.edit, .ie7 .buttons input.save {
-	padding-left: 36px;
-}
-
-.buttons .delete {
-	background-image: url(../images/skin/database_delete.png);
-}
-
-.buttons .edit {
-	background-image: url(../images/skin/database_edit.png);
-}
-
-.buttons .save {
-	background-image: url(../images/skin/database_save.png);
-}
-
-a.skip {
-	position: absolute;
-	left: -9999px;
-}
+@font-face {
+    font-family: 'Octicons Regular';
+    src: url('octicons.ttf');
+    font-style: normal;
+}
+
+.mini-icon, .mega-icon {
+    font-family: 'Octicons Regular';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-transition: color 0.15s ease-in 0;
+    -webkit-transition: color 0.15s ease-in 0;
+    line-height: 1;
+    text-decoration: none;
+}
+.mini-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+.mini-icon-private-repo:before {
+    content: "\f06a"}
+.mini-icon-public-repo:before {
+    content: "\f001"}
+.mini-icon-repo-forked:before {
+    content: "\f002"}
+.mini-icon-create:before {
+    content: "\f003"}
+.mini-icon-delete:before {
+    content: "\f004"}
+.mini-icon-push:before {
+    content: "\f005"}
+.mini-icon-pull:before {
+    content: "\f006"}
+.mini-icon-readme:before, .mini-icon-wiki:before {
+    content: "\f007"}
+.mini-icon-octocat:before {
+    content: "\f008"}
+.mini-icon-site-message:before, .mini-icon-blacktocat:before {
+    content: "\f009"}
+.mini-icon-invertocat:before {
+    content: "\f00a"}
+.mini-icon-download:before {
+    content: "\f00b"}
+.mini-icon-upload:before {
+    content: "\f00c"}
+.mini-icon-keyboard:before {
+    content: "\f00d"}
+.mini-icon-gist:before {
+    content: "\f00e"}
+.mini-icon-gist-private:before {
+    content: "\f00f"}
+.mini-icon-code-file:before, .mini-icon-download-unknown:before {
+    content: "\f010"}
+.mini-icon-download-text:before, .mini-icon-text-file:before {
+    content: "\f011"}
+.mini-icon-download-media:before {
+    content: "\f012"}
+.mini-icon-download-zip:before {
+    content: "\f013"}
+.mini-icon-download-pdf:before {
+    content: "\f014"}
+.mini-icon-download-tag:before, .mini-icon-tag:before {
+    content: "\f015"}
+.mini-icon-directory:before {
+    content: "\f016"}
+.mini-icon-submodule:before {
+    content: "\f017"}
+.mini-icon-person:before {
+    content: "\f018"}
+.mini-icon-team:before {
+    content: "\f019"}
+.mini-icon-member-added:before {
+    content: "\f01a"}
+.mini-icon-member-removed:before {
+    content: "\f01b"}
+.mini-icon-follow:before {
+    content: "\f01c"}
+.mini-icon-watching:before {
+    content: "\f01d"}
+.mini-icon-unwatch:before {
+    content: "\f01e"}
+.mini-icon-commit:before {
+    content: "\f01f"}
+.mini-icon-public-fork:before, .mini-icon-fork:before, .mini-icon-branch:before, .mini-icon-tree:before {
+    content: "\f020"}
+.mini-icon-private-fork:before {
+    content: "\f021"}
+.mini-icon-pull-request:before {
+    content: "\f022"}
+.mini-icon-merge:before {
+    content: "\f023"}
+.mini-icon-public-mirror:before {
+    content: "\f024"}
+.mini-icon-private-mirror:before {
+    content: "\f025"}
+.mini-icon-issue-opened:before {
+    content: "\f026"}
+.mini-icon-issue-reopened:before {
+    content: "\f027"}
+.mini-icon-issue-closed:before {
+    content: "\f028"}
+.mini-icon-issue-comment:before {
+    content: "\f029"}
+.mini-icon-star:before {
+    content: "\f02a"}
+.mini-icon-commit-comment:before {
+    content: "\f02b"}
+.mini-icon-help:before {
+    content: "\f02c"}
+.mini-icon-exclamation:before {
+    content: "\f02d"}
+.mini-icon-search-input:before {
+    content: "\f02e"}
+.mini-icon-advanced-search:before {
+    content: "\f02f"}
+.mini-icon-notifications:before {
+    content: "\f030"}
+.mini-icon-account-settings:before {
+    content: "\f031"}
+.mini-icon-logout:before {
+    content: "\f032"}
+.mini-icon-admin-tools:before {
+    content: "\f033"}
+.mini-icon-feed:before {
+    content: "\f034"}
+.mini-icon-apple:before {
+    content: "\f036"}
+.mini-icon-windows:before {
+    content: "\f037";
+    content: "";
+    background: transparent url("https://a248.e.akamai.net/assets.github.com/assets/primer/buttons/windows-sprite-6047c14510e8ba6d96be0ed68ff38b5caa4dddd2.png") 0 0 no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+.mini-icon-ios:before {
+    content: "\f038"}
+.mini-icon-download-android:before, .mini-icon-android:before {
+    content: "\f039"}
+.mini-icon-confirm:before {
+    content: "\f03a"}
+.mini-icon-unread-note:before {
+    content: "\f03b"}
+.mini-icon-read-note:before {
+    content: "\f03c"}
+.mini-icon-arr-up:before {
+    content: "\f03d"}
+.mini-icon-arr-right:before {
+    content: "\f03e"}
+.mini-icon-arr-down:before {
+    content: "\f03f"}
+.mini-icon-arr-left:before {
+    content: "\f040"}
+.mini-icon-pin:before {
+    content: "\f041"}
+.mini-icon-gift:before {
+    content: "\f042"}
+.mini-icon-graph:before {
+    content: "\f043"}
+.mini-icon-wrench:before {
+    content: "\f044"}
+.mini-icon-credit-card:before {
+    content: "\f045"}
+.mini-icon-time:before {
+    content: "\f046"}
+.mini-icon-ruby:before {
+    content: "\f047"}
+.mini-icon-podcast:before {
+    content: "\f048"}
+.mini-icon-key:before {
+    content: "\f049"}
+.mini-icon-force-push:before {
+    content: "\f04a"}
+.mini-icon-sync:before {
+    content: "\f04b"}
+.mini-icon-clone:before {
+    content: "\f04c"}
+.mini-icon-diff:before {
+    content: "\f04d"}
+.mini-icon-watchers:before {
+    content: "\f04e"}
+.mini-icon-discussion:before {
+    content: "\f04f"}
+.mini-icon-delete-note:before, .mini-icon-remove-close:before {
+    content: "\f050"}
+.mini-icon-reply:before {
+    content: "\f051"}
+.mini-icon-mail-status:before {
+    content: "\f052"}
+.mini-icon-block:before {
+    content: "\f053"}
+.mini-icon-tag-create:before {
+    content: "\f054"}
+.mini-icon-tab-delete:before {
+    content: "\f055"}
+.mini-icon-branch-create:before {
+    content: "\f056"}
+.mini-icon-branch-delete:before {
+    content: "\f057"}
+.mini-icon-edit:before {
+    content: "\f058"}
+.mini-icon-info:before {
+    content: "\f059"}
+.mini-icon-arr-collapsed:before {
+    content: "\f05a"}
+.mini-icon-arr-expanded:before {
+    content: "\f05b"}
+.mini-icon-link:before {
+    content: "\f05c"}
+.mini-icon-add:before {
+    content: "\f05d"}
+.mini-icon-reorder:before {
+    content: "\f05e"}
+.mini-icon-code:before {
+    content: "\f05f"}
+.mini-icon-location:before {
+    content: "\f060"}
+.mini-icon-u-list:before {
+    content: "\f061"}
+.mini-icon-o-list:before {
+    content: "\f062"}
+.mini-icon-quotemark:before {
+    content: "\f063"}
+.mini-icon-version:before {
+    content: "\f064"}
+.mini-icon-brightness:before {
+    content: "\f065"}
+.mini-icon-fullscreen:before {
+    content: "\f066"}
+.mini-icon-normalscreen:before {
+    content: "\f067"}
+.mini-icon-calendar:before {
+    content: "\f068"}
+.mini-icon-beer:before {
+    content: "\f069"}
+.mini-icon-secure:before, .mini-icon-lock:before {
+    content: "\f06a"}
+.mini-icon-added:before {
+    content: "\f06b"}
+.mini-icon-removed:before {
+    content: "\f06c"}
+.mini-icon-modified:before {
+    content: "\f06d"}
+.mini-icon-moved:before, .mini-icon-renamed:before {
+    content: "\f06e"}
+.mini-icon-add-comment:before {
+    content: "\f06f"}
+.mini-icon-horizontal-rule:before {
+    content: "\f070"}
+.mini-icon-arr-right-mini:before {
+    content: "\f071"}
+.mini-icon-jump-down:before {
+    content: "\f072"}
+.mini-icon-jump-up:before {
+    content: "\f073"}
+.mini-icon-reference:before {
+    content: "\f074"}
+.mini-icon-milestone:before {
+    content: "\f075"}
+.mini-icon-save-document:before {
+    content: "\f076"}
+.mini-icon-megaphone:before {
+    content: "\f077"}
+.mini-icon-chevron:before {
+    content: "\f078"}
+.mini-icon-gist-forked:before {
+    content: "\f079"}
+.mini-icon-gist-add:before {
+    content: "\f07a"}
+.mini-icon-bookmark:before {
+    content: "\f07b"}
+.mini-icon-filters:before {
+    content: "\f07c"}
+.mini-icon-dashboard:before {
+    content: "\f07d"}
+.mini-icon-history:before {
+    content: "\f07e"}
+.mini-icon-external-link:before {
+    content: "\f07f"}
+.mini-icon-mute:before {
+    content: "\f080"}
+.mini-icon-x:before {
+    content: "\f081"}
+.mini-icon-add-star:before {
+    content: "\f082"}
+.mini-icon-remove-star:before {
+    content: "\f083"}
+.mini-icon-circle-slash:before {
+    content: "\f084"}
+.mini-icon-pulse:before {
+    content: "\f085"}
+.mini-icon-new-file:before {
+    content: "\f086"}
+.mega-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+.mega-icon-private-repo:before {
+    content: "\f26a"}
+.mega-icon-public-repo:before {
+    content: "\f201"}
+.mega-icon-repo-forked:before {
+    content: "\f202"}
+.mega-icon-create:before {
+    content: "\f203"}
+.mega-icon-delete:before {
+    content: "\f204"}
+.mega-icon-push:before {
+    content: "\f205"}
+.mega-icon-pull:before {
+    content: "\f206"}
+.mega-icon-readme:before, .mega-icon-wiki:before {
+    content: "\f207"}
+.mega-icon-octocat:before {
+    content: "\f208"}
+.mega-icon-site-message:before, .mega-icon-blacktocat:before {
+    content: "\f209"}
+.mega-icon-invertocat:before {
+    content: "\f20a"}
+.mega-icon-download:before {
+    content: "\f20b"}
+.mega-icon-upload:before {
+    content: "\f20c"}
+.mega-icon-keyboard:before {
+    content: "\f20d"}
+.mega-icon-gist:before {
+    content: "\f20e"}
+.mega-icon-gist-private:before {
+    content: "\f20f"}
+.mega-icon-code-file:before, .mega-icon-download-unknown:before {
+    content: "\f210"}
+.mega-icon-download-text:before, .mega-icon-text-file:before {
+    content: "\f211"}
+.mega-icon-download-media:before {
+    content: "\f212"}
+.mega-icon-download-zip:before {
+    content: "\f213"}
+.mega-icon-download-pdf:before {
+    content: "\f214"}
+.mega-icon-download-tag:before, .mega-icon-tag:before {
+    content: "\f215"}
+.mega-icon-directory:before {
+    content: "\f216"}
+.mega-icon-submodule:before {
+    content: "\f217"}
+.mega-icon-person:before {
+    content: "\f218"}
+.mega-icon-team:before {
+    content: "\f219"}
+.mega-icon-member-added:before {
+    content: "\f21a"}
+.mega-icon-member-removed:before {
+    content: "\f21b"}
+.mega-icon-follow:before {
+    content: "\f21c"}
+.mega-icon-watching:before {
+    content: "\f21d"}
+.mega-icon-unwatch:before {
+    content: "\f21e"}
+.mega-icon-commit:before {
+    content: "\f21f"}
+.mega-icon-public-fork:before, .mega-icon-fork:before, .mega-icon-branch:before, .mega-icon-tree:before {
+    content: "\f220"}
+.mega-icon-private-fork:before {
+    content: "\f221"}
+.mega-icon-pull-request:before {
+    content: "\f222"}
+.mega-icon-merge:before {
+    content: "\f223"}
+.mega-icon-public-mirror:before {
+    content: "\f224"}
+.mega-icon-private-mirror:before {
+    content: "\f225"}
+.mega-icon-issue-opened:before {
+    content: "\f226"}
+.mega-icon-issue-reopened:before {
+    content: "\f227"}
+.mega-icon-issue-closed:before {
+    content: "\f228"}
+.mega-icon-issue-comment:before {
+    content: "\f229"}
+.mega-icon-star:before {
+    content: "\f22a"}
+.mega-icon-commit-comment:before {
+    content: "\f22b"}
+.mega-icon-help:before {
+    content: "\f22c"}
+.mega-icon-exclamation:before {
+    content: "\f22d"}
+.mega-icon-search-input:before {
+    content: "\f22e"}
+.mega-icon-advanced-search:before {
+    content: "\f22f"}
+.mega-icon-notifications:before {
+    content: "\f230"}
+.mega-icon-account-settings:before {
+    content: "\f231"}
+.mega-icon-logout:before {
+    content: "\f232"}
+.mega-icon-admin-tools:before {
+    content: "\f233"}
+.mega-icon-feed:before {
+    content: "\f234"}
+.mega-icon-apple:before {
+    content: "\f236"}
+.mega-icon-windows:before {
+    content: "\f237"}
+.mega-icon-ios:before {
+    content: "\f238"}
+.mega-icon-android:before {
+    content: "\f239"}
+.mega-icon-confirm:before {
+    content: "\f23a"}
+.mega-icon-unread-note:before {
+    content: "\f23b"}
+.mega-icon-read-note:before {
+    content: "\f23c"}
+.mega-icon-arr-up:before {
+    content: "\f23d"}
+.mega-icon-arr-right:before {
+    content: "\f23e"}
+.mega-icon-arr-down:before {
+    content: "\f23f"}
+.mega-icon-arr-left:before {
+    content: "\f240"}
+.mega-icon-pin:before {
+    content: "\f241"}
+.mega-icon-gift:before {
+    content: "\f242"}
+.mega-icon-graph:before {
+    content: "\f243"}
+.mega-icon-wrench:before {
+    content: "\f244"}
+.mega-icon-credit-card:before {
+    content: "\f245"}
+.mega-icon-time:before {
+    content: "\f246"}
+.mega-icon-ruby:before {
+    content: "\f247"}
+.mega-icon-podcast:before {
+    content: "\f248"}
+.mega-icon-key:before {
+    content: "\f249"}
+.mega-icon-force-push:before {
+    content: "\f24a"}
+.mega-icon-sync:before {
+    content: "\f24b"}
+.mega-icon-clone:before {
+    content: "\f24c"}
+.mega-icon-diff:before {
+    content: "\f24d"}
+.mega-icon-watchers:before {
+    content: "\f24e"}
+.mega-icon-discussion:before {
+    content: "\f24f"}
+.mega-icon-delete-note:before, .mega-icon-remove-close:before {
+    content: "\f250"}
+.mega-icon-reply:before {
+    content: "\f251"}
+.mega-icon-mail-status:before {
+    content: "\f252"}
+.mega-icon-block:before {
+    content: "\f253"}
+.mega-icon-tag-create:before {
+    content: "\f254"}
+.mega-icon-tab-delete:before {
+    content: "\f255"}
+.mega-icon-branch-create:before {
+    content: "\f256"}
+.mega-icon-branch-delete:before {
+    content: "\f257"}
+.mega-icon-edit:before {
+    content: "\f258"}
+.mega-icon-info:before {
+    content: "\f259"}
+.mega-icon-arr-collapsed:before {
+    content: "\f25a"}
+.mega-icon-arr-expanded:before {
+    content: "\f25b"}
+.mega-icon-link:before {
+    content: "\f25c"}
+.mega-icon-add:before {
+    content: "\f25d"}
+.mega-icon-reorder:before {
+    content: "\f25e"}
+.mega-icon-code:before {
+    content: "\f25f"}
+.mega-icon-location:before {
+    content: "\f260"}
+.mega-icon-u-list:before {
+    content: "\f261"}
+.mega-icon-o-list:before {
+    content: "\f262"}
+.mega-icon-quotemark:before {
+    content: "\f263"}
+.mega-icon-version:before {
+    content: "\f264"}
+.mega-icon-brightness:before {
+    content: "\f265"}
+.mega-icon-fullscreen:before {
+    content: "\f266"}
+.mega-icon-normalscreen:before {
+    content: "\f267"}
+.mega-icon-calendar:before {
+    content: "\f268"}
+.mega-icon-beer:before {
+    content: "\f269"}
+.mega-icon-secure:before, .mega-icon-lock:before {
+    content: "\f26a"}
+.mega-icon-added:before {
+    content: "\f26b"}
+.mega-icon-removed:before {
+    content: "\f26c"}
+.mega-icon-modified:before {
+    content: "\f26d"}
+.mega-icon-moved:before, .mega-icon-renamed:before {
+    content: "\f26e"}
+.mega-icon-add-comment:before {
+    content: "\f26f"}
+.mega-icon-horizontal-rule:before {
+    content: "\f270"}
+.mega-icon-arr-right-mini:before {
+    content: "\f271"}
+.mega-icon-jump-down:before {
+    content: "\f272"}
+.mega-icon-jump-up:before {
+    content: "\f273"}
+.mega-icon-reference:before {
+    content: "\f274"}
+.mega-icon-milestone:before {
+    content: "\f275"}
+.mega-icon-save-document:before {
+    content: "\f276"}
+.mega-icon-megaphone:before {
+    content: "\f277"}
+.mega-icon-chevron:before {
+    content: "\f278"}
+.mega-icon-gist-forked:before {
+    content: "\f279"}
+.mega-icon-gist-add:before {
+    content: "\f27a"}
+.mega-icon-bookmark:before {
+    content: "\f27b"}
+.mega-icon-filters:before {
+    content: "\f27c"}
+.mega-icon-dashboard:before {
+    content: "\f27d"}
+.mega-icon-history:before {
+    content: "\f27e"}
+.mega-icon-external-link:before {
+    content: "\f27f"}
+.mega-icon-mute:before {
+    content: "\f280"}
+.mega-icon-x:before {
+    content: "\f281"}
+.mega-icon-add-star:before {
+    content: "\f282"}
+.mega-icon-remove-star:before {
+    content: "\f283"}
+.mega-icon-circle-slash:before {
+    content: "\f284"}
+.mega-icon-pulse:before {
+    content: "\f285"}
+.mega-icon-new-file:before {
+    content: "\f286"}
+.mini-icon-clippy {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    vertical-align: text-bottom;
+    background-image: url("https://a248.e.akamai.net/assets.github.com/assets/primer/icons/clippy-93d74a8448d4843acdf2b85a5acbea20e61df5d2.png");
+}
+.mini-icon-clippy:before {
+    content: ""}

@@ -17,7 +17,7 @@
             padding: 9px 0;
         }
         </style>
-    </head>
+        <link href="css/main.css" rel="stylesheet" type="text/css">
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
