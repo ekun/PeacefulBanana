@@ -35,8 +35,8 @@ grails.mime.types = [
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
-//Validable classes
-grails.validateable.classes = [com.grailsrocks.authentication.SignupForm, com.grailsrocks.authentication.LoginForm]
+// Spring security core
+grails.plugins.springsecurity.password.algorithm='SHA-512'
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
@@ -92,3 +92,8 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.peaceful.banana.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.peaceful.banana.UserRole'
+grails.plugins.springsecurity.authority.className = 'org.peaceful.banana.Role'

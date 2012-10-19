@@ -17,7 +17,7 @@
             padding: 9px 0;
         }
         </style>
-        <link href="css/main.css" rel="stylesheet" type="text/css">
+        <link href="${createLinkTo(dir:'')}/css/main.css" rel="stylesheet" type="text/css">
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
@@ -30,7 +30,12 @@
                     <a class="brand" href="#">Peaceful Banana</a>
                     <div class="nav-collapse collapse">
                         <p class="navbar-text pull-right">
-                            Logged in as <a href="#" class="navbar-link">Username</a> [<a href>Log out</a>]
+                            <sec:ifLoggedIn>
+                                You are logged in as <sec:username/>. [<g:link controller='logout'>Log out</g:link>]
+                            </sec:ifLoggedIn>
+                            <sec:ifNotLoggedIn>
+                                <g:link controller='login' action='auth'>Login</g:link>
+                            </sec:ifNotLoggedIn>
                         </p>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
