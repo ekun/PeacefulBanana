@@ -11,6 +11,5 @@ class RepositoriesController {
         def ArrayList<Repository> repositories = service.getRepositories("tkbremnes")
 
         [myRepos: repositories.findAll()]
-
     }
 }
