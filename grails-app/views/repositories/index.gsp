@@ -18,6 +18,15 @@
 	 	<div class="span9">
   			<h1>${selectedRepo != null ? selectedRepo.isFork() ? '<span class="mega-icon mega-icon-repo-forked"></span>' : '<span class="mega-icon mega-icon-public-repo"></span>' : ''} ${selectedRepo != null ? (selectedRepo.owner.login + "/" + selectedRepo.name) : 'Repositories'} </h1>
             <p>${selectedRepo != null ? selectedRepo.description : ''}</p>
+            ${selectedRepo != null ? '<h2> Commits </h2>' : ''}
+            <g:each var="commit" in="${selectedRepoCommits}">
+                <div class="span3">
+                    <b>${commit.commit.author.name}</b>
+                </div>
+                <div class="span6">
+                    <p>${commit.commit.message}</p>
+                </div>
+            </g:each>
     	</div><!--/span-->
     </div><!--/row-->
 </body>

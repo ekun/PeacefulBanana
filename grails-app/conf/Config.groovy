@@ -93,7 +93,23 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
+oauth {
+    providers {
+        github {
+            api = org.peaceful.banana.api.GitHubApi
+            key = '7261cb7dcc394d1addb0'
+            secret = '08c76b315f8bde88e2abe84ea63b2c6b337dc9a9'
+            callback = "http://localhost:8080/PeacefulBanana/oauth/github/callback"
+            scope = 'user,repo'
+        }
+    }
+    debug = true
+}
+
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.peaceful.banana.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.peaceful.banana.UserRole'
 grails.plugins.springsecurity.authority.className = 'org.peaceful.banana.Role'
+
+// Added by the Spring Security OAuth plugin:
+grails.plugins.springsecurity.oauth.domainClass = 'org.peaceful.banana.OAuthID'

@@ -16,7 +16,8 @@
 	        </div><!--/.well -->
 	    </div><!--/span-->
 	 	<div class="span9">
-  			<h1> Settings </h1>
+  			<h1> github </h1>
+            <oauth:connect provider="github">Link your account with GitHub</oauth:connect>
     	</div><!--/span-->
     </div><!--/row-->
 </body>
