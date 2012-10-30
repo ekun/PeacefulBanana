@@ -17,7 +17,9 @@
 	    </div><!--/span-->
 	 	<div class="span9">
   			<h1> github </h1>
-            <oauth:connect provider="github">Link your account with GitHub</oauth:connect>
+            ${gitUser == null ? '<oauth:connect provider="github">Link your account with GitHub</oauth:connect>' : 'Du har allerede gitt tilgang til github.' }
+            <br>
+            ${gitUser.login + ' aka ' + gitUser.name}
     	</div><!--/span-->
     </div><!--/row-->
 </body>

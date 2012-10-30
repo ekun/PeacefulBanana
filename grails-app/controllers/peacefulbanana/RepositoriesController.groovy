@@ -20,6 +20,7 @@ class RepositoriesController {
         def RepositoryService repositoryService = new RepositoryService(new GitHubClient());
         Token githubAccessToken = session[oauthService.findSessionKeyForAccessToken('github')]
         repositoryService.getClient().setOAuth2Token(githubAccessToken.token)
+
         def CommitService commitService = new CommitService(repositoryService.getClient())
 
         def ArrayList<Repository> repositories = repositoryService.getRepositories()
