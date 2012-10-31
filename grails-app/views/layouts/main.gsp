@@ -18,6 +18,8 @@
         }
         </style>
         <link href="${createLinkTo(dir:'')}/css/main.css" rel="stylesheet" type="text/css">
+        <gvisualization:apiImport/>
+    </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
