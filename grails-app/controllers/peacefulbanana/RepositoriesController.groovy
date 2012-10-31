@@ -4,9 +4,10 @@ import org.eclipse.egit.github.core.service.RepositoryService
 import org.eclipse.egit.github.core.Repository
 import grails.plugins.springsecurity.Secured
 import org.eclipse.egit.github.core.client.GitHubClient
-import org.eclipse.egit.github.core.service.CommitService
 import uk.co.desirableobjects.oauth.scribe.OauthService
 import org.scribe.model.Token
+import org.eclipse.egit.github.core.Contributor
+import org.peaceful.banana.git.UserCommitService
 
 class RepositoriesController {
 
@@ -26,20 +27,18 @@ class RepositoriesController {
             def RepositoryService repositoryService = new RepositoryService(new GitHubClient())
             repositoryService.getClient().setOAuth2Token(githubAccessToken.token)
 
-            def CommitService commitService = new CommitService(repositoryService.getClient())
+            def UserCommitService commitService = new UserCommitService(repositoryService.getClient())
             def ArrayList<Repository> repositories = repositoryService.getRepositories()
 
             def commits = null
             def ArrayList committers = new ArrayList()
+            def selectedRepo
             // find commiters and count
             if (params.getInt("id") != null) {
-                commits = commitService.getCommits(repositories.find {it.id == params.getInt("id")})
-                def ArrayList<String> tempCommitters = new ArrayList<String>()
-                commits.each {
-                    it -> tempCommitters.add(it.commit.author.name)
-                }
-                tempCommitters.unique(false).each {
-                    it -> committers.add([it, tempCommitters.count(it)])
+                selectedRepo = repositories.find {it.id == params.getInt("id")}
+                def List<Contributor> collaborators  = repositoryService.getContributors(selectedRepo, false)
+                collaborators.unique().each {
+                    it -> committers.add([it.login, commitService.getCommits(selectedRepo, it.login).size()])
                 }
             }
 
