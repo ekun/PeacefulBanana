@@ -39,8 +39,8 @@
                         </p>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
-                            <li ${controllerName.equals('repositories') ? 'class="active"' : ''}><a href="repositories"><i class="icon-folder-open"></i> Repositories</a></li>
-                            <li ${controllerName.equals('settings') ? 'class="active"' : ''}><a href="settings"><i class="icon-wrench"></i> Settings</a></li>
+                            <li ${controllerName.equals('repositories') ? 'class="active"' : ''}><a href="${createLinkTo(dir:'repositories')}"><i class="icon-folder-open"></i> Repositories</a></li>
+                            <li ${controllerName.equals('settings') ? 'class="active"' : ''}><a href="${createLinkTo(dir:'settings')}"><i class="icon-wrench"></i> Settings</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
