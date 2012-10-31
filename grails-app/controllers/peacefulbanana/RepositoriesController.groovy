@@ -16,21 +16,23 @@ class RepositoriesController {
     def index() {
 
         // if user.access-token for github is not set redirect to /settings/github
-
-        def RepositoryService repositoryService = new RepositoryService(new GitHubClient());
         Token githubAccessToken = session[oauthService.findSessionKeyForAccessToken('github')]
-        repositoryService.getClient().setOAuth2Token(githubAccessToken.token)
+        if (!githubAccessToken) {
+            log.debug("Ingen accesstoken satt, redirecter.")
+            redirect(controller: 'settings', action: 'github')
+        } else {
+            def RepositoryService repositoryService = new RepositoryService(new GitHubClient())
+            repositoryService.getClient().setOAuth2Token(githubAccessToken.token)
 
-        def CommitService commitService = new CommitService(repositoryService.getClient())
+            def CommitService commitService = new CommitService(repositoryService.getClient())
 
-        def ArrayList<Repository> repositories = repositoryService.getRepositories()
+            def ArrayList<Repository> repositories = repositoryService.getRepositories()
 
-        log.debug("DEBUG" + params.get("id"))
-
-        [myRepos: repositories.findAll(),
-                selectedRepo: params.getInt("id") != null ? repositories.find {it.id == params.getInt("id")} : null,
-                selectedRepoCommits: params.getInt("id") != null ? commitService.getCommits(repositories.find {it.id == params.getInt("id")}) : null
-        ]
+            [myRepos: repositories.findAll(),
+                    selectedRepo: params.getInt("id") != null ? repositories.find {it.id == params.getInt("id")} : null,
+                    selectedRepoCommits: params.getInt("id") != null ? commitService.getCommits(repositories.find {it.id == params.getInt("id")}) : null
+            ]
+        }
     }
 
 }

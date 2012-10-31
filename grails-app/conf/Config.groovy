@@ -91,7 +91,18 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    debug   'grails.app.controller'
 }
+
+
+grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
+
+grails.plugins.springsecurity.interceptUrlMap = [
+        '/secure/**':    ['ROLE_ADMIN'],
+        '/repositories/**':   ['ROLE_ADMIN', 'ROLE_USER'],
+        '/settings/**':   ['ROLE_ADMIN', 'ROLE_USER']
+]
 
 oauth {
     providers {
