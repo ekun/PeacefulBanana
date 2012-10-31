@@ -101,6 +101,7 @@ oauth {
             secret = '08c76b315f8bde88e2abe84ea63b2c6b337dc9a9'
             callback = "http://localhost:8080/PeacefulBanana/oauth/github/callback"
             scope = 'user,repo'
+            successUri = '/settings/github'
         }
     }
     debug = true
