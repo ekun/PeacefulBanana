@@ -10,7 +10,6 @@ import org.eclipse.egit.github.core.client.GitHubClient
  */
 class GithubController {
 
-    static allowedMethods = [changeSelectedRepo: 'POST']
     def springSecurityService
     def OauthService oauthService = new OauthService()
 
