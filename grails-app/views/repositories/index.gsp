@@ -9,9 +9,10 @@
 	        <div class="well sidebar-nav">
 	            <ul class="nav nav-list">
 	                <li class="nav-header">Menu</li>
-                    <g:each var="repo" in="${myRepos}">
-	                    <li ${params.getInt('id') == repo.id ? 'class="active"' : ''}><a href="?id=${repo.id}">${repo.isPrivate() ? '<i class="mini-icon mini-icon-private-repo"></i>' : (repo.isFork() ? '<i class="mini-icon mini-icon-repo-forked"></i>' : '<i class="mini-icon mini-icon-public-repo"></i>')} ${(repo.owner.login + "/" + repo.name)}</a></li>
-                    </g:each>
+	                <li><a href="">Milestones</a></li>
+                    <li><a href="">Issues</a></li>
+                    <li><a href="">Tagcloud</a></li>
+                    <li><a href="">Statistics</a></li>
 	            </ul>
 	        </div><!--/.well -->
 	    </div><!--/span-->

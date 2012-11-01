@@ -22,7 +22,14 @@
 	 	<div class="span9">
   			<h1> github </h1>
             <p style="${gitUser != null ? 'display: none;' : ''}"><oauth:connect provider="github">Link your account with GitHub</oauth:connect></p>
-            <p style="${gitUser == null ? 'display: none;' : ''}">Du har allerede gitt tilgang til github.</p>
+            <p style="${gitUser == null ? 'display: none;' : ''}">
+                <g:form controller="settings" action="changeSelectedRepo">
+                    <g:select name="repoSelection"
+                          from="${repositories}"
+                          value="${user?.selectedRepo}"
+                          optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}" onchange="submit()"/>
+                </g:form>
+            </p>
             <br>
             ${gitUser != null ? gitUser.login + ' aka ' + gitUser.name : ''}
     	</div><!--/span-->
