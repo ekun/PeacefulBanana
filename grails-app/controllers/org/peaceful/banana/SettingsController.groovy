@@ -11,34 +11,33 @@ class SettingsController {
 
     static allowedMethods = [changeSelectedRepo: 'POST']
 
-    def springSecurityService
+    def GithubController githubController = new GithubController()
 
     def index() {
     }
 
     def github() {
-        def OauthService oauthService = new OauthService() //would work if you're not in a spring-managed class.
-        Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
-
-        def user = org.peaceful.banana.User.get(springSecurityService.principal.id)
-
+        Token gitToken = githubController.getToken()
+        def user = githubController.getPrincipalID()
         def User gitUser = null
 
         if (gitToken != null) {
-            def UserService gitOAuthService = new UserService(
-                    new GitHubClient().setOAuth2Token(gitToken.token))
+            def UserService gitOAuthService = githubController.setOAuthToken(gitToken.token)
             def RepositoryService repositoryService = new RepositoryService(gitOAuthService.getClient())
             if (gitOAuthService.getUser() != null) {
                 gitUser = gitOAuthService.getUser()
             }
-
             [user: user, gitUser: gitUser, repositories: repositoryService.getRepositories()]
         }
-
     }
+    /**
+     * method to changeSelectedRepo in settings
+     * this could maybe be moved into githubcontroller, but it is settings specific so it might aswell be here =)
+     * @return
+     */
 
     def changeSelectedRepo() {
-        def user = org.peaceful.banana.User.get(springSecurityService.principal.id)
+        def user = githubController.getPrincipalID()
         user?.selectedRepo = params.getInt("repoSelection")
 
         redirect(action: 'github')
