@@ -7,6 +7,10 @@ class User {
 	String username
 	String password
 	boolean enabled
+    String email
+    String firstName
+    String lastName
+    int selectedRepo
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired

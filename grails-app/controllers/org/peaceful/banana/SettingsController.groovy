@@ -1,4 +1,4 @@
-package peacefulbanana
+package org.peaceful.banana
 
 import uk.co.desirableobjects.oauth.scribe.OauthService
 import org.eclipse.egit.github.core.service.UserService
