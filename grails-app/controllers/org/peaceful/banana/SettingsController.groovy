@@ -38,7 +38,8 @@ class SettingsController {
 
     def changeSelectedRepo() {
         def user = githubController.getPrincipalID()
-        user?.selectedRepo = params.getInt("repoSelection")
+        user?.selectedRepo = params.getLong("repoSelection")
+        user.save()
 
         redirect(action: 'github')
     }

@@ -10,7 +10,7 @@ class User {
     String email
     String firstName
     String lastName
-    int selectedRepo
+    long selectedRepo
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
