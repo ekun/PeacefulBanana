@@ -52,7 +52,7 @@ class SettingsController {
      */
 
     def changeSelectedRepo() {
-        def user = githubController.getPrincipalID()
+        def user = githubController.getPrincipal()
         user?.selectedRepo = params.getLong("repoSelection")
         user.save()
 
