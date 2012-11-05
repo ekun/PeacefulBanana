@@ -29,10 +29,9 @@ class GithubController {
     }
 
     /**
-     * returns the authenticated GrailsUser ID(principal ID)
+     * returns the authenticated GrailsUser
      */
-    def getPrincipalID() {
-        def user = org.peaceful.banana.User.get(springSecurityService.principal.id)
-        return user
+    def getPrincipal() {
+        return org.peaceful.banana.User.get(springSecurityService.principal.id)
     }
 }
