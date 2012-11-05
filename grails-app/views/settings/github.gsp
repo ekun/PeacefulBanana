@@ -23,16 +23,30 @@
   			<h1> github </h1>
             <p style="${gitUser != null ? 'display: none;' : ''}"><oauth:connect provider="github">Link your account with GitHub</oauth:connect></p>
             <p style="${gitUser == null ? 'display: none;' : ''}">
-                <g:form controller="settings" action="changeSelectedRepo">
-                    <g:select name="repoSelection"
+                <g:form name="changeRepo" action="changeSelectedRepo" class="form-inline">
+                    <g:select class="input-xlarge" name="repoSelection"
                           from="${repositories}"
                           value="${user?.selectedRepo}"
-                          optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}" onchange="submit()"/>
+                          optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}" onchange="resetButton()"/>
+                    <g:submitToRemote class="btn btn-primary" action="changeSelectedRepo" id="changeRepoButton"
+                                      update="[success: 'message', failure: 'error']" onSuccess="success()" value="Save" />
                 </g:form>
+                <g:javascript>
+                    function success() {
+                        $("#changeRepoButton").removeClass("btn-primary");
+                        $("#changeRepoButton").addClass("btn-success");
+                        $("#changeRepoButton").attr("value", "Saved..");
+                    }
+
+                    function resetButton() {
+                        $("#changeRepoButton").removeClass("btn-success");
+                        $("#changeRepoButton").addClass("btn-primary");
+                        $("#changeRepoButton").attr("value", "Save");
+                    }
+                </g:javascript>
             </p>
-            <br>
-            ${gitUser != null ? gitUser.login + ' aka ' + gitUser.name : ''}
-    	</div><!--/span-->
+
+    </div><!--/span-->
     </div><!--/row-->
 </body>
 </html>

@@ -6,14 +6,29 @@ import org.eclipse.egit.github.core.client.GitHubClient
 import org.scribe.model.Token
 import org.eclipse.egit.github.core.User
 import org.eclipse.egit.github.core.service.RepositoryService
+import org.peaceful.banana.git.GitHubService
 
 class SettingsController {
 
     static allowedMethods = [changeSelectedRepo: 'POST']
 
     def GithubController githubController = new GithubController()
+    GitHubService gitHubService
 
     def index() {
+        Token gitToken = githubController.getToken()
+        def user = githubController.getPrincipalID()
+        def User gitUser = null
+
+        if (gitToken != null) {
+            def UserService gitOAuthService = githubController.setOAuthToken(gitToken.token)
+            gitHubService = new GitHubService(gitToken)
+
+            if (gitOAuthService.getUser() != null) {
+                gitUser = gitOAuthService.getUser()
+            }
+            [user: user, gitUser: gitUser, repository: gitHubService.getRepository(user.selectedRepo)]
+        }
     }
 
     def github() {
@@ -41,6 +56,6 @@ class SettingsController {
         user?.selectedRepo = params.getLong("repoSelection")
         user.save()
 
-        redirect(action: 'github')
+        render(user.selectedRepo)
     }
 }

@@ -9,7 +9,7 @@
 	        <div class="well sidebar-nav">
 	            <ul class="nav nav-list">
 	                <li class="nav-header">Menu</li>
-	                <li><a href="">Milestones</a></li>
+	                <li><a href="${createLink(action: 'milestone')}">Milestones</a></li>
                     <li><a href="">Issues</a></li>
                     <li><a href="">Tagcloud</a></li>
                     <li><a href="">Statistics</a></li>
