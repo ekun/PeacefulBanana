@@ -70,6 +70,8 @@ class RepositoriesController {
     }
 
     def statistics() {
+        def user = User.get(springSecurityService.principal.id)
 
+        [user: user]
     }
 }

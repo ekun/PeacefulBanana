@@ -24,6 +24,8 @@
             <div class="span6 offset1">
                 <p>${gitUser != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT linked your profile with github.">Important</span>'}</p>
                 <p>${repository != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT selected a repository.">Important</span>'}</p>
+                <p><g:submitToRemote class="btn btn-primary" controller="gitData" action="impact" id="6123636"
+                                     update="[success: 'message', failure: 'error']" value="Test.." /></p>
             </div>
     	</div><!--/span-->
     </div><!--/row-->

@@ -17,7 +17,7 @@ class SettingsController {
 
     def index() {
         Token gitToken = githubController.getToken()
-        def user = githubController.getPrincipalID()
+        def user = githubController.getPrincipal()
         def User gitUser = null
 
         if (gitToken != null) {
@@ -33,7 +33,7 @@ class SettingsController {
 
     def github() {
         Token gitToken = githubController.getToken()
-        def user = githubController.getPrincipalID()
+        def user = githubController.getPrincipal()
         def User gitUser = null
 
         if (gitToken != null) {
