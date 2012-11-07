@@ -42,7 +42,9 @@
                         </p>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
-                            <li ${controllerName.equals('repositories') ? 'class="active"' : ''}><a href="${createLinkTo(dir:'repositories')}"><i class="icon-folder-open"></i> Repositories</a></li>
+                            <sec:ifLoggedIn>
+                                <li ${controllerName.equals('repositories') ? 'class="active"' : ''}><a href="${createLinkTo(dir:'repositories')}"><i class="icon-folder-open"></i> Repository</a></li>
+                            </sec:ifLoggedIn>
                             <li ${controllerName.equals('settings') ? 'class="active"' : ''}><a href="${createLinkTo(dir:'settings')}"><i class="icon-wrench"></i> Settings</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->

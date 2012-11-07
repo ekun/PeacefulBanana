@@ -18,7 +18,13 @@ class GitDataController {
      * Will be used by AJAX controllers for async data-request
      */
 
-    def index() { }
+    def index() {
+        // generates a json with impact for each user in the project.
+        gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
+        Repository repository = gitHubService.getRepository(params.getLong("id"))
+
+        render repository as JSON
+    }
 
     def impact() {
         // generates a json with impact for each user in the project.

@@ -1,19 +1,15 @@
 package org.peaceful.banana.git;
 
-import org.eclipse.egit.github.core.Contributor;
-import org.eclipse.egit.github.core.Milestone;
-import org.eclipse.egit.github.core.Repository;
-import org.eclipse.egit.github.core.RepositoryCommit;
+import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.IssueService;
 import org.eclipse.egit.github.core.service.MilestoneService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.peaceful.banana.git.util.CommitStatistics;
 import org.scribe.model.Token;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +23,7 @@ public class GitHubService {
     private RepositoryService repositoryService;
     private UserCommitService userCommitService;
     private MilestoneService milestoneService;
+    private IssueService issueService;
 
     public GitHubService(Token gitHubToken) {
         gitHubClient = new GitHubClient();
@@ -34,6 +31,8 @@ public class GitHubService {
         this.repositoryService = new RepositoryService(gitHubClient);
         this.userCommitService = new UserCommitService(gitHubClient);
         this.milestoneService = new MilestoneService(gitHubClient);
+        this.issueService = new IssueService(gitHubClient);
+
     }
 
     public void setToken(Token gitHubToken) {
@@ -141,5 +140,17 @@ public class GitHubService {
             System.out.println("ERROR IO exception");
             return new ArrayList<Milestone>();
         }
+    }
+
+    public List<Issue> getIssues(Repository repository) {
+        List<Issue> issues;
+        HashMap<String, String> filterData = new HashMap<String, String>();
+        //filterData.put(IssueService.FIELD_FILTER, "all");
+        try {
+            issues = issueService.getIssues(repository, filterData);
+        } catch (IOException e) {
+            return null;
+        }
+        return issues;
     }
 }

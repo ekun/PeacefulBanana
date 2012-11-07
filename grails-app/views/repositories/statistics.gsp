@@ -9,6 +9,7 @@
 	        <div class="well sidebar-nav">
 	            <ul class="nav nav-list">
 	                <li class="nav-header">Menu</li>
+                    <li><a href="${createLink(action: '')}">${selectedRepo.name}</a></li>
 	                <li><a href="${createLink(action: 'milestone')}">Milestones</a></li>
                     <li><a href="${createLink(action: 'issue')}">Issues</a></li>
                     <li><a href="${createLink(action: 'tagcloud')}">Tagcloud</a></li>
