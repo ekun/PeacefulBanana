@@ -1,11 +1,10 @@
 package org.peaceful.banana.json
 
 import grails.converters.JSON
-import org.peaceful.banana.git.GitHubService
-import uk.co.desirableobjects.oauth.scribe.OauthService
 import org.peaceful.banana.gitdata.Commit
 import org.peaceful.banana.gitdata.Repository
 import org.peaceful.banana.User
+import org.hibernate.criterion.CriteriaSpecification
 
 class GitDataController {
 
@@ -35,9 +34,10 @@ class GitDataController {
         def rows = []
         def cells
 
-        Commit.findAllByRepository(Repository.findByGithubId(user.selectedRepo)).each {
+        Commit.executeQuery("SELECT login, SUM(total) FROM Commit WHERE repository = :repository GROUP BY login",
+                [repository: Repository.findByGithubId(user.selectedRepo)]).each {
             cells = []
-            cells << [v: it.login] << [v: it.total]
+            cells << [v: it[0]] << [v: it[1]]
             rows << ['c': cells]
         }
 

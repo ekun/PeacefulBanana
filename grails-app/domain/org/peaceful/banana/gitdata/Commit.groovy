@@ -12,4 +12,6 @@ class Commit {
 
     static constraints = {
     }
+
+
 }
