@@ -43,7 +43,7 @@ class GithubSyncController {
         GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
         def repository = gitHubService.getRepository(user.selectedRepo)
         session["lastCheck"] = System.currentTimeMillis()
-        runAsync {
+        def results = callAsync {
             def domainRepo = new Repository(name: repository.name,
                     description: repository.description, githubId: repository.id,
                     created: repository.createdAt, updated: repository.updatedAt)
@@ -81,7 +81,7 @@ class GithubSyncController {
             }
 
         }
-
+        results.get()
         def table = [update: true]
         render table  as JSON
     }
