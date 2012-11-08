@@ -27,7 +27,6 @@
             url: "${createLink(controller: 'githubSync', action: 'index')}",
             dataType:"json",
             async: true,
-            start: onSyncing(),
             success: function(data) {
                 if(data.update) {
                     $("#gotUpdate").show();
@@ -70,7 +69,7 @@
                         </p>
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px; display: none;">
                             <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
-                                              update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" value="Sync" />
+                                              update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoaded="onSyncing()" value="Sync" />
                         </p>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
