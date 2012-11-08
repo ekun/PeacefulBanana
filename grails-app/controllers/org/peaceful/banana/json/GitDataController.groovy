@@ -2,15 +2,14 @@ package org.peaceful.banana.json
 
 import grails.converters.JSON
 import org.peaceful.banana.git.GitHubService
-import org.eclipse.egit.github.core.Repository
 import uk.co.desirableobjects.oauth.scribe.OauthService
-import org.scribe.model.Token
-import org.peaceful.banana.git.util.CommitStatistics
+import org.peaceful.banana.gitdata.Commit
+import org.peaceful.banana.gitdata.Repository
+import org.peaceful.banana.User
 
 class GitDataController {
 
-    def OauthService oauthService = new OauthService()
-    GitHubService gitHubService
+    def springSecurityService
 
     /**
      * Controller to generate json data based on the request.
@@ -20,18 +19,14 @@ class GitDataController {
 
     def index() {
         // generates a json with impact for each user in the project.
-        gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
-        Repository repository = gitHubService.getRepository(params.getLong("id"))
+        def repository = Repository.findByGithubId(params.getLong("id"))
 
         render repository as JSON
     }
 
     def impact() {
         // generates a json with impact for each user in the project.
-        gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
-        Repository repository = gitHubService.getRepository(params.getLong("id"))
-
-        ArrayList<CommitStatistics> impact = gitHubService.getRepositoryImpact(repository)
+        def user = User.get(springSecurityService.principal.id)
 
         def columns = []
         columns << [label: 'User', type: 'string']
@@ -39,9 +34,10 @@ class GitDataController {
 
         def rows = []
         def cells
-        impact.each {
+
+        Commit.findAllByRepository(Repository.findByGithubId(user.selectedRepo)).each {
             cells = []
-            cells << [v: it.user] << [v: it.impact]
+            cells << [v: it.login] << [v: it.total]
             rows << ['c': cells]
         }
 

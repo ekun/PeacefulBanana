@@ -162,15 +162,21 @@ public class GitHubService {
         }
     }
 
-    public ArrayList<RepositoryCommit> getCommitsSince(Repository repository, Date lastUpdate) {
-        ArrayList<RepositoryCommit> repositoryCommits = new ArrayList<RepositoryCommit>();
+    public ArrayList<CommitStatistics> getCommitsSince(Repository repository, Date lastUpdate) {
+        ArrayList<CommitStatistics> repositoryCommits = new ArrayList<CommitStatistics>();
         try{
-            List<RepositoryCommit> commits = userCommitService.getCommits(repository, null, lastUpdate, null);
-            for(RepositoryCommit repositoryCommit : commits) {
-                repositoryCommits.add(userCommitService.getCommit(repository, repositoryCommit.getSha()));
+            ArrayList<String> contributors = getRepositoryCollaborators(repository);
+
+            for (String contributor : contributors) {
+                List<RepositoryCommit> commits = userCommitService.getCommits(repository, contributor, lastUpdate, null);
+                for(RepositoryCommit repositoryCommit : commits) {
+                    RepositoryCommit commit = userCommitService.getCommit(repository, repositoryCommit.getSha());
+                    repositoryCommits.add(new CommitStatistics(commit.getStats().getAdditions(),
+                            commit.getStats().getDeletions(), contributor, commit.getCommit().getMessage()));
+                }
             }
         } catch (IOException e) {
-            return new ArrayList<RepositoryCommit>();
+            return new ArrayList<CommitStatistics>();
         }
         return repositoryCommits;
     }

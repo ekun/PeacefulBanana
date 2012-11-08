@@ -31,7 +31,7 @@
 
                 function drawChart() {
                     var jsonData = $.ajax({
-                        url: "${createLink(controller: 'gitData', action: 'impact', id: user.selectedRepo)}",
+                        url: "${createLink(controller: 'gitData', action: 'impact')}",
                         dataType:"json",
                         async: true,
                         success: function(data) {

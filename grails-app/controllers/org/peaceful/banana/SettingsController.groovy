@@ -5,8 +5,9 @@ import org.scribe.model.Token
 import org.eclipse.egit.github.core.User
 import org.eclipse.egit.github.core.service.RepositoryService
 import org.peaceful.banana.git.GitHubService
-import org.eclipse.egit.github.core.Repository
-import org.eclipse.egit.github.core.Issue
+import org.peaceful.banana.gitdata.Commit
+import org.peaceful.banana.json.GitDataController
+import org.peaceful.banana.git.GithubSyncController
 
 class SettingsController {
 
@@ -53,28 +54,10 @@ class SettingsController {
 
     def changeSelectedRepo() {
         def user = githubController.getPrincipal()
-        Token gitToken = githubController.getToken()
         user?.selectedRepo = params.getLong("repoSelection")
         user.save()
 
-        runAsync {
-            gitHubService = new GitHubService(gitToken)
-
-            Repository repository = gitHubService.getRepository(user.selectedRepo)
-            org.peaceful.banana.gitdata.Repository domainRepo
-
-            domainRepo = new org.peaceful.banana.gitdata.Repository(name: repository.name,
-                    description: repository.description, githubId: repository.id,
-                    created: repository.createdAt, updated: repository.updatedAt)
-
-            domainRepo.save(flush: true)
-
-            List<Issue> issueList = gitHubService.getIssues(repository)
-            issueList.each {
-                new org.peaceful.banana.gitdata.Issue(title: it.title, body: it.body, number: it.number, state: it.state,
-                        closed: it.closedAt, created: it.createdAt, updated: it.updatedAt, githubId: it.id, repository: domainRepo).save(flush: true)
-            }
-        }
+        new GithubSyncController().sync()
 
         render(user.selectedRepo)
     }

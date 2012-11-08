@@ -8,6 +8,7 @@ package org.peaceful.banana.git.util;
  */
 public class CommitStatistics {
     private String user;
+    private String message;
     private int added;
     private int deleted;
 
@@ -25,6 +26,13 @@ public class CommitStatistics {
         this.added = added;
         this.deleted = deleted;
         this.user = user;
+    }
+
+    public CommitStatistics(int added, int deleted, String user, String message) {
+        this.added = added;
+        this.deleted = deleted;
+        this.user = user;
+        this.message = message;
     }
 
     public int getImpact() {
@@ -49,6 +57,14 @@ public class CommitStatistics {
 
     public String getUser() {
         return user;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public void setUser(String user) {
