@@ -69,7 +69,7 @@
                         </p>
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px; display: none;">
                             <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
-                                              update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoaded="onSyncing()" value="Sync" />
+                                              update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync" />
                         </p>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
