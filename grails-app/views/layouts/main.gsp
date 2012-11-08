@@ -23,16 +23,31 @@
     </head>
     <body>
     <g:javascript>
-    $.ajax({
-        url: "${createLink(controller: 'githubSync', action: 'index')}",
-        dataType:"json",
-        async: true,
-        success: function(data) {
-            if(data.update) {
-                $("#gotUpdate").show();
+        $.ajax({
+            url: "${createLink(controller: 'githubSync', action: 'index')}",
+            dataType:"json",
+            async: true,
+            success: function(data) {
+                if(data.update) {
+                    $("#gotUpdate").show();
+                }
             }
+        });
+
+        function onSyncComplete() {
+            $("#syncBtn").removeClass("btn-info");
+            $("#syncBtn").addClass("btn-success");
+            $("#syncBtn").attr("value", "Synced");
         }
-    })
+
+        function onSyncing() {
+            $("#syncBtn").removeClass("btn-primary");
+            $("#syncBtn").addClass("btn-info");
+            $("#syncBtn").attr("disabled", "disabled");
+            $("#syncBtn").addClass("disabled");
+            $("#syncBtn").attr("value", "Syncing...");
+        }
+
     </g:javascript>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
@@ -53,8 +68,8 @@
                             </sec:ifNotLoggedIn>
                         </p>
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px; display: none;">
-                            <g:submitToRemote class="btn btn-primary" controller="githubSync" action="sync"
-                                              update="[success: 'message', failure: 'error']" value="Sync" />
+                            <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
+                                              update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onclick="onSyncing()" value="Sync" />
                         </p>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>

@@ -42,15 +42,19 @@ class GithubSyncController {
         // runAsync or callAsync?
         GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
         def repository = gitHubService.getRepository(user.selectedRepo)
+        session["lastCheck"] = System.currentTimeMillis()
         runAsync {
             def domainRepo = new Repository(name: repository.name,
                     description: repository.description, githubId: repository.id,
                     created: repository.createdAt, updated: repository.updatedAt)
             boolean firstSave = true
             try {
-                domainRepo.save(flush: true, failOnError: true)
+                domainRepo.save(failOnError: true)
             } catch(ValidationException e) {
-                log.error e.message
+                log.error "Repository excists."
+                domainRepo = Repository.findByGithubId(user.selectedRepo)
+                domainRepo.updated = repository.updatedAt
+                domainRepo.save(flush: true)
                 firstSave = false
             }
 
@@ -77,5 +81,8 @@ class GithubSyncController {
             }
 
         }
+
+        def table = [update: true]
+        render table  as JSON
     }
 }
