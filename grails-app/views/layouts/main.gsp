@@ -22,6 +22,18 @@
         <gvisualization:apiImport/>
     </head>
     <body>
+    <g:javascript>
+    $.ajax({
+        url: "${createLink(controller: 'githubSync', action: 'index')}",
+        dataType:"json",
+        async: true,
+        success: function(data) {
+            if(data.update) {
+                $("#gotUpdate").show();
+            }
+        }
+    })
+    </g:javascript>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -39,6 +51,10 @@
                             <sec:ifNotLoggedIn>
                                 <g:link controller='login' action='auth'>Login</g:link>
                             </sec:ifNotLoggedIn>
+                        </p>
+                        <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px; display: none;">
+                            <g:submitToRemote class="btn btn-primary" controller="githubSync" action="sync"
+                                              update="[success: 'message', failure: 'error']" value="Sync" />
                         </p>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>

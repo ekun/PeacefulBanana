@@ -71,12 +71,8 @@ class SettingsController {
 
             List<Issue> issueList = gitHubService.getIssues(repository)
             issueList.each {
-                try {
-                    new org.peaceful.banana.gitdata.Issue(title: it.title, body: it.body, number: it.number, state: it.state,
-                        closed: it.closedAt, created: it.createdAt, updated: it.updatedAt, githubId: it.id, repository: domainRepo).save(failOnError: true)
-                } catch(Exception e) {
-                    log.error "Catched this awesome Pokemon: " + e.message
-                }
+                new org.peaceful.banana.gitdata.Issue(title: it.title, body: it.body, number: it.number, state: it.state,
+                        closed: it.closedAt, created: it.createdAt, updated: it.updatedAt, githubId: it.id, repository: domainRepo).save(flush: true)
             }
         }
 

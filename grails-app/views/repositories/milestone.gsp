@@ -19,11 +19,7 @@
 	    </div><!--/span-->
 	 	<div class="span9">
   			<h1>Milestones</h1>
-            <g:each in="${openMilestones}">
-                <p><b>${it.title}</b></p>
-                <p>${it.description}</p>
-                <hr>
-            </g:each>
+            TODO!
     	</div><!--/span-->
     </div><!--/row-->
 </body>

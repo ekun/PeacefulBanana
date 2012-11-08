@@ -153,4 +153,25 @@ public class GitHubService {
         }
         return issues;
     }
+
+    public boolean hasUpdated(Repository repository, Date lastUpdate) {
+        try {
+            return userCommitService.getCommits(repository, null, lastUpdate, null).size() > 0;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public ArrayList<RepositoryCommit> getCommitsSince(Repository repository, Date lastUpdate) {
+        ArrayList<RepositoryCommit> repositoryCommits = new ArrayList<RepositoryCommit>();
+        try{
+            List<RepositoryCommit> commits = userCommitService.getCommits(repository, null, lastUpdate, null);
+            for(RepositoryCommit repositoryCommit : commits) {
+                repositoryCommits.add(userCommitService.getCommit(repository, repositoryCommit.getSha()));
+            }
+        } catch (IOException e) {
+            return new ArrayList<RepositoryCommit>();
+        }
+        return repositoryCommits;
+    }
 }

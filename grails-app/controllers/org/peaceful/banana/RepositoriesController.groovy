@@ -37,12 +37,8 @@ class RepositoriesController {
                 log.debug("Ingen accesstoken satt, redirecter.")
                 redirect(controller: 'settings', action: 'github')
             } else {
-                GitHubService gitHubService = new GitHubService(githubAccessToken)
-                Repository repository = gitHubService.getRepository(user.selectedRepo)
-
-                [openMilestones: gitHubService.getMilestones(repository, true),
-                    closedMilestones: gitHubService.getMilestones(repository, false)
-                ]
+                def repository = Repository.findByGithubId(user.selectedRepo)
+                [selectedRepo: repository]
             }
         }
     }
@@ -68,12 +64,37 @@ class RepositoriesController {
     }
 
     def tagcloud() {
+        def user = User.get(springSecurityService.principal.id)
+        if (user.selectedRepo != 0) {
 
+            // if user.access-token for github is not set redirect to /settings/github
+            Token githubAccessToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
+            if (!githubAccessToken) {
+                log.debug("Ingen accesstoken satt, redirecter.")
+                redirect(controller: 'settings', action: 'github')
+            } else {
+                def repository = Repository.findByGithubId(user.selectedRepo)
+
+                [selectedRepo: repository]
+            }
+        }
     }
 
     def statistics() {
         def user = User.get(springSecurityService.principal.id)
 
-        [user: user]
+        if (user.selectedRepo != 0) {
+
+            // if user.access-token for github is not set redirect to /settings/github
+            Token githubAccessToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
+            if (!githubAccessToken) {
+                log.debug("Ingen accesstoken satt, redirecter.")
+                redirect(controller: 'settings', action: 'github')
+            } else {
+                def repository = Repository.findByGithubId(user.selectedRepo)
+
+                [selectedRepo: repository]
+            }
+        }
     }
 }
