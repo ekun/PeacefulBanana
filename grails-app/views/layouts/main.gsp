@@ -30,6 +30,9 @@
             success: function(data) {
                 if(data.update) {
                     $("#gotUpdate").show();
+                } else {
+                    onSyncing();
+                    onSyncComplete();
                 }
             }
         });
@@ -67,9 +70,11 @@
                                 <g:link controller='login' action='auth'>Login</g:link>
                             </sec:ifNotLoggedIn>
                         </p>
-                        <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px; display: none;">
-                            <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
+                        <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px;">
+                            <sec:ifLoggedIn>
+                                <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
                                               update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync" />
+                            </sec:ifLoggedIn>
                         </p>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
