@@ -142,16 +142,19 @@ public class GitHubService {
         }
     }
 
-    public List<Issue> getIssues(Repository repository) {
-        List<Issue> issues;
+    public ArrayList<Issue> getIssues(Repository repository) {
+        ArrayList<Issue> output = new ArrayList<Issue>();
         HashMap<String, String> filterData = new HashMap<String, String>();
         //filterData.put(IssueService.FIELD_FILTER, "all");
         try {
-            issues = issueService.getIssues(repository, filterData);
+            List<Issue> issues = issueService.getIssues(repository, filterData);
+            for(Issue issue : issues){
+                output.add(issueService.getIssue(repository, issue.getNumber()));
+            }
         } catch (IOException e) {
             return null;
         }
-        return issues;
+        return output;
     }
 
     public boolean hasUpdated(Repository repository, Date lastUpdate) {

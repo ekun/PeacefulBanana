@@ -62,31 +62,39 @@ class GithubSyncController {
             }
 
             gitHubService.getMilestones(repository, true).each {
-                new Milestone(title: it.title,
+                 try {
+                    new Milestone(title: it.title,
                         description: it.description,
                         number: it.number,
                         repository: domainRepo,
                         dueOn: it.dueOn,
                         created: it.createdAt,
                         creator: it.creator.login,
-                        state: it.state).save(flush: true)
+                        state: it.state).save(flush: true, failOnError: true)
+                 } catch(Exception e){
+                     log.error "Milestone exciststs; " + e.message
+                 }
             }
 
             gitHubService.getMilestones(repository, false).each {
-                new Milestone(title: it.title,
+                try{
+                    new Milestone(title: it.title,
                         description: it.description,
                         number: it.number,
                         repository: domainRepo,
                         dueOn: it.dueOn,
                         created: it.createdAt,
                         creator: it.creator.login,
-                        state: it.state).save(flush: true)
+                        state: it.state).save(flush: true, failOnError: true)
+                } catch(Exception e){
+                    log.error "Milestone exciststs; " + e.message
+                }
             }
 
             gitHubService.getIssues(repository).each {
-                def milestone = null
-                if(it.milestone)
-                    milestone = Milestone.findByNumberAndTitle(it.milestone.number,it.milestone.title)
+                def milestone = Milestone.findByRepositoryAndNumber(domainRepo, it.milestone.number)
+
+                log.error "Milestone: " + milestone + " - " + it.milestone.number
 
                 new Issue(title: it.title,
                         body: it.body,

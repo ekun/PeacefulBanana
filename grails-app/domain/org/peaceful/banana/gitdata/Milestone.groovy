@@ -1,6 +1,6 @@
 package org.peaceful.banana.gitdata
 
-class Milestone {
+class Milestone implements Serializable {
 
     int number
     Date created
@@ -13,8 +13,13 @@ class Milestone {
 
     static belongsTo = [repository: Repository]
 
+    static mapping = {
+        id composite: ['repository', 'number']
+    }
+
     static constraints = {
         dueOn nullable: true
+        id unique: true
     }
 
     List<Issue> getIssues() {
