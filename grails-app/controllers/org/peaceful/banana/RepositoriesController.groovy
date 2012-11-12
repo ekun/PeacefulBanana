@@ -4,6 +4,7 @@ import org.peaceful.banana.git.GitHubService
 import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
 import org.peaceful.banana.gitdata.Repository
+import org.peaceful.banana.gitdata.Issue
 
 class RepositoriesController {
     OauthService oauthService
@@ -54,11 +55,12 @@ class RepositoriesController {
                 log.debug("Ingen accesstoken satt, redirecter.")
                 redirect(controller: 'settings', action: 'github')
             } else {
-                //def columns = [['string', 'Name'], ['number', 'Impact']]
-                //def chartData = [['Even', 11], ['Marius', 2]]
                 def repository = Repository.findByGithubId(user.selectedRepo)
-
-                [selectedRepo: repository, issues: repository.getIssues()]
+                if(!params.getInt("id")) {
+                    [selectedRepo: repository, issues: repository.getIssues()]
+                } else {
+                    [selectedRepo: repository, issue: Issue.findByRepositoryAndNumber(repository,params.getInt("id"))]
+                }
             }
         }
     }

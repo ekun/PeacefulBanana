@@ -23,7 +23,7 @@
                 <p><b>${it.title}</b></p>
                 <p>${it.description}</p>
                 <div class="progress">
-                    <div class="bar" style="width: ${it.open.size() > 0 ? ((int)(it.closed.size() / it.open.size())*100) : 0}%;"></div>
+                    <div class="bar" style="width: ${it.closed.size() > 0 ? ((int)(it.closed.size() / (it.open.size()+it.closed.size()))*100) : 0}%;"></div>
                 </div>
                 <hr>
             </g:each>

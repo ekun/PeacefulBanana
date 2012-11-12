@@ -61,6 +61,10 @@ class GithubSyncController {
                 firstSave = false
             }
 
+            Milestone.findAllByRepository(domainRepo).each {
+                it.delete(flush: true)
+            }
+
             gitHubService.getMilestones(repository, true).each {
                  try {
                     new Milestone(title: it.title,
@@ -86,17 +90,17 @@ class GithubSyncController {
                         created: it.createdAt,
                         creator: it.creator.login,
                         state: it.state).save(flush: true, failOnError: true)
-                } catch(Exception e){
-                    log.error "Milestone exciststs; " + e.message
+                } catch(ValidationException e){
+                    log.error "Milestone exciststs;"
                 }
             }
 
-            gitHubService.getIssues(repository).each {
-                def milestone = Milestone.findByRepositoryAndNumber(domainRepo, it.milestone.number)
-
-                log.error "Milestone: " + milestone + " - " + it.milestone.number
-
-                new Issue(title: it.title,
+            gitHubService.getIssues(repository, "open").each {
+                int milestone = 0
+                if(it.milestone != null)
+                    milestone = it.milestone.number
+                try{
+                    new Issue(title: it.title,
                         body: it.body,
                         number: it.number,
                         state: it.state,
@@ -105,7 +109,45 @@ class GithubSyncController {
                         updated: it.updatedAt,
                         githubId: it.id,
                         repository: domainRepo,
-                        milestone: milestone).save(flush: true)
+                        milestoneNumber: milestone).save(flush: true, failOnError: true)
+                } catch(ValidationException e) {
+                    def issue = Issue.findByRepositoryAndNumber(domainRepo, it.number)
+                    issue.closed = it.closedAt
+                    issue.body = it.body
+                    if(it.milestone != null)
+                        issue.milestoneNumber = it.milestone.number
+                    issue.state = it.state
+                    issue.title = it.title
+                    issue.save(flush: true)
+                }
+            }
+
+            gitHubService.getIssues(repository, "closed").each {
+                int milestone = 0
+                if(it.milestone != null)
+                    milestone = it.milestone.number
+                try {
+                    new Issue(title: it.title,
+                        body: it.body,
+                        number: it.number,
+                        state: it.state,
+                        closed: it.closedAt,
+                        created: it.createdAt,
+                        updated: it.updatedAt,
+                        githubId: it.id,
+                        repository: domainRepo,
+                        milestoneNumber: milestone).save(flush: true)
+                } catch(ValidationException e){
+                    log.error "Updating issue #" + it.number
+                    def issue = Issue.findByRepositoryAndNumber(domainRepo, it.number)
+                    issue.closed = it.closedAt
+                    issue.body = it.body
+                    if(it.milestone != null)
+                        issue.milestoneNumber = it.milestone.number
+                    issue.state = it.state
+                    issue.title = it.title
+                    issue.save(flush: true)
+                }
             }
 
             Date lastUpdate = null

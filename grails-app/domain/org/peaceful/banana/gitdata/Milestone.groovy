@@ -1,6 +1,6 @@
 package org.peaceful.banana.gitdata
 
-class Milestone implements Serializable {
+class Milestone {
 
     int number
     Date created
@@ -10,27 +10,31 @@ class Milestone implements Serializable {
     String state
     String creator
 
-
     static belongsTo = [repository: Repository]
 
     static mapping = {
-        id composite: ['repository', 'number']
+
     }
 
     static constraints = {
         dueOn nullable: true
-        id unique: true
+    }
+
+    boolean equals(other) {
+        if(!(other instanceof Milestone))
+            return false
+        other.repository == this.repository && other.number == this.number
     }
 
     List<Issue> getIssues() {
-        Issue.findAllByMilestone(this) as List
+        Issue.findAllByMilestoneNumber(this.number) as List
     }
 
     List<Issue> getClosed() {
-        Issue.findAllByState("closed") as List
+        Issue.findAllByStateAndMilestoneNumber("closed", this.number) as List
     }
 
     List<Issue> getOpen() {
-        Issue.findAllByState("open") as List
+        Issue.findAllByStateAndMilestoneNumber("open", this.number) as List
     }
 }

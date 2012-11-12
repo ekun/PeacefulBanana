@@ -18,7 +18,7 @@
 	        </div><!--/.well -->
 	    </div><!--/span-->
 	 	<div class="span9">
-  			<h1>Issues ${issues.size()}</h1>
+  			<h1>Issues</h1>
             <g:each in="${issues}">
                 <p><b>${it.title}</b></p>
                 <p>${it.body}</p>

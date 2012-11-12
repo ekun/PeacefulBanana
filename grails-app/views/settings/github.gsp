@@ -56,7 +56,8 @@
                     }
                 </g:javascript>
             </p>
-
+        <div id="message"></div>
+        <div id="error"></div>
     </div><!--/span-->
     </div><!--/row-->
 </body>

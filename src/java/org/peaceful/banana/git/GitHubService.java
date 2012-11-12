@@ -143,9 +143,13 @@ public class GitHubService {
     }
 
     public ArrayList<Issue> getIssues(Repository repository) {
+        return getIssues(repository, "open");
+    }
+
+    public ArrayList<Issue> getIssues(Repository repository, String state) {
         ArrayList<Issue> output = new ArrayList<Issue>();
         HashMap<String, String> filterData = new HashMap<String, String>();
-        //filterData.put(IssueService.FIELD_FILTER, "all");
+        filterData.put(IssueService.FILTER_STATE, state);
         try {
             List<Issue> issues = issueService.getIssues(repository, filterData);
             for(Issue issue : issues){

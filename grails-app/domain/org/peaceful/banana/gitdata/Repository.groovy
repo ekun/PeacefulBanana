@@ -1,6 +1,6 @@
 package org.peaceful.banana.gitdata
 
-class Repository implements Serializable {
+class Repository {
 
     String name
     String description
