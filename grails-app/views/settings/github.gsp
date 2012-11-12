@@ -29,13 +29,24 @@
                           value="${user?.selectedRepo}"
                           optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}" onchange="resetButton()"/>
                     <g:submitToRemote class="btn btn-primary" action="changeSelectedRepo" id="changeRepoButton"
-                                      update="[success: 'message', failure: 'error']" onSuccess="success()" value="Save" />
+                                      update="[success: 'message', failure: 'error']" onLoading="loading()" onSuccess="success()" onFailure="failure()" value="Save" />
                 </g:form>
                 <g:javascript>
                     function success() {
                         $("#changeRepoButton").removeClass("btn-primary");
                         $("#changeRepoButton").addClass("btn-success");
                         $("#changeRepoButton").attr("value", "Saved..");
+                    }
+
+                    function failure() {
+                        $("#changeRepoButton").removeClass("btn-primary");
+                        $("#changeRepoButton").addClass("btn-danger");
+                        $("#changeRepoButton").attr("value", "Error..");
+                    }
+
+                    function loading() {
+                        $("#changeRepoButton").attr("disabled", "disabled");
+                        $("#changeRepoButton").addClass("disabled");
                     }
 
                     function resetButton() {

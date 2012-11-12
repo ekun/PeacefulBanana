@@ -21,4 +21,8 @@ class Repository {
     List<Issue> getIssues() {
         Issue.findAllByRepository(this) as List
     }
+
+    List<Milestone> getMilestones() {
+        Milestone.findAllByRepository(this) as List
+    }
 }

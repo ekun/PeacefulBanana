@@ -38,7 +38,7 @@ class RepositoriesController {
                 redirect(controller: 'settings', action: 'github')
             } else {
                 def repository = Repository.findByGithubId(user.selectedRepo)
-                [selectedRepo: repository]
+                [selectedRepo: repository, milestones: repository.getMilestones()]
             }
         }
     }

@@ -19,7 +19,14 @@
 	    </div><!--/span-->
 	 	<div class="span9">
   			<h1>Milestones</h1>
-            TODO!
+            <g:each in="${milestones}">
+                <p><b>${it.title}</b></p>
+                <p>${it.description}</p>
+                <div class="progress">
+                    <div class="bar" style="width: ${it.open.size() > 0 ? ((int)(it.closed.size() / it.open.size())*100) : 0}%;"></div>
+                </div>
+                <hr>
+            </g:each>
     	</div><!--/span-->
     </div><!--/row-->
 </body>

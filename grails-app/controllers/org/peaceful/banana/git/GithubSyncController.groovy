@@ -8,6 +8,7 @@ import grails.converters.JSON
 import org.peaceful.banana.gitdata.Commit
 import org.peaceful.banana.gitdata.Issue
 import grails.validation.ValidationException
+import org.peaceful.banana.gitdata.Milestone
 
 class GithubSyncController {
 
@@ -42,7 +43,9 @@ class GithubSyncController {
         // runAsync or callAsync?
         GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
         def repository = gitHubService.getRepository(user.selectedRepo)
+
         session["lastCheck"] = System.currentTimeMillis()
+
         def results = callAsync {
             def domainRepo = new Repository(name: repository.name,
                     description: repository.description, githubId: repository.id,
@@ -58,9 +61,43 @@ class GithubSyncController {
                 firstSave = false
             }
 
+            gitHubService.getMilestones(repository, true).each {
+                new Milestone(title: it.title,
+                        description: it.description,
+                        number: it.number,
+                        repository: domainRepo,
+                        dueOn: it.dueOn,
+                        created: it.createdAt,
+                        creator: it.creator.login,
+                        state: it.state).save(flush: true)
+            }
+
+            gitHubService.getMilestones(repository, false).each {
+                new Milestone(title: it.title,
+                        description: it.description,
+                        number: it.number,
+                        repository: domainRepo,
+                        dueOn: it.dueOn,
+                        created: it.createdAt,
+                        creator: it.creator.login,
+                        state: it.state).save(flush: true)
+            }
+
             gitHubService.getIssues(repository).each {
-                new Issue(title: it.title, body: it.body, number: it.number, state: it.state,
-                        closed: it.closedAt, created: it.createdAt, updated: it.updatedAt, githubId: it.id, repository: domainRepo).save(flush: true)
+                def milestone = null
+                if(it.milestone)
+                    milestone = Milestone.findByNumberAndTitle(it.milestone.number,it.milestone.title)
+
+                new Issue(title: it.title,
+                        body: it.body,
+                        number: it.number,
+                        state: it.state,
+                        closed: it.closedAt,
+                        created: it.createdAt,
+                        updated: it.updatedAt,
+                        githubId: it.id,
+                        repository: domainRepo,
+                        milestone: milestone).save(flush: true)
             }
 
             Date lastUpdate = null

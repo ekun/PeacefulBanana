@@ -11,7 +11,7 @@ class Issue {
     Date created
     Date updated
 
-    static belongsTo = [repository: Repository]
+    static belongsTo = [repository: Repository, milestone: Milestone]
 
     static mapping = {
         id column: 'githubId'
@@ -20,5 +20,6 @@ class Issue {
     static constraints = {
         githubId blank: false, unique: true
         closed nullable: true
+        milestone nullable: true
     }
 }

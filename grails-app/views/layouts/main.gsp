@@ -60,7 +60,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">Peaceful Banana</a>
+                    <a class="brand" href="${createLinkTo(dir:'')}">Peaceful Banana</a>
                     <div class="nav-collapse collapse">
                         <p class="navbar-text pull-right">
                             <sec:ifLoggedIn>
@@ -73,7 +73,7 @@
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px;">
                             <sec:ifLoggedIn>
                                 <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
-                                              update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync" />
+                                              update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync.." />
                             </sec:ifLoggedIn>
                         </p>
                         <ul class="nav">
