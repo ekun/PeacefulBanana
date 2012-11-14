@@ -20,9 +20,7 @@
 	 	<div class="span9">
   			<h1>Issues</h1>
             <g:each in="${issues}">
-                <p><b>${it.title}</b></p>
-                <p>${it.body}</p>
-                <hr>
+                <g:formatIssue issue="${it}"/>
             </g:each>
     	</div><!--/span-->
     </div><!--/row-->

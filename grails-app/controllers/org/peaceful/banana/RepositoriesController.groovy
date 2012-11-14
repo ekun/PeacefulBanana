@@ -1,10 +1,9 @@
 package org.peaceful.banana
 
-import org.peaceful.banana.git.GitHubService
+import org.peaceful.banana.gitdata.Issue
+import org.peaceful.banana.gitdata.Repository
 import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
-import org.peaceful.banana.gitdata.Repository
-import org.peaceful.banana.gitdata.Issue
 
 class RepositoriesController {
     OauthService oauthService

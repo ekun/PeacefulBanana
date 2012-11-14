@@ -16,6 +16,7 @@ class Repository {
         githubId blank: false, unique: true
         name blank: false
         updated blank: false
+        description type: "text"
     }
 
     List<Issue> getIssues() {

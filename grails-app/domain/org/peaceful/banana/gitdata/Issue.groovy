@@ -16,6 +16,7 @@ class Issue {
 
     static mapping = {
         id column: 'githubId'
+        body type: "text"
     }
 
     static constraints = {

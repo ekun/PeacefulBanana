@@ -13,17 +13,11 @@ class Milestone {
     static belongsTo = [repository: Repository]
 
     static mapping = {
-
+        description type: "text"
     }
 
     static constraints = {
         dueOn nullable: true
-    }
-
-    boolean equals(other) {
-        if(!(other instanceof Milestone))
-            return false
-        other.repository == this.repository && other.number == this.number
     }
 
     List<Issue> getIssues() {

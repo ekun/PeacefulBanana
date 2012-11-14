@@ -47,6 +47,7 @@
                     function loading() {
                         $("#changeRepoButton").attr("disabled", "disabled");
                         $("#changeRepoButton").addClass("disabled");
+                        $("#changeRepoButton").attr("value", "Saving..");
                     }
 
                     function resetButton() {

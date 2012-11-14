@@ -61,6 +61,8 @@ class GithubSyncController {
                 firstSave = false
             }
 
+            boolean createFailed = false
+
             Milestone.findAllByRepository(domainRepo).each {
                 it.delete(flush: true)
             }
@@ -96,6 +98,7 @@ class GithubSyncController {
             }
 
             gitHubService.getIssues(repository, "open").each {
+                createFailed = false
                 int milestone = 0
                 if(it.milestone != null)
                     milestone = it.milestone.number
@@ -111,18 +114,31 @@ class GithubSyncController {
                         repository: domainRepo,
                         milestoneNumber: milestone).save(flush: true, failOnError: true)
                 } catch(ValidationException e) {
+                    log.error "Updating issue #" + it.number
+                    createFailed = true
+                }
+
+                if(createFailed) {
                     def issue = Issue.findByRepositoryAndNumber(domainRepo, it.number)
+                    issue = Issue.get(issue.id)
                     issue.closed = it.closedAt
                     issue.body = it.body
                     if(it.milestone != null)
                         issue.milestoneNumber = it.milestone.number
                     issue.state = it.state
                     issue.title = it.title
-                    issue.save(flush: true)
+                    try {
+                        issue.save(flush: true, failOnError: true)
+                    }catch (org.springframework.dao.DataIntegrityViolationException e) {
+                        log.error e.message
+                    } catch (ValidationException e) {
+                        log.error e.message
+                    }
                 }
             }
 
             gitHubService.getIssues(repository, "closed").each {
+                createFailed = false
                 int milestone = 0
                 if(it.milestone != null)
                     milestone = it.milestone.number
@@ -136,17 +152,28 @@ class GithubSyncController {
                         updated: it.updatedAt,
                         githubId: it.id,
                         repository: domainRepo,
-                        milestoneNumber: milestone).save(flush: true)
+                        milestoneNumber: milestone).save(flush: true, failOnError: true)
                 } catch(ValidationException e){
                     log.error "Updating issue #" + it.number
+                    createFailed = true
+                }
+
+                if(createFailed) {
                     def issue = Issue.findByRepositoryAndNumber(domainRepo, it.number)
+                    issue = Issue.get(issue.id)
                     issue.closed = it.closedAt
                     issue.body = it.body
                     if(it.milestone != null)
                         issue.milestoneNumber = it.milestone.number
                     issue.state = it.state
                     issue.title = it.title
-                    issue.save(flush: true)
+                    try {
+                        issue.save(flush: true, failOnError: true)
+                    }catch (org.springframework.dao.DataIntegrityViolationException e) {
+                        log.error e.message
+                    } catch (ValidationException e) {
+                        log.error e.message
+                    }
                 }
             }
 
