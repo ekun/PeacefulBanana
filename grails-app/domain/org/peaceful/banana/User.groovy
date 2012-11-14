@@ -14,10 +14,13 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+    String oAuthToken
+
 
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
+        oAuthToken nullable: true
 	}
 
 	static mapping = {

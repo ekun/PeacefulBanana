@@ -8,6 +8,8 @@ import org.peaceful.banana.git.GitHubService
 import org.peaceful.banana.gitdata.Commit
 import org.peaceful.banana.json.GitDataController
 import org.peaceful.banana.git.GithubSyncController
+import uk.co.desirableobjects.oauth.scribe.OauthService
+import grails.plugin.springsecurity.oauth.OAuthToken
 
 class SettingsController {
 
@@ -15,9 +17,11 @@ class SettingsController {
 
     def GithubController githubController = new GithubController()
     GitHubService gitHubService
+    OauthService oauthService
 
     def index() {
         Token gitToken = githubController.getToken()
+
         def user = githubController.getPrincipal()
         def User gitUser = null
 
@@ -33,8 +37,8 @@ class SettingsController {
     }
 
     def github() {
-        Token gitToken = githubController.getToken()
         def user = githubController.getPrincipal()
+        Token gitToken = githubController.getToken()
         def User gitUser = null
 
         if (gitToken != null) {
@@ -59,6 +63,6 @@ class SettingsController {
 
         new GithubSyncController().sync()
 
-        render(user.selectedRepo)
+        render("Completed syncing data from github.")
     }
 }

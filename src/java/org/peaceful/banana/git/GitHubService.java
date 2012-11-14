@@ -187,4 +187,8 @@ public class GitHubService {
         }
         return repositoryCommits;
     }
+
+    public boolean isAuthenticated(){
+        return this.gitHubClient.getUser() != null;
+    }
 }
