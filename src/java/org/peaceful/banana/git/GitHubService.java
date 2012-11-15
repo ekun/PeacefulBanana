@@ -77,6 +77,11 @@ public class GitHubService {
         return commitsPerUser;
     }
 
+    /**
+     *
+     * @param repositoryId
+     * @return
+     */
     public Repository getRepository(long repositoryId) {
         List<Repository> repositoryList = getRepositories();
         for(Repository repository : repositoryList) {
@@ -86,6 +91,11 @@ public class GitHubService {
         return null;
     }
 
+    /**
+     *
+     * @param repository
+     * @return
+     */
     public ArrayList<String> getRepositoryCollaborators(Repository repository) {
         ArrayList<String> collaborators = new ArrayList<String>();
         try {
@@ -103,6 +113,12 @@ public class GitHubService {
         return collaborators;
     }
 
+    /**
+     *
+     * @param repository
+     * @param githubUser
+     * @return
+     */
     public CommitStatistics getUserRepositoryImpact(Repository repository, String githubUser) {
         CommitStatistics impactStatistics = new CommitStatistics();
         impactStatistics.setUser(githubUser);
@@ -118,6 +134,11 @@ public class GitHubService {
         return impactStatistics;
     }
 
+    /**
+     *
+     * @param repository
+     * @return
+     */
     public ArrayList<CommitStatistics> getRepositoryImpact(Repository repository) {
         ArrayList<CommitStatistics> impact = new ArrayList<CommitStatistics>();
 
@@ -130,6 +151,12 @@ public class GitHubService {
         return impact;
     }
 
+    /**
+     *
+     * @param repository
+     * @param open
+     * @return
+     */
     public List<Milestone> getMilestones(Repository repository, boolean open) {
         String state = "open";
         if(!open)
@@ -142,6 +169,11 @@ public class GitHubService {
         }
     }
 
+    /**
+     *
+     * @param repository
+     * @return
+     */
     public ArrayList<Issue> getIssues(Repository repository) {
         return getIssues(repository, "open");
     }
@@ -161,6 +193,12 @@ public class GitHubService {
         return output;
     }
 
+    /**
+     *
+     * @param repository
+     * @param lastUpdate
+     * @return
+     */
     public boolean hasUpdated(Repository repository, Date lastUpdate) {
         try {
             return userCommitService.getCommits(repository, null, lastUpdate, null).size() > 0;
@@ -169,6 +207,12 @@ public class GitHubService {
         }
     }
 
+    /**
+     *
+     * @param repository
+     * @param lastUpdate
+     * @return
+     */
     public ArrayList<CommitStatistics> getCommitsSince(Repository repository, Date lastUpdate) {
         ArrayList<CommitStatistics> repositoryCommits = new ArrayList<CommitStatistics>();
         try{
@@ -188,6 +232,11 @@ public class GitHubService {
         return repositoryCommits;
     }
 
+    /**
+     * Checks if the user is authenticated with github
+     *
+     * @return true/false based on authentication.
+     */
     public boolean isAuthenticated(){
         return this.gitHubClient.getUser() != null;
     }
