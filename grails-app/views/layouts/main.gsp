@@ -72,7 +72,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="${createLinkTo(dir:'')}">Peaceful Banana</a>
+                    <a class="brand" href="${createLinkTo(dir:'')}"><img src="${createLinkTo(dir:'images')}/banana-logo.png" width="18px"> Peaceful Banana</a>
                     <div class="nav-collapse collapse">
                         <p class="navbar-text pull-right">
                             <sec:ifLoggedIn>
