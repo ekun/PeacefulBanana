@@ -21,7 +21,7 @@
 	 	<div class="span9">
             <div class="row-fluid">
                 <div class="pull-left">
-                      <h1>Tagcloud</h1>
+                      <h1>Team tagcloud</h1>
                 </div>
                 <div class="pull-right">
                     <h1 class="pull-right">My tagcloud</h1>
