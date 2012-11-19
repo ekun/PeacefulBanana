@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
+    <title>Milestones</title>
     <r:require modules="bootstrap"/>
 </head>
 <body>

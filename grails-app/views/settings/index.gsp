@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
+    <title>Settings</title>
     <r:require modules="bootstrap"/>
 </head>
 <body>

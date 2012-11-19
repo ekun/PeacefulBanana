@@ -5,6 +5,7 @@ import org.peaceful.banana.gitdata.Repository
 import org.peaceful.banana.gitdata.Commit
 import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
+import org.peaceful.banana.git.GitHubService
 
 class RepositoriesController {
     OauthService oauthService
@@ -75,9 +76,11 @@ class RepositoriesController {
                 log.debug("Ingen accesstoken satt, redirecter.")
                 redirect(controller: 'settings', action: 'github')
             } else {
+                def gitHubService = new GitHubService(githubAccessToken)
                 def repository = Repository.findByGithubId(user.selectedRepo)
 
                 HashMap<String, Integer> tags = new HashMap<String, Integer>()
+                HashMap<String, Integer> myTags = new HashMap<String, Integer>()
 
                 // Generate tagcloud data
                 Commit.findAllByRepository(repository).each {
@@ -98,7 +101,27 @@ class RepositoriesController {
                     }
                 }
 
-                [selectedRepo: repository, tags: tags]
+
+                // Generate tagcloud data
+                Commit.findAllByRepositoryAndLogin(repository, gitHubService.getAuthenticatedUser()).each {
+                    if(!it.message.startsWith("Merge branch"))  {
+                        it.message.split(' ').each {
+                            if(myTags.get(it.toLowerCase())){
+                                myTags.putAt(it.toLowerCase(), myTags.get(it.toLowerCase()).intValue()+1)
+                            } else {
+                                myTags.put(it.toLowerCase(),1)
+                            }
+                        }
+                    } else {
+                        if(myTags.get("merge branch")){
+                            myTags.putAt("merge branch", myTags.get("merge branch").intValue()+1)
+                        } else {
+                            myTags.put("merge branch",1)
+                        }
+                    }
+                }
+
+                [selectedRepo: repository, tags: tags, mytags: myTags]
             }
         }
     }

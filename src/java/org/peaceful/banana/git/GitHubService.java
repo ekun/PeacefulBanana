@@ -5,6 +5,7 @@ import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.IssueService;
 import org.eclipse.egit.github.core.service.MilestoneService;
 import org.eclipse.egit.github.core.service.RepositoryService;
+import org.eclipse.egit.github.core.service.UserService;
 import org.peaceful.banana.git.util.CommitStatistics;
 import org.scribe.model.Token;
 
@@ -24,6 +25,7 @@ public class GitHubService {
     private UserCommitService userCommitService;
     private MilestoneService milestoneService;
     private IssueService issueService;
+    private UserService userService;
 
     public GitHubService(Token gitHubToken) {
         gitHubClient = new GitHubClient();
@@ -32,6 +34,7 @@ public class GitHubService {
         this.userCommitService = new UserCommitService(gitHubClient);
         this.milestoneService = new MilestoneService(gitHubClient);
         this.issueService = new IssueService(gitHubClient);
+        this.userService = new UserService(gitHubClient);
     }
 
     public void setToken(Token gitHubToken) {
@@ -238,5 +241,13 @@ public class GitHubService {
      */
     public boolean isAuthenticated(){
         return this.gitHubClient.getUser() != null;
+    }
+
+    public String getAuthenticatedUser() {
+        try {
+            return this.userService.getUser().getLogin();
+        } catch (IOException e) {
+            return "";
+        }
     }
 }

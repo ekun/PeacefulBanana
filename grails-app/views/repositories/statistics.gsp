@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
+    <title>Statistics</title>
     <r:require modules="bootstrap"/>
 </head>
 <body>

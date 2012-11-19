@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
+    <title>Tagcloud</title>
     <r:require modules="bootstrap"/>
 </head>
 <body>
@@ -18,12 +19,27 @@
 	        </div><!--/.well -->
 	    </div><!--/span-->
 	 	<div class="span9">
-  			<h1>Tagcloud</h1>
-            <div id="tagcloud" class="span9" style="height: 600px;">
+            <div class="row-fluid">
+                <div class="pull-left">
+                      <h1>Tagcloud</h1>
+                </div>
+                <div class="pull-right">
+                    <h1 class="pull-right">My tagcloud</h1>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div id="tagcloud" class="span6" style="height: 600px;">
                 <g:each in="${tags}">
                     <span data-weight="${it.value}">${it.key}</span>
                 </g:each>
+                </div>
+                <div id="mytagcloud" class="span6" style="height: 600px;">
+                    <g:each in="${mytags}">
+                        <span data-weight="${it.value}">${it.key}</span>
+                    </g:each>
+                </div>
             </div>
+
             <g:javascript src="awesomecloud.js" />
             <script>
                 var settings = {
@@ -39,7 +55,21 @@
                     "font" : "Futura, Helvetica, sans-serif",
                     "shape" : "square"
                 };
+                var mySettings = {
+                    "size" : {
+                        "grid" : 4,
+                        "normalize" : true
+                    },
+                    "options" : {
+                        "color" : "random-light",
+                        "printMultiplier" : 3,
+                        "sort" : "highest"
+                    },
+                    "font" : "Futura, Helvetica, sans-serif",
+                    "shape" : "square"
+                };
                 $( "#tagcloud" ).awesomeCloud( settings );
+                $( "#mytagcloud" ).awesomeCloud( mySettings );
             </script>
     	</div><!--/span-->
     </div><!--/row-->

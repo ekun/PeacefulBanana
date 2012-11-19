@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
+    <title>${selectedRepo != null ? (selectedRepo.name) : 'Repository'}</title>
     <r:require modules="bootstrap"/>
 </head>
 <body>

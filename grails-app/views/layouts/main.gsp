@@ -6,7 +6,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
 <html>
     <head>
-        <title><g:layoutTitle default="Peaceful Banana"/></title>
+        <title>Peaceful Banana - <g:layoutTitle default="Home"/></title>
         <meta name="viewport" content="initial-scale = 1.0">
 
         <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
