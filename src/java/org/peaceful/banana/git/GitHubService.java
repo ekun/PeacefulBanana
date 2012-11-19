@@ -32,7 +32,6 @@ public class GitHubService {
         this.userCommitService = new UserCommitService(gitHubClient);
         this.milestoneService = new MilestoneService(gitHubClient);
         this.issueService = new IssueService(gitHubClient);
-
     }
 
     public void setToken(Token gitHubToken) {

@@ -2,6 +2,7 @@ package org.peaceful.banana
 
 import org.peaceful.banana.gitdata.Issue
 import org.peaceful.banana.gitdata.Repository
+import org.peaceful.banana.gitdata.Commit
 import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
 
@@ -76,7 +77,28 @@ class RepositoriesController {
             } else {
                 def repository = Repository.findByGithubId(user.selectedRepo)
 
-                [selectedRepo: repository]
+                HashMap<String, Integer> tags = new HashMap<String, Integer>()
+
+                // Generate tagcloud data
+                Commit.findAllByRepository(repository).each {
+                    if(!it.message.startsWith("Merge branch"))  {
+                        it.message.split(' ').each {
+                            if(tags.get(it.toLowerCase())){
+                                tags.putAt(it.toLowerCase(), tags.get(it.toLowerCase()).intValue()+1)
+                            } else {
+                                tags.put(it.toLowerCase(),1)
+                            }
+                        }
+                    } else {
+                        if(tags.get("merge branch")){
+                            tags.putAt("merge branch", tags.get("merge branch").intValue()+1)
+                        } else {
+                            tags.put("merge branch",1)
+                        }
+                    }
+                }
+
+                [selectedRepo: repository, tags: tags]
             }
         }
     }

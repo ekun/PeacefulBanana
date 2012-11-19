@@ -30,7 +30,8 @@
         <link href="${createLinkTo(dir:'css')}/main.css" rel="stylesheet" type="text/css">
         <g:javascript library="application" />
         <gvisualization:apiImport/>
-        <r:layoutResources/>
+        <g:layoutHead/>
+        <r:layoutResources />
     </head>
     <body>
     <g:javascript>
