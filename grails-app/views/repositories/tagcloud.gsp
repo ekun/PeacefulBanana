@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="row-fluid">
-                <div id="tagcloud" class="span6" style="height: 600px;"> 
+                <div id="tagcloud" class="span6" style="height: 600px;">
                 <g:each in="${tags}">
                     <span data-weight="${it.value}">${it.key}</span>
                 </g:each>

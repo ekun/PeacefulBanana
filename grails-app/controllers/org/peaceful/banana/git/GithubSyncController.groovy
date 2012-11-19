@@ -56,8 +56,6 @@ class GithubSyncController {
             } catch(ValidationException e) {
                 log.error "Repository excists."
                 domainRepo = Repository.findByGithubId(user.selectedRepo)
-                domainRepo.updated = repository.updatedAt
-                domainRepo.save(flush: true)
                 firstSave = false
             }
 
@@ -194,6 +192,9 @@ class GithubSyncController {
                 }
             }
 
+            // So that we get the latest commits.
+            domainRepo.updated = repository.updatedAt
+            domainRepo.save(flush: true)
         }
         results.get()
         def table = [update: true]
