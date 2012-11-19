@@ -1,5 +1,5 @@
 <%@ page import="org.peaceful.banana.gitdata.Milestone" %>
-<div class='item ${milestone?.dueOn != null ? 0 > milestone?.dueOn.compareTo(new Date(System.currentTimeMillis())) ? 'striped' : '' : ''}'>
+<div class='item ${milestone?.dueOn != null ? 0 > milestone?.dueOn.compareTo(new Date(System.currentTimeMillis())) ? 'striped' : 'no-striped' : 'no-striped'}'>
     <h3>#${milestone?.number} - ${milestone?.title}
         <div class='pull-right'>
             ${milestone?.state == "closed" ? '<span class="label label-important">Closed</span>' : '<span class="label label-success">Open</span>'}
