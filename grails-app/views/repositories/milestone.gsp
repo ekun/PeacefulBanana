@@ -1,3 +1,4 @@
+<%@ page import="org.peaceful.banana.gitdata.Issue" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -21,12 +22,7 @@
 	 	<div class="span9">
   			<h1>Milestones</h1>
             <g:each in="${milestones}">
-                <p><b>${it.title}</b></p>
-                <p>${it.description}</p>
-                <div class="progress">
-                    <div class="bar" style="width: ${it.closed.size() > 0 ? ((int)(it.closed.size() / (it.open.size()+it.closed.size()))*100) : 0}%;"></div>
-                </div>
-                <hr>
+                <g:formatMilestone milestone="${it}"/>
             </g:each>
     	</div><!--/span-->
     </div><!--/row-->

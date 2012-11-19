@@ -23,6 +23,7 @@
             <g:each in="${issues}">
                 <g:formatIssue issue="${it}"/>
             </g:each>
+            <g:formatIssue issue="${issue}"/>
     	</div><!--/span-->
     </div><!--/row-->
 </body>

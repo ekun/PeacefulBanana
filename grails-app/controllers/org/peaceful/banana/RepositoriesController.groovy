@@ -61,7 +61,7 @@ class RepositoriesController {
                 if(!params.getInt("id")) {
                     [selectedRepo: repository, issues: repository.getIssues()]
                 } else {
-                    [selectedRepo: repository, issue: Issue.findByRepositoryAndNumber(repository,params.getInt("id"))]
+                    [selectedRepo: repository, issue: Issue.findByRepositoryAndGithubId(repository,params.getInt("id"))]
                 }
             }
         }

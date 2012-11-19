@@ -28,12 +28,12 @@
                 </div>
             </div>
             <div class="row-fluid">
-                <div id="tagcloud" class="span6" style="height: 600px;">
+                <div id="tagcloud" class="span6" style="height: 800px;">
                 <g:each in="${tags}">
                     <span data-weight="${it.value}">${it.key}</span>
                 </g:each>
                 </div>
-                <div id="mytagcloud" class="span6" style="height: 600px;">
+                <div id="mytagcloud" class="span6" style="height: 800px;">
                     <g:each in="${mytags}">
                         <span data-weight="${it.value}">${it.key}</span>
                     </g:each>

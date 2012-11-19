@@ -1,4 +1,4 @@
-<div class='item'>
+<div class='item' style="${issue == null ? 'display: none;' : ''}">
     <h3>#${issue?.number} ${issue?.title}
         <div class='pull-right'>
         ${issue?.state == "closed" ? '<span class="label label-important">Closed</span>' : '<span class="label label-success">Open</span>'}

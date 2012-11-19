@@ -20,10 +20,10 @@ class Repository {
     }
 
     List<Issue> getIssues() {
-        Issue.findAllByRepository(this) as List
+        Issue.findAllByRepositoryAndMilestoneNumber(this, 0) as List
     }
 
     List<Milestone> getMilestones() {
-        Milestone.findAllByRepository(this) as List
+        Milestone.findAllByRepository(this, [sort: "dueOn", order: "asc"]) as List
     }
 }
