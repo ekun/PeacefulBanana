@@ -6,6 +6,7 @@ import org.peaceful.banana.gitdata.Commit
 import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
 import org.peaceful.banana.git.GitHubService
+import org.peaceful.banana.git.util.WordProcessor
 
 class RepositoriesController {
     OauthService oauthService
@@ -78,6 +79,7 @@ class RepositoriesController {
             } else {
                 def gitHubService = new GitHubService(githubAccessToken)
                 def repository = Repository.findByGithubId(user.selectedRepo)
+                WordProcessor wordProcessor = new WordProcessor();
 
                 HashMap<String, Integer> tags = new HashMap<String, Integer>()
                 HashMap<String, Integer> myTags = new HashMap<String, Integer>()
@@ -85,11 +87,13 @@ class RepositoriesController {
                 // Generate tagcloud data
                 Commit.findAllByRepository(repository).each {
                     if(!it.message.startsWith("Merge branch"))  {
-                        it.message.split(' ').each {
-                            if(tags.get(it.toLowerCase())){
-                                tags.putAt(it.toLowerCase(), tags.get(it.toLowerCase()).intValue()+1)
-                            } else {
-                                tags.put(it.toLowerCase(),1)
+                        it.message.replaceAll("[-+.^:,]","").split(' ').each {
+                            if(!wordProcessor.isStopWord(it.toLowerCase())) {
+                                if(tags.get(it.toLowerCase())){
+                                    tags.putAt(it.toLowerCase(), tags.get(it.toLowerCase()).intValue()+1)
+                                } else {
+                                    tags.put(it.toLowerCase(),1)
+                                }
                             }
                         }
                     } else {
@@ -105,11 +109,13 @@ class RepositoriesController {
                 // Generate tagcloud data
                 Commit.findAllByRepositoryAndLogin(repository, gitHubService.getAuthenticatedUser()).each {
                     if(!it.message.startsWith("Merge branch"))  {
-                        it.message.split(' ').each {
-                            if(myTags.get(it.toLowerCase())){
-                                myTags.putAt(it.toLowerCase(), myTags.get(it.toLowerCase()).intValue()+1)
-                            } else {
-                                myTags.put(it.toLowerCase(),1)
+                        it.message.replaceAll("[-+.^:,]","").split(' ').each {
+                            if(!wordProcessor.isStopWord(it.toLowerCase())) {
+                                if(myTags.get(it.toLowerCase())){
+                                    myTags.putAt(it.toLowerCase(), myTags.get(it.toLowerCase()).intValue()+1)
+                                } else {
+                                    myTags.put(it.toLowerCase(),1)
+                                }
                             }
                         }
                     } else {
