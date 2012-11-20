@@ -20,7 +20,13 @@
 	        </div><!--/.well -->
 	    </div><!--/span-->
 	 	<div class="span9">
-  			<h1>Milestones</h1>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#">Open</a>
+                </li>
+                <li><a href="#">Overdue</a></li>
+                <li><a href="#">Closed</a></li>
+            </ul>
             <g:each in="${milestones}">
                 <g:formatMilestone milestone="${it}"/>
             </g:each>

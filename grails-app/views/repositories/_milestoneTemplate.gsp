@@ -1,5 +1,5 @@
 <%@ page import="org.joda.time.Duration; org.peaceful.banana.gitdata.Milestone" %>
-<div class='item ${milestone?.dueOn != null && milestone?.state != "closed" ? 0 > milestone?.dueOn.compareTo(new Date(System.currentTimeMillis())) ? 'striped' : 'no-striped' : ''}'>
+<div class='item ${milestone?.dueOn != null && milestone?.state != "closed" ? 0 > milestone?.dueOn.compareTo(new Date(System.currentTimeMillis())) ? 'striped' : 'no-striped' : milestone?.state == "closed" ? 'striped-success' : ''}'>
     <div class="due-time">
         ${milestone?.formatedDueDate()}
     </div>

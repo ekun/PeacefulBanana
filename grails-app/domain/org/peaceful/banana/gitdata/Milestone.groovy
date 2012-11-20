@@ -18,6 +18,7 @@ class Milestone {
     static belongsTo = [repository: Repository]
 
     static mapping = {
+        child(sort:'dueOn', order:'asc')
         description type: "text"
     }
 

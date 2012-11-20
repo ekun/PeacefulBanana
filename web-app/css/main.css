@@ -678,6 +678,10 @@
     background-image: url('../images/striped-background.png');
 }
 
+.striped-success {
+    background-image: url('../images/striped-background-success.png');
+}
+
 .no-striped {
 
 }

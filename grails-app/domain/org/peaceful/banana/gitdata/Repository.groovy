@@ -24,6 +24,8 @@ class Repository {
     }
 
     List<Milestone> getMilestones() {
-        Milestone.findAllByRepository(this, [sort: "dueOn", order: "asc"]) as List
+        def list = Milestone.findAllByRepositoryAndDueOnIsNotNull(this,[sort: 'dueOn', order: 'asc']) as List
+        list.addAll(Milestone.findAllByRepositoryAndDueOnIsNull(this) as List)
+        return list
     }
 }
