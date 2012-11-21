@@ -2,10 +2,10 @@ package org.peaceful.banana.git;
 
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.client.GitHubClient;
-import org.eclipse.egit.github.core.service.IssueService;
-import org.eclipse.egit.github.core.service.MilestoneService;
-import org.eclipse.egit.github.core.service.RepositoryService;
-import org.eclipse.egit.github.core.service.UserService;
+import org.eclipse.egit.github.core.client.NoSuchPageException;
+import org.eclipse.egit.github.core.client.PageIterator;
+import org.eclipse.egit.github.core.event.Event;
+import org.eclipse.egit.github.core.service.*;
 import org.peaceful.banana.git.util.CommitStatistics;
 import org.scribe.model.Token;
 
@@ -26,6 +26,7 @@ public class GitHubService {
     private MilestoneService milestoneService;
     private IssueService issueService;
     private UserService userService;
+    private EventService eventService;
 
     public GitHubService(Token gitHubToken) {
         gitHubClient = new GitHubClient();
@@ -35,6 +36,7 @@ public class GitHubService {
         this.milestoneService = new MilestoneService(gitHubClient);
         this.issueService = new IssueService(gitHubClient);
         this.userService = new UserService(gitHubClient);
+        this.eventService = new EventService(gitHubClient);
     }
 
     public void setToken(Token gitHubToken) {
@@ -243,11 +245,34 @@ public class GitHubService {
         return this.gitHubClient.getUser() != null;
     }
 
+    /**
+     * Get login of the currenctly authenticated user
+     * @return
+     */
     public String getAuthenticatedUser() {
         try {
             return this.userService.getUser().getLogin();
         } catch (IOException e) {
             return "";
         }
+    }
+
+    /**
+     * Get all issues events related to this repository.
+     * @param repository
+     * @return
+     */
+    public ArrayList<Event> getIssueEvents(Repository repository) {
+        PageIterator<Event> iterator = eventService.pageEvents(repository);
+        ArrayList<Event> issueEvents = new ArrayList<Event>();
+
+        try {
+            while(iterator.hasNext()){
+                issueEvents.addAll(iterator.next());
+            }
+        } catch (NoSuchPageException pageException) {
+            return new ArrayList<Event>();
+        }
+        return issueEvents;
     }
 }

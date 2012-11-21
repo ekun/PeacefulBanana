@@ -9,6 +9,9 @@ import org.peaceful.banana.gitdata.Commit
 import org.peaceful.banana.gitdata.Issue
 import grails.validation.ValidationException
 import org.peaceful.banana.gitdata.Milestone
+import org.peaceful.banana.gitdata.IssueEvent
+import org.eclipse.egit.github.core.event.IssuesPayload
+import org.eclipse.egit.github.core.event.IssueCommentPayload
 
 class GithubSyncController {
 
@@ -172,6 +175,23 @@ class GithubSyncController {
                     } catch (ValidationException e) {
                         log.error e.message
                     }
+                }
+            }
+
+            gitHubService.getIssueEvents(repository).each {
+                try {
+                    if(it.type == "IssuesEvent") {
+                        new IssueEvent(
+                                created: it.createdAt,
+                                event: ((IssuesPayload)it.payload).getAction(),
+                                login: it.actor.login,
+                                issue: Issue.findByGithubId(((IssuesPayload)it.payload).getIssue().id)
+                        ).save(flush: true, failOnError: true)
+                    } else if(it.type == "IssueCommentEvent") {
+                        log.error( ((IssueCommentPayload)it.payload).comment.body)
+                    }
+                } catch (ValidationException e) {
+                    log.error e.message
                 }
             }
 

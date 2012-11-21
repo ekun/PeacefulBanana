@@ -6,3 +6,15 @@
     </h3>
     <p>${issue?.body}</p>
 </div>
+<div class="row-fluid">
+    <div class="span8">
+
+    </div>
+    <div class="span4">
+        <g:each in="${issue?.events}">
+            <div class="item">
+                ${it.event + " - " + it.login}
+            </div>
+        </g:each>
+    </div>
+</div>

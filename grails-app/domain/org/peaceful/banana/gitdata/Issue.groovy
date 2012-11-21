@@ -24,4 +24,8 @@ class Issue {
         closed nullable: true
         milestoneNumber nullable: true
     }
+
+    List<IssueEvent> getEvents() {
+        IssueEvent.findAllByIssue(this) as List
+    }
 }
