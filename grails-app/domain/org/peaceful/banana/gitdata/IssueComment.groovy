@@ -1,15 +1,17 @@
 package org.peaceful.banana.gitdata
 
-class IssueEvent {
+class IssueComment {
 
-    String event
-    Date created
-    String login
     long githubId
+    Date createdAt
+    Date updatedAt
+    String login
+    String body
 
     static belongsTo = [issue: Issue]
 
     static mapping = {
+        body type: "text"
     }
 
     static constraints = {

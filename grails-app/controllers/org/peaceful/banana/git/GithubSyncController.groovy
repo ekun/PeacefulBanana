@@ -12,6 +12,7 @@ import org.peaceful.banana.gitdata.Milestone
 import org.peaceful.banana.gitdata.IssueEvent
 import org.eclipse.egit.github.core.event.IssuesPayload
 import org.eclipse.egit.github.core.event.IssueCommentPayload
+import org.peaceful.banana.gitdata.IssueComment
 
 class GithubSyncController {
 
@@ -185,10 +186,18 @@ class GithubSyncController {
                                 created: it.createdAt,
                                 event: ((IssuesPayload)it.payload).getAction(),
                                 login: it.actor.login,
+                                githubId: Long.getLong(it.id),
                                 issue: Issue.findByGithubId(((IssuesPayload)it.payload).getIssue().id)
                         ).save(flush: true, failOnError: true)
                     } else if(it.type == "IssueCommentEvent") {
-                        log.error( ((IssueCommentPayload)it.payload).comment.body)
+                        new IssueComment(
+                                login: it.actor.login,
+                                githubId: ((IssueCommentPayload)it.payload).comment.id,
+                                body: ((IssueCommentPayload)it.payload).comment.body,
+                                createdAt: ((IssueCommentPayload)it.payload).comment.createdAt,
+                                updatedAt: ((IssueCommentPayload)it.payload).comment.updatedAt,
+                                issue: Issue.findByGithubId(((IssueCommentPayload)it.payload).issue.id)
+                        ).save(flush: true, failOnError: true)
                     }
                 } catch (ValidationException e) {
                     log.error e.message
@@ -216,7 +225,7 @@ class GithubSyncController {
             domainRepo.updated = repository.updatedAt
             domainRepo.save(flush: true)
         }
-        results.get()
+        results.get() // wait for async-call
         def table = [update: true]
         render table  as JSON
     }

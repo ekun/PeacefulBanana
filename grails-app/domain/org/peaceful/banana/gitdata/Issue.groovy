@@ -26,6 +26,10 @@ class Issue {
     }
 
     List<IssueEvent> getEvents() {
-        IssueEvent.findAllByIssue(this) as List
+        IssueEvent.findAllByIssue(this, [sort:'created', order:'asc']) as List
+    }
+
+    List<IssueComment> getComments() {
+        IssueComment.findAllByIssue(this, [sort:'createdAt', order:'asc']) as List
     }
 }
