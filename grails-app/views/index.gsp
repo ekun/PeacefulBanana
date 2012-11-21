@@ -17,6 +17,7 @@
 	    </div><!--/span-->
 	    <div class="span9">
     		<h1> Home </h1>
+            <p>You are now logged in or not? Do something funny!</p>
     	</div><!--/span-->
     </div><!--/row-->
 </body>

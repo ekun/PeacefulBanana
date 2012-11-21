@@ -24,7 +24,8 @@ class Repository {
     }
 
     List<Milestone> getMilestones() {
-        def list = Milestone.findAllByRepositoryAndDueOnIsNotNull(this,[sort: 'dueOn', order: 'asc']) as List
+        def list = Milestone.findAllByRepositoryAndDueOnIsNotNullAndState(this,"open",[sort: 'dueOn', order: 'asc']) as List
+        list.addAll(Milestone.findAllByRepositoryAndDueOnIsNotNullAndState(this,"closed") as List)
         list.addAll(Milestone.findAllByRepositoryAndDueOnIsNull(this) as List)
         return list
     }

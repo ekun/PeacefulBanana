@@ -57,8 +57,10 @@ class Milestone {
                     .appendSuffix(" minute", " minutes")
                     .toFormatter();
             String duration = daysHoursMinutes.print(new Period(new Duration(System.currentTimeMillis(), this.dueOn.time)).normalizedStandard())
-            if(duration.contains("-"))
-                return "" // Is overdue, handled in template
+            if(duration.contains("-") && state == "closed")
+                return "Due date was " + duration.replaceAll("-","")+ " ago" // Is overdue, handled in template
+            else if(duration.contains("-") && state == "open")
+                return "Due datea " + duration.replaceAll("-","")+ " ago" // Is overdue, handled in template
             return "Due in " + duration
         }
         return "No due date";

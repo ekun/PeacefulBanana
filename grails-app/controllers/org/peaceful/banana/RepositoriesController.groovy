@@ -41,20 +41,20 @@ class RepositoriesController {
                 redirect(controller: 'settings', action: 'github')
             } else {
                 def repository = Repository.findByGithubId(user.selectedRepo)
-                def milestones = repository.getMilestones()
+                def milestones = repository.getMilestones().findAll {
+                    it.state == "open"
+                }
 
                 if (params.get("id") == "overdue") {
-                    milestones = milestones.findAll {
+                    milestones = repository.getMilestones().findAll {
                         it.state == "open" && it.dueOn != null && it.dueOn.before(new Date(System.currentTimeMillis()))
                     }
                 } else if (params.get("id") == "closed") {
-                    milestones = milestones.findAll {
+                    milestones = repository.getMilestones().findAll {
                         it.state == "closed"
                     }
-                } else if (params.get("id") == "open") {
-                    milestones = milestones.findAll {
-                        it.state == "open"
-                    }
+                } else if (params.get("id") == "all") {
+                    milestones = repository.getMilestones()
                 }
 
                 [selectedRepo: repository, milestones: milestones]
