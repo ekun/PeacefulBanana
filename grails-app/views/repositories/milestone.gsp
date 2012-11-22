@@ -61,17 +61,17 @@
                     var settings = {
                         "size" : {
                             "grid" : 4,
-                            "normalize" : true
+                            "normalize" : false
                         },
                         "options" : {
                             "color" : "random-dark",
-                            "printMultiplier" : 3,
-                            "sort" : "highest"
+                            "printMultiplier" : 2,
+                            "sort" : "random"
                         },
                         "font" : "Futura, Helvetica, sans-serif",
                         "shape" : "square"
                     };
-                    $( "#tagcloud" ).awesomeCloud( settings );
+                    $("#tagcloud").awesomeCloud(settings);
                 </script>
             </div>
     	</div><!--/span-->

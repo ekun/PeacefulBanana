@@ -64,12 +64,23 @@ class RepositoriesController {
                     }
 
                     selectedMilestone.issues.each {
-                        if(it.commits.size() > 0)
-                            teamTags.put(it.title, it.commits.size())
+                        if(it.commits.size() > 0) {
+                            it.commits.each {
+                                it.message.split(" ").each {
+                                    if(it.startsWith("#")) {
+                                        if(teamTags.get(it.toLowerCase())){
+                                            teamTags.putAt(it.toLowerCase(), teamTags.get(it.toLowerCase()).intValue()+1)
+                                        } else {
+                                            teamTags.put(it.toLowerCase(),1)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
-                [selectedRepo: repository, milestones: milestones, selectedMilestone: selectedMilestone, teamTags: teamTags]
+                [selectedRepo: repository, milestones: milestones, selectedMilestone: selectedMilestone, teamTags: teamTags.sort {-it.value}]
             }
         }
     }

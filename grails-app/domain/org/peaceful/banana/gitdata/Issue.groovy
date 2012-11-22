@@ -34,6 +34,11 @@ class Issue {
     }
 
     List<Commit> getCommits() {
-        Commit.findAllByRepositoryAndMessageLike(repository,"%#"+this.number+"%", [sort: 'createdAt', order: 'asc'])
+        def list = new ArrayList<Commit>()
+        Commit.findAllByRepository(repository,[sort: 'createdAt', order: 'asc']).each {
+            if(it.getIssues().contains(number))
+                list.add(it)
+        }
+        return list
     }
 }

@@ -45,7 +45,7 @@
                 var settings = {
                     "size" : {
                         "grid" : 4,
-                        "normalize" : true
+                        "normalize" : false
                     },
                     "options" : {
                         "color" : "random-dark",
@@ -58,7 +58,7 @@
                 var mySettings = {
                     "size" : {
                         "grid" : 4,
-                        "normalize" : true
+                        "normalize" : false
                     },
                     "options" : {
                         "color" : "random-light",

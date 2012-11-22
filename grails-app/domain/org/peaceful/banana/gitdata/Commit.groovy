@@ -20,4 +20,18 @@ class Commit {
     Period getPeriod() {
         new Period(new Duration(this.createdAt.time,System.currentTimeMillis())).normalizedStandard()
     }
+
+    List<Integer> getIssues() {
+        def list = new ArrayList<Integer>()
+        message.split(" ").each {
+            if(it.startsWith("#")){
+                try {
+                    list.add(Integer.parseInt(it.substring(1)))
+                } catch(NumberFormatException e) {
+                    // IGNORED!!!
+                }
+            }
+        }
+        return list
+    }
 }
