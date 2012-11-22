@@ -1,5 +1,7 @@
 package org.peaceful.banana.git.util;
 
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ekun
@@ -11,6 +13,7 @@ public class CommitStatistics {
     private String message;
     private int added;
     private int deleted;
+    private Date created;
 
     public CommitStatistics() {
         added = 0;
@@ -33,6 +36,14 @@ public class CommitStatistics {
         this.deleted = deleted;
         this.user = user;
         this.message = message;
+    }
+
+    public CommitStatistics(int added, int deleted, String user, String message, Date created) {
+        this.added = added;
+        this.deleted = deleted;
+        this.user = user;
+        this.message = message;
+        this.created = created;
     }
 
     public int getImpact() {
@@ -74,5 +85,13 @@ public class CommitStatistics {
     public void addImpact(int added, int deleted) {
         this.added += added;
         this.deleted += deleted;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }

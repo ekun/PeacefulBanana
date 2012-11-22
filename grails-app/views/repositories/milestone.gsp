@@ -16,6 +16,11 @@
                     <li><a href="${createLink(action: 'issue')}">Issues</a></li>
                     <li><a href="${createLink(action: 'tagcloud')}">Tagcloud</a></li>
                     <li><a href="${createLink(action: 'statistics')}">Statistics</a></li>
+                    <li class="divider"></li>
+                    <li class="nav-header">Milestones</li>
+                    <g:each in="${selectedRepo.milestones}">
+                        <li><a href="${createLink(id: it.id)}">${it.title}<span class="label pull-right${it?.state == "closed" ? ' label-important">Closed' : it.dueOn?.before(new Date(System.currentTimeMillis())) ? ' label-warning">Overdue' : ' label-success">Open'}</span></a></li>
+                    </g:each>
 	            </ul>
 	        </div><!--/.well -->
 	    </div><!--/span-->

@@ -1,5 +1,8 @@
 package org.peaceful.banana.gitdata
 
+import org.joda.time.Period
+import org.joda.time.Duration
+
 class IssueComment {
 
     long githubId
@@ -16,5 +19,9 @@ class IssueComment {
 
     static constraints = {
         githubId unique: true
+    }
+
+    Period getPeriod() {
+        new Period(new Duration(this.createdAt.time,System.currentTimeMillis())).normalizedStandard()
     }
 }

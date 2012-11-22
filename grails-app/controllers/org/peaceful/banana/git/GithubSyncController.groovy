@@ -13,6 +13,7 @@ import org.peaceful.banana.gitdata.IssueEvent
 import org.eclipse.egit.github.core.event.IssuesPayload
 import org.eclipse.egit.github.core.event.IssueCommentPayload
 import org.peaceful.banana.gitdata.IssueComment
+import org.eclipse.egit.github.core.event.PushPayload
 
 class GithubSyncController {
 
@@ -186,7 +187,7 @@ class GithubSyncController {
                                 created: it.createdAt,
                                 event: ((IssuesPayload)it.payload).getAction(),
                                 login: it.actor.login,
-                                githubId: Long.getLong(it.id),
+                                githubId: it.id,
                                 issue: Issue.findByGithubId(((IssuesPayload)it.payload).getIssue().id)
                         ).save(flush: true, failOnError: true)
                     } else if(it.type == "IssueCommentEvent") {
@@ -215,6 +216,7 @@ class GithubSyncController {
                         additions: it.added,
                         deletions: it.deleted,
                         total: it.impact,
+                        createdAt: it.created,
                         repository: domainRepo).save(flush: true, failOnError: true)
                 } catch(ValidationException e) {
                     log.error e.message

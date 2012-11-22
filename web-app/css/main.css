@@ -674,6 +674,115 @@
     z-index: 2;
 }
 
+.comment {
+    margin: 20px 0;
+}
+
+.comment-bubble {
+    position: relative;
+    margin-left: 0;
+}
+
+.comment-inner {
+    min-height: 60px;
+    border: 1px solid #CACACA;
+    background-color: white;
+}
+
+.comment-header {
+    height: 33px;
+    padding: 0 10px 0 6px;
+    border-bottom: 1px solid #CCC;
+    background-color: #E1E1E1;
+    background-image: -moz-linear-gradient(#F8F8F8, #E1E1E1);
+    background-image: -webkit-linear-gradient(#F8F8F8, #E1E1E1);
+    background-image: linear-gradient(#F8F8F8, #E1E1E1);
+    background-repeat: repeat-x;
+}
+
+.commit-header {
+    height: 33px;
+    padding: 0 10px 0 6px;
+    border-bottom: 1px solid #CCC;
+    background-color: #DDE8EB;
+    background-image: -moz-linear-gradient(#F8FBFC, #DDE8EB);
+    background-image: -webkit-linear-gradient(#F8FBFC, #DDE8EB);
+    background-image: linear-gradient(#F8FBFC, #DDE8EB);
+    background-repeat: repeat-x;
+}
+
+.comment-header-text {
+    display: inline-block;
+    max-width: 600px;
+    height: 33px;
+    line-height: 33px;
+    font-weight: bold;
+    color: #222;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.comment-header-time {
+    display: inline-block;
+    height: 33px;
+    line-height: 33px;
+    vertical-align: middle;
+    font-size: 12px;
+}
+
+.comment-content {
+    padding: 10px;
+    color: #333;
+    background: #FBFBFB;
+    overflow: auto;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.commit-content {
+    padding: 10px;
+    color: #333;
+    background: white;
+    overflow: auto;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.bubble {
+    padding: 3px;
+    background: #EEE;
+    border-radius: 3px;
+}
+
+.comment-bubble::before {
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+    border: 10px solid #EEE;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent #EEE transparent transparent;
+    position: absolute;
+    left: -10px;
+    top: 15px;
+}
+
+.status {
+    position: relative;
+    margin: 15px 0;
+    padding: 12px 19px 12px;
+    background-color: white;
+    border: 1px solid #DDD;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    z-index: 2;
+}
+
 .striped {
     background-image: url('../images/striped-background.png');
 }

@@ -24,7 +24,7 @@
 	 	<div class="span9">
   			<h1>Issues</h1>
             <g:each in="${issues}">
-                <g:formatIssue issue="${it}"/>
+                <g:formatIssues issue="${it}"/>
             </g:each>
             <g:formatIssue issue="${issue}"/>
     	</div><!--/span-->

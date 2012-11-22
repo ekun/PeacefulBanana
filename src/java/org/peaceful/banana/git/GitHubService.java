@@ -227,7 +227,7 @@ public class GitHubService {
                 for(RepositoryCommit repositoryCommit : commits) {
                     RepositoryCommit commit = userCommitService.getCommit(repository, repositoryCommit.getSha());
                     repositoryCommits.add(new CommitStatistics(commit.getStats().getAdditions(),
-                            commit.getStats().getDeletions(), contributor, commit.getCommit().getMessage()));
+                            commit.getStats().getDeletions(), contributor, commit.getCommit().getMessage(), commit.getCommit().getAuthor().getDate()));
                 }
             }
         } catch (IOException e) {

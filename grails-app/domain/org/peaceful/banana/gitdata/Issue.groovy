@@ -32,4 +32,8 @@ class Issue {
     List<IssueComment> getComments() {
         IssueComment.findAllByIssue(this, [sort:'createdAt', order:'asc']) as List
     }
+
+    List<Commit> getCommits() {
+        Commit.findAllByRepositoryAndMessageLike(repository,"%#"+this.number+"%", [sort: 'createdAt', order: 'asc'])
+    }
 }

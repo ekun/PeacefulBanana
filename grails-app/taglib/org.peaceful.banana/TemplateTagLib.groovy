@@ -7,6 +7,10 @@ class TemplateTagLib {
     }
 
     def formatIssue = { attrs ->
+        out << render(template: "singleIssueTemplate", model: [issue: attrs.issue])
+    }
+
+    def formatIssues = { attrs ->
         out << render(template: "issueTemplate", model: [issue: attrs.issue])
     }
 }
