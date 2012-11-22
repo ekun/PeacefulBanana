@@ -19,7 +19,7 @@
                     <li class="divider"></li>
                     <li class="nav-header">Milestones</li>
                     <g:each in="${selectedRepo.milestones}">
-                        <li><a href="${createLink(id: it.id)}">${it.title}<span class="label pull-right${it?.state == "closed" ? ' label-important">Closed' : it.dueOn?.before(new Date(System.currentTimeMillis())) ? ' label-warning">Overdue' : ' label-success">Open'}</span></a></li>
+                        <li ${params.getLong("id") == it.id ? 'class="active"' : ''}><a href="${createLink(action: 'milestone',id: it.id)}">${it.title}<span class="label pull-right${it?.state == "closed" ? ' label-important">Closed' : it.dueOn?.before(new Date(System.currentTimeMillis())) ? ' label-warning">Overdue' : ' label-success">Open'}</span></a></li>
                     </g:each>
 	            </ul>
 	        </div><!--/.well -->
@@ -39,10 +39,41 @@
                 <li ${params.get("id")=="all" ? 'class="active"' : ''}>
                     <a href="${createLink(action: 'milestone', id: 'all')}">All</a>
                 </li>
+                    ${selectedMilestone != null ? '<li class="active">\n' +
+                        '                    <a href="${createLink(action: \'milestone\', id: '+selectedMilestone.id+')}">'+selectedMilestone.title+'</a></li>' : ''}
             </ul>
-            <g:each in="${milestones}">
-                <g:formatMilestone milestone="${it}"/>
-            </g:each>
+            <div class="row" style="${selectedMilestone != null ? 'display: none;' : ''}">
+                <g:each in="${milestones}">
+                    <g:formatMilestone milestone="${it}"/>
+                </g:each>
+            </div>
+            <div class="row" style="${selectedMilestone == null ? 'display: none;' : ''}">
+                <div class="row-fluid">
+                    <div id="tagcloud" class="span12" style="height: 600px;">
+                        <g:each in="${teamTags}">
+                            <span data-weight="${it.value}">${it.key}</span>
+                        </g:each>
+                    </div>
+                </div>
+
+                <g:javascript src="awesomecloud.js" />
+                <script>
+                    var settings = {
+                        "size" : {
+                            "grid" : 4,
+                            "normalize" : true
+                        },
+                        "options" : {
+                            "color" : "random-dark",
+                            "printMultiplier" : 3,
+                            "sort" : "highest"
+                        },
+                        "font" : "Futura, Helvetica, sans-serif",
+                        "shape" : "square"
+                    };
+                    $( "#tagcloud" ).awesomeCloud( settings );
+                </script>
+            </div>
     	</div><!--/span-->
     </div><!--/row-->
 </body>

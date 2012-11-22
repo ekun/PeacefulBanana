@@ -45,6 +45,9 @@ class RepositoriesController {
                     it.state == "open"
                 }
 
+                def selectedMilestone = null
+                def teamTags = new HashMap<String, Integer>()
+
                 if (params.get("id") == "overdue") {
                     milestones = repository.getMilestones().findAll {
                         it.state == "open" && it.dueOn != null && it.dueOn.before(new Date(System.currentTimeMillis()))
@@ -55,9 +58,18 @@ class RepositoriesController {
                     }
                 } else if (params.get("id") == "all") {
                     milestones = repository.getMilestones()
+                } else if (params.get("id") != null) {
+                    selectedMilestone = repository.getMilestones().find {
+                        it.id == params.getLong("id")
+                    }
+
+                    selectedMilestone.issues.each {
+                        if(it.commits.size() > 0)
+                            teamTags.put(it.title, it.commits.size())
+                    }
                 }
 
-                [selectedRepo: repository, milestones: milestones]
+                [selectedRepo: repository, milestones: milestones, selectedMilestone: selectedMilestone, teamTags: teamTags]
             }
         }
     }
