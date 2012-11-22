@@ -63,15 +63,17 @@ class RepositoriesController {
                         it.id == params.getLong("id")
                     }
 
-                    selectedMilestone.issues.each {
-                        if(it.commits.size() > 0) {
-                            it.commits.each {
-                                it.message.split(" ").each {
-                                    if(it.startsWith("#")) {
-                                        if(teamTags.get(it.toLowerCase())){
-                                            teamTags.putAt(it.toLowerCase(), teamTags.get(it.toLowerCase()).intValue()+1)
-                                        } else {
-                                            teamTags.put(it.toLowerCase(),1)
+                    if(selectedMilestone) {
+                        selectedMilestone.issues.each {
+                            if(it.commits.size() > 0) {
+                                it.commits.each {
+                                    it.message.split(" ").each {
+                                        if(it.startsWith("#")) {
+                                            if(teamTags.get(it.toLowerCase())){
+                                                teamTags.putAt(it.toLowerCase(), teamTags.get(it.toLowerCase()).intValue()+1)
+                                            } else {
+                                                teamTags.put(it.toLowerCase(),1)
+                                            }
                                         }
                                     }
                                 }

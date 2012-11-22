@@ -26,7 +26,7 @@
 	    </div><!--/span-->
 	 	<div class="span9">
             <ul class="nav nav-tabs">
-                <li ${!params.get("id") ? 'class="active"' : ''}>
+                <li ${!params.get("id") || !selectedMilestone ? 'class="active"' : ''}>
                     <a href="${createLink(action: 'milestone')}">Open</a>
                 </li>
                 <li ${params.get("id")=="overdue" ? 'class="active"' : ''}>
