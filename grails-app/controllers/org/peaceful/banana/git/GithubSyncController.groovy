@@ -201,7 +201,12 @@ class GithubSyncController {
                         ).save(flush: true, failOnError: true)
                     }
                 } catch (ValidationException e) {
-                    log.error e.message
+                    if(it.type == "IssueCommentEvent") {
+                        def issueComment = IssueComment.findByGithubId(((IssueCommentPayload)it.payload).comment.id)
+                        issueComment.body = ((IssueCommentPayload)it.payload).comment.body
+                        issueComment.updatedAt = ((IssueCommentPayload)it.payload).comment.updatedAt
+                        issueComment.save(flush: true)
+                    }
                 }
             }
 
