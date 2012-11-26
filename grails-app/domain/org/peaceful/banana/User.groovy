@@ -21,6 +21,7 @@ class User {
 		username blank: false, unique: true
 		password blank: false
         oAuthToken nullable: true
+        email email: true
 	}
 
 	static mapping = {
