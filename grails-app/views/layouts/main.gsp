@@ -105,7 +105,9 @@
                             </ul>
                         </sec:ifLoggedIn>
                         <sec:ifNotLoggedIn>
-                            <p class="nav pull-right"><g:link controller='login' action='auth'>Login</g:link></p>
+                            <ul class="nav pull-right">
+                                <li><g:link controller='login' action='auth'>Login</g:link></li>
+                            </ul>
                         </sec:ifNotLoggedIn>
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px;">
                             <sec:ifLoggedIn>
