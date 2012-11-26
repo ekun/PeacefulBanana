@@ -74,14 +74,39 @@
                     </a>
                     <a class="brand" href="${createLinkTo(dir:'')}"><img src="${createLinkTo(dir:'images')}/banana-logo.png" width="18px"> Peaceful Banana</a>
                     <div class="nav-collapse collapse">
-                        <p class="navbar-text pull-right">
-                            <sec:ifLoggedIn>
-                                You are logged in as <sec:username/>. [<g:link controller='logout'>Log out</g:link>]
-                            </sec:ifLoggedIn>
-                            <sec:ifNotLoggedIn>
-                                <g:link controller='login' action='auth'>Login</g:link>
-                            </sec:ifNotLoggedIn>
-                        </p>
+                        <sec:ifLoggedIn>
+                            <ul class="nav nav-pills pull-right">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle"
+                                       data-toggle="dropdown"
+                                       href="#">
+                                        <i class="icon-user"></i> <sec:username/>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <!-- links -->
+                                        <li>
+                                            <a href="#"><i class="icon-thumbs-up"></i> Mood</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="icon-book"></i> Notes</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="${createLinkTo(dir:'settings')}">
+                                                <i class="icon-wrench"></i>
+                                                Settings
+                                            </a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><g:link controller='logout'><i class="mini-icon mini-icon-logout"></i> Log out</g:link></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </sec:ifLoggedIn>
+                        <sec:ifNotLoggedIn>
+                            <p class="nav pull-right"><g:link controller='login' action='auth'>Login</g:link></p>
+                        </sec:ifNotLoggedIn>
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px;">
                             <sec:ifLoggedIn>
                                 <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
@@ -95,12 +120,6 @@
                                     <a href="${createLinkTo(dir:'repositories')}">
                                         <i class="icon-folder-open"></i>
                                         Repository
-                                    </a>
-                                </li>
-                                <li ${controllerName.equals('settings') ? 'class="active"' : ''}>
-                                    <a href="${createLinkTo(dir:'settings')}">
-                                        <i class="icon-wrench"></i>
-                                        Settings
                                     </a>
                                 </li>
                             </sec:ifLoggedIn>

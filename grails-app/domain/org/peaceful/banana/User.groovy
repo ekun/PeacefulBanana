@@ -1,5 +1,7 @@
 package org.peaceful.banana
 
+import org.peaceful.banana.reflection.Note
+
 class User {
 
 	transient springSecurityService
@@ -31,6 +33,16 @@ class User {
 	Set<Role> getAuthorities() {
 		UserRole.findAllByUser(this).collect { it.role } as Set
 	}
+
+    List<Note> getAllNotes() {
+        Note.findAllByUser(this) as List
+    }
+
+    List<Note> getPublicNotes() {
+        Note.findAllByUserAndShared(this, true) as List
+    }
+
+
 
 	def beforeInsert() {
 		encodePassword()

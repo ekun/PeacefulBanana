@@ -6,6 +6,7 @@ class Note {
 
     Date createdAt
     String note
+    boolean shared = false
 
     static belongsTo = [user: User]
 
