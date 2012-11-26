@@ -18,7 +18,7 @@
                     <li><a href="${createLink(action: 'statistics')}">Statistics</a></li>
                     <li class="divider"></li>
                     <li class="nav-header">Milestones</li>
-                    <g:each in="${selectedRepo.milestones}">
+                    <g:each in="${selectedRepo.milestones.sort {it.state}.reverse()}">
                         <li ${params.getLong("id") == it.id ? 'class="active"' : ''}><a href="${createLink(action: 'milestone',id: it.id)}">${it.title}<span class="label pull-right${it?.state == "closed" ? ' label-important">Closed' : it.dueOn?.before(new Date(System.currentTimeMillis())) ? ' label-warning">Overdue' : ' label-success">Open'}</span></a></li>
                     </g:each>
 	            </ul>
@@ -40,7 +40,7 @@
                     <a href="${createLink(action: 'milestone', id: 'all')}">All</a>
                 </li>
                     ${selectedMilestone != null ? '<li class="active">\n' +
-                        '                    <a href="${createLink(action: \'milestone\', id: '+selectedMilestone.id+')}">'+selectedMilestone.title+'</a></li>' : ''}
+                        '<a href="${createLink(action: \'milestone\', id: '+selectedMilestone.id+')}">'+selectedMilestone.title+'</a></li>' : ''}
             </ul>
             <div class="row" style="${selectedMilestone != null ? 'display: none;' : ''}">
                 <g:each in="${milestones}">
