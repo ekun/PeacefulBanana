@@ -42,7 +42,9 @@ class User {
         Note.findAllByUserAndShared(this, true) as List
     }
 
-
+    List<Notification> getNotifications() {
+        Notification.findAllByUser(this, [sort: "createdAt", order:'desc', max: '5']) as List
+    }
 
 	def beforeInsert() {
 		encodePassword()

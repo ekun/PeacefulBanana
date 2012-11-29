@@ -1,3 +1,4 @@
+<%@ page import="org.peaceful.banana.User" %>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -100,6 +101,25 @@
                                         </li>
                                         <li class="divider"></li>
                                         <li><g:link controller='logout'><i class="mini-icon mini-icon-logout"></i> Log out</g:link></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-pills pull-right">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle"
+                                       data-toggle="dropdown"
+                                       href="#">
+                                        <i class="icon-inbox"></i>
+                                        <!--<b class="caret"></b> -->
+                                    </a>
+                                    <ul class="dropdown-menu" style="width: 300px;">
+                                        <!-- Notifications -->
+                                        <g:each in="${User.findByUsername(sec.loggedInUserInfo(field:'username')).notifications}">
+                                            <g:formatNotification notification="${it}" />
+                                        </g:each>
+                                        <!-- END Notifications -->
+                                        <li class="divider"></li>
+                                        <li><a href="#"><i class="icon-refresh"></i> See more</a></li> <!-- TODO: Style and link to some notification center -->
                                     </ul>
                                 </li>
                             </ul>

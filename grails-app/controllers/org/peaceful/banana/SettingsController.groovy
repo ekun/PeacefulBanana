@@ -32,7 +32,7 @@ class SettingsController {
             if (gitOAuthService.getUser() != null) {
                 gitUser = gitOAuthService.getUser()
             }
-            [user: user, gitUser: gitUser, repository: gitHubService.getRepository(user.selectedRepo)]
+            [user: user, gitUser: gitUser]
         }
     }
 

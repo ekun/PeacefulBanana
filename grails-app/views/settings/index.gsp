@@ -24,7 +24,7 @@
             </div>
             <div class="span6 offset1">
                 <p>${gitUser != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT linked your profile with github.">Important</span>'}</p>
-                <p>${repository != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT selected a repository.">Important</span>'}</p>
+                <p>${user.selectedRepo != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT selected a repository.">Important</span>'}</p>
             </div>
     	</div><!--/span-->
     </div><!--/row-->
