@@ -1,53 +1,39 @@
 package org.peaceful.banana
 
-import org.eclipse.egit.github.core.service.UserService
-import org.scribe.model.Token
-import org.eclipse.egit.github.core.User
-import org.eclipse.egit.github.core.service.RepositoryService
 import org.peaceful.banana.git.GitHubService
-import org.peaceful.banana.gitdata.Commit
-import org.peaceful.banana.json.GitDataController
 import org.peaceful.banana.git.GithubSyncController
+import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
-import grails.plugin.springsecurity.oauth.OAuthToken
 
 class SettingsController {
 
     static allowedMethods = [changeSelectedRepo: 'POST']
 
-    def GithubController githubController = new GithubController()
+    def springSecurityService
     GitHubService gitHubService
     OauthService oauthService
 
     def index() {
-        Token gitToken = githubController.getToken()
+        Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
 
-        def user = githubController.getPrincipal()
-        def User gitUser = null
+        def user = User.get(springSecurityService.principal.id)
 
         if (gitToken != null) {
-            def UserService gitOAuthService = githubController.setOAuthToken(gitToken.token)
             gitHubService = new GitHubService(gitToken)
 
-            if (gitOAuthService.getUser() != null) {
-                gitUser = gitOAuthService.getUser()
-            }
-            [user: user, gitUser: gitUser]
+            [user: user, gitUser: gitHubService.getAuthenticatedUser()]
         }
     }
 
     def github() {
-        def user = githubController.getPrincipal()
-        Token gitToken = githubController.getToken()
-        def User gitUser = null
+        def user = User.get(springSecurityService.principal.id)
+        Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
 
         if (gitToken != null) {
-            def UserService gitOAuthService = githubController.setOAuthToken(gitToken.token)
-            def RepositoryService repositoryService = new RepositoryService(gitOAuthService.getClient())
-            if (gitOAuthService.getUser() != null) {
-                gitUser = gitOAuthService.getUser()
-            }
-            [user: user, gitUser: gitUser, repositories: repositoryService.getRepositories()]
+
+            gitHubService = new GitHubService(gitToken)
+
+            [user: user, gitUser: gitHubService.getAuthenticatedUser(), repositories: gitHubService.getRepositories()]
         }
     }
     /**
@@ -57,7 +43,7 @@ class SettingsController {
      */
 
     def changeSelectedRepo() {
-        def user = githubController.getPrincipal()
+        def user = User.get(springSecurityService.principal.id)
         user?.selectedRepo = params.getLong("repoSelection")
         user.save()
 

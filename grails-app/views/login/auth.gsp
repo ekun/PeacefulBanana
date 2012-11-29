@@ -42,13 +42,13 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" action='${postUrl}' autocomplete='off'>
+    <form class="form-signin" action='${postUrl}' method='POST' id='loginForm' autocomplete='off'>
         <h2 class="form-signin-heading">Please sign in</h2>
         <g:if test='${flash.message}'>
             <div class="alert alert-error">${flash.message}</div>
         </g:if>
         <input type="text" class="input-block-level" name='j_username' id='username' placeholder="<g:message code="springSecurity.login.username.label"/>">
-        <input type="password" class="input-block-level" placeholder="<g:message code="springSecurity.login.password.label"/>">
+        <input type="password" class="input-block-level" name='j_password' id='password' placeholder="<g:message code="springSecurity.login.password.label"/>">
         <label class="checkbox">
             <input type="checkbox" value="remember-me" name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>> <g:message code="springSecurity.login.remember.me.label"/>
         </label>

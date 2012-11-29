@@ -148,7 +148,7 @@ class RepositoriesController {
 
 
                 // Generate tagcloud data
-                Commit.findAllByRepositoryAndLogin(repository, gitHubService.getAuthenticatedUser()).each {
+                Commit.findAllByRepositoryAndLogin(repository, gitHubService.getAuthenticatedUser().getLogin()).each {
                     if(!it.message.startsWith("Merge branch"))  {
                         it.message.replaceAll("[-+.^:,]","").split(' ').each {
                             if(!wordProcessor.isStopWord(it.toLowerCase())) {

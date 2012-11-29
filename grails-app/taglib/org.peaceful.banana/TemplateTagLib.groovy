@@ -18,8 +18,8 @@ class TemplateTagLib {
         out << '<li style="padding: 0 5px;">'
         out << '<a href="#">' // TODO: Sette link til riktig sted.
         out << '<!-- Notification -->'
-        out << '<p><b>'+attrs.notification.header+'</b></p>'
-        out << '<p>'+attrs.notification.body+'</p>'
+        out << '<p><b>'+attrs.notification?.header+'</b></p>'
+        out << '<p>'+attrs.notification?.body+'</p>'
         out << '<!-- END Notification -->'
         out << '</a>'
         out << '</li>'

@@ -249,11 +249,11 @@ public class GitHubService {
      * Get login of the currenctly authenticated user
      * @return
      */
-    public String getAuthenticatedUser() {
+    public User getAuthenticatedUser() {
         try {
-            return this.userService.getUser().getLogin();
+            return this.userService.getUser();
         } catch (IOException e) {
-            return "";
+            return null;
         }
     }
 
