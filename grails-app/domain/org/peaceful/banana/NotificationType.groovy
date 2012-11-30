@@ -16,6 +16,7 @@ public enum NotificationType {
     REFLECTION("reflection"),
     OTHER("other")
 
+
     String name
 
     public NotificationType(String name){
