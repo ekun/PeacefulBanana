@@ -36,14 +36,12 @@ class SettingsController {
             [user: user, gitUser: gitHubService.getAuthenticatedUser(), repositories: gitHubService.getRepositories()]
         }
     }
-    /**
-     * method to changeSelectedRepo in settings
-     * this could maybe be moved into githubcontroller, but it is settings specific so it might aswell be here =)
-     * @return
-     */
 
     def changeSelectedRepo() {
         def user = User.get(springSecurityService.principal.id)
+        if(user?.selectedRepo == 0){
+            new Notification(user: user, )
+        }
         user?.selectedRepo = params.getLong("repoSelection")
         user.save()
 

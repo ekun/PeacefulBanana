@@ -5,8 +5,9 @@ class Notification {
     String title
     String body
     boolean unread = true
-    Date createdAt
+    Date dateCreated
     boolean cleared = false
+    String type
 
     static belongsTo = [user: User]
 

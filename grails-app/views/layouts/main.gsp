@@ -119,7 +119,11 @@
                                         </g:each>
                                         <!-- END Notifications -->
                                         <li class="divider"></li>
-                                        <li><a href="#"><i class="icon-refresh"></i> See more</a></li> <!-- TODO: Style and link to some notification center -->
+                                        <li>
+                                            <center>
+                                                <a href="${createLink(controller: 'notification', action: 'center')}"><i class="icon-inbox"></i> Notification Center</a>
+                                            </center>
+                                        </li> <!-- TODO: Style and link to some notification center -->
                                     </ul>
                                 </li>
                             </ul>
