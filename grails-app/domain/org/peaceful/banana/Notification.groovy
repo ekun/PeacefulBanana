@@ -5,7 +5,7 @@ class Notification {
     String title
     String body
     boolean unread = true
-    Date dateCreated
+    Date dateCreated // should be set by GORM
     boolean cleared = false
     NotificationType notificationType
 

@@ -40,7 +40,7 @@ class SettingsController {
     def changeSelectedRepo() {
         def user = User.get(springSecurityService.principal.id)
         if(user?.selectedRepo == 0){
-            new Notification(user: user, )
+            new Notification(user: user, title: "Congratulations", body: "You have selected your first project!", notificationType: NotificationType.OTHER).save(flush: true)
         }
         user?.selectedRepo = params.getLong("repoSelection")
         user.save()
