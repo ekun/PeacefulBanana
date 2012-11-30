@@ -43,7 +43,7 @@ class User {
     }
 
     List<Notification> getNotifications() {
-        Notification.findAllByUser(this, [sort: "createdAt", order:'desc', max: '5']) as List
+        Notification.findAllByUser(this, [sort: "dateCreated", order:'desc', max: '5']) as List
     }
 
 	def beforeInsert() {
