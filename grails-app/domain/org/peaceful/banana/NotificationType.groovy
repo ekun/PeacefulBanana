@@ -13,7 +13,7 @@ public enum NotificationType {
         Collaborativ session
 
      */
-    COLLABORATIV_SESSION("Collaborativ session"),
+    COLLABORATIVE_SESSION("Collaborative session"),
     FIVE_MIN_REFLECTION("5 min reflection session"),
     OTHER("OTHER"),
     REFLECTION("reflection")
