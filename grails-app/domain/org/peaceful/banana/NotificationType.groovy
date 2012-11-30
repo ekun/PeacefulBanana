@@ -15,7 +15,8 @@ public enum NotificationType {
      */
     COLLABORATIV_SESSION("Collaborativ session"),
     FIVE_MIN_REFLECTION("5 min reflection session"),
-    OTHER("OTHER")
+    OTHER("OTHER"),
+    REFLECTION("reflection")
 
 
     String name
