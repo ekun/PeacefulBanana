@@ -16,7 +16,10 @@ class TemplateTagLib {
 
     def formatNotification = { attrs ->
         out << '<li style="padding: 0 5px;">'
-        out << '<a href="#">' // TODO: Sette link til riktig sted.
+        if(attrs.notification?.unread)
+            out << '<a href="#" style="background-color: #e2f1fb;">' // TODO: Sette link til riktig sted.
+        else
+            out << '<a href="#">' // TODO: Sette link til riktig sted.
         out << '<!-- Notification -->'
         out << '<p><b>'+attrs.notification?.title+'</b></p>'
         out << '<p>'+attrs.notification?.body+'</p>'
