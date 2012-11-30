@@ -12,5 +12,6 @@ class Notification {
     static belongsTo = [user: User]
 
     static constraints = {
+        notificationType nullable: false
     }
 }
