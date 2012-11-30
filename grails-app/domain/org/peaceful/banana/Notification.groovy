@@ -7,7 +7,7 @@ class Notification {
     boolean unread = true
     Date dateCreated
     boolean cleared = false
-    String type
+    NotificationType notificationType
 
     static belongsTo = [user: User]
 
