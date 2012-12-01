@@ -99,9 +99,10 @@ log4j = {
 grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
 
 grails.plugins.springsecurity.interceptUrlMap = [
-        '/secure/**':    ['ROLE_ADMIN'],
-        '/repositories/**':   ['ROLE_ADMIN', 'ROLE_USER'],
-        '/settings/**':   ['ROLE_ADMIN', 'ROLE_USER']
+        '/secure/**':           ['ROLE_ADMIN'],
+        '/repositories/**':     ['ROLE_ADMIN', 'ROLE_USER'],
+        '/notification/**':     ['ROLE_ADMIN', 'ROLE_USER'],
+        '/settings/**':         ['ROLE_ADMIN', 'ROLE_USER']
 ]
 
 oauth {

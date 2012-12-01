@@ -11,4 +11,10 @@ class NotificationController {
 
         [user: user]
     }
+
+    def trash() {
+        def user = User.get(springSecurityService.principal.id)
+
+        [trash: Notification.findAllByUserAndCleared(user, true), user: user]
+    }
 }
