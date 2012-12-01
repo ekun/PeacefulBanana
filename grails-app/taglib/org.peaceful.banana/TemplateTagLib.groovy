@@ -15,11 +15,24 @@ class TemplateTagLib {
     }
 
     def formatNotification = { attrs ->
+        def controller = ""
+        def action = ""
+        switch(attrs.notification?.notificationType){
+            case NotificationType.REFLECTION:
+                controller = "reflection"
+                break;
+
+            default:
+                controller = "notification"
+                action = "center"
+                break;
+        }
+
         out << '<li style="padding: 0 5px;">'
         if(attrs.notification?.unread)
-            out << '<a href="#" style="background-color: #e2f1fb;">' // TODO: Sette link til riktig sted.
+            out << '<a href="'+createLink(controller: controller, action: action)+'" style="background-color: #e2f1fb;">' // TODO: Sette link til riktig sted.
         else
-            out << '<a href="#">' // TODO: Sette link til riktig sted.
+            out << '<a href="'+createLink(controller: controller, action: action)+'">' // TODO: Sette link til riktig sted.
         out << '<!-- Notification -->'
         out << '<p><b>'+attrs.notification?.title+'</b></p>'
         out << '<p>'+attrs.notification?.body+'</p>'
