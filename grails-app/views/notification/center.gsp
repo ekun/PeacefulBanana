@@ -17,7 +17,7 @@
     </div><!--/span-->
     <div class="span9">
         <g:each in="${user.getNotifications()}">
-            ${it.title}
+            <g:formatNotificationLarge notification="${it}" />
         </g:each>
     </div><!--/span-->
 </div><!--/row-->
