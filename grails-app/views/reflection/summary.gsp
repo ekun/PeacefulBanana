@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Notification Center</title>
+    <title>Daily summary</title>
     <r:require modules="bootstrap"/>
 </head>
 <body>
@@ -17,10 +17,10 @@
     <div class="span9">
         <div class="row-fluid">
             <div class="pull-left">
-                <h1>Team tagcloud</h1>
+                <h1>Impact</h1>
             </div>
             <div class="pull-right">
-                <h1 class="pull-right">My tagcloud</h1>
+                <h1 class="pull-right">My Tagcloud</h1>
             </div>
         </div>
         <div class="row-fluid">
@@ -70,6 +70,39 @@
                 }).responseText;
             }
         </g:javascript>
+        <hr>
+        <h3>Something</h3>
+        <form class="form-horizontal" action="#">
+            <div class="control-group">
+                <label class="control-label" for="moodSelector">Mood</label>
+                <div class="controls">
+                    <select class="span3" id="moodSelector">
+                        <option value="1">Very sad</option>
+                        <option value="25">Sad</option>
+                        <option value="50">Neutral</option>
+                        <option value="75">Happy</option>
+                        <option value="100">Very happy</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="contributions">Top 2 contributions</label>
+                <div class="controls">
+                    <textarea rows="3" class="span3" id="contributions"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="contributions">Top 2 improvements</label>
+                <div class="controls">
+                    <textarea rows="3" class="span3" id="improvements"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn">Submit</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div><!--/row-->
 </body>

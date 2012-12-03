@@ -10,7 +10,7 @@
 	        <div class="well sidebar-nav">
 	            <ul class="nav nav-list">
 	                <li class="nav-header">Menu</li>
-                    <li class="active"><a href="${createLink(action: '')}">${selectedRepo.name}</a></li>
+                    <li class="active"><a href="${createLink(action: '')}">${selectedRepo?.name}</a></li>
 	                <li><a href="${createLink(action: 'milestone')}">Milestones</a></li>
                     <li><a href="${createLink(action: 'issue')}">Issues</a></li>
                     <li><a href="${createLink(action: 'tagcloud')}">Tagcloud</a></li>
@@ -20,8 +20,8 @@
 	    </div><!--/span-->
 	 	<div class="span9">
   			<h1>
-              ${selectedRepo != null ? (selectedRepo.name) : ''} </h1>
-            <p>${selectedRepo != null ? selectedRepo.description : ''}</p>
+              ${selectedRepo != null ? (selectedRepo?.name) : ''} </h1>
+            <p>${selectedRepo != null ? selectedRepo?.description : ''}</p>
     	</div><!--/span-->
     </div><!--/row-->
 </body>
