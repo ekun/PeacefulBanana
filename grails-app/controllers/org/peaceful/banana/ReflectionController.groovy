@@ -1,4 +1,4 @@
-package peacefulbanana
+package org.peaceful.banana
 
 class ReflectionController {
 

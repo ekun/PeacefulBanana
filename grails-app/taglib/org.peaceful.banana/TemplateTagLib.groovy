@@ -34,7 +34,7 @@ class TemplateTagLib {
         out << render(template: "largeNotificationTemplate", model: [notification: attrs.notification])
     }
 
-    private StreamCharBuffer getLink(NotificationType notificationType) {
+    private String getLink(NotificationType notificationType) {
         def controller = ""
         def action = ""
         switch(notificationType){

@@ -92,7 +92,7 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 
-    debug   'grails.app'
+    debug   'grails.app.org.peaceful.banana'
 }
 
 
