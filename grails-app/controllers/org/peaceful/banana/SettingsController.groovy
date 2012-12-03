@@ -33,6 +33,9 @@ class SettingsController {
 
             gitHubService = new GitHubService(gitToken)
 
+            user.gitLogin = gitHubService.getAuthenticatedUser().login
+            user.save()
+
             [user: user, gitUser: gitHubService.getAuthenticatedUser(), repositories: gitHubService.getRepositories()]
         }
     }

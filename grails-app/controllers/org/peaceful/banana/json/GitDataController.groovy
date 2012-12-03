@@ -45,4 +45,30 @@ class GitDataController {
 
         render table as JSON
     }
+
+    def yourimpact() {
+        def user = User.get(springSecurityService.principal.id)
+
+        def columns = []
+        columns << [label: 'User', type: 'string']
+        columns << [label: 'Impact', type: 'number']
+
+        def rows = []
+        def cells
+
+        Commit.executeQuery("SELECT login, SUM(total) FROM Commit WHERE repository = :repository AND createdAt > :date GROUP BY login",
+                [repository: Repository.findByGithubId(user.selectedRepo), date: new Date(System.currentTimeMillis()-86400000)]).each {
+            cells = []
+            if (it[0] == user.gitLogin){
+                cells << [v: "YOU"] << [v: it[1]]
+            } else {
+                cells << [v: it[0]] << [v: it[1]]
+            }
+            rows << ['c': cells]
+        }
+
+        def table = [cols: columns, rows: rows]
+
+        render table as JSON
+    }
 }

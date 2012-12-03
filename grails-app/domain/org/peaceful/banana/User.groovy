@@ -17,6 +17,7 @@ class User {
 	boolean accountLocked
 	boolean passwordExpired
     String oAuthToken
+    String gitLogin
 
 
 	static constraints = {
@@ -24,6 +25,7 @@ class User {
 		password blank: false
         oAuthToken nullable: true
         email email: true
+        gitLogin nullable: true
 	}
 
 	static mapping = {
