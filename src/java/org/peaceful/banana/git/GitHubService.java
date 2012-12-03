@@ -107,8 +107,6 @@ public class GitHubService {
             for(Contributor contributor : collaboratorsList) {
                 if (contributor.getLogin() != null) {
                     collaborators.add(contributor.getLogin());
-                } else {
-                    collaborators.add(contributor.getName());
                 }
             }
         } catch (IOException e) {

@@ -10,22 +10,32 @@
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
                 <li class="nav-header">Menu</li>
-                <li class="active"><a href="${createLink(action: 'center')}">Notification Center</a></li>
-                <li><a href="${createLink(action: 'unread')}">Unread</a></li>
+                <li class="active"><a href="${createLink(action: 'center')}">Summary</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
-    <div>
-    <div id="tagcloud" class="span6" style="height: 600px;">
-        <g:each in="${tagCloud}">
-            <span data-weight="${it.value}">${it.key}</span>
-        </g:each>
+    <div class="span9">
+        <div class="row-fluid">
+            <div class="pull-left">
+                <h1>Team tagcloud</h1>
+            </div>
+            <div class="pull-right">
+                <h1 class="pull-right">My tagcloud</h1>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div id="piechart" class="span6" style="width: 600px;"></div>
+            <div id="tagcloud" class="span6 pull-right" style="width: 800px;height: 400px;">
+            <g:each in="${tagCloud}">
+                <span data-weight="${it.value}">${it.key}</span>
+            </g:each>
+        </div>
     </div>
     <g:javascript src="awesomecloud.js" />
         <g:javascript>
             var settings = {
                 "size" : {
-                    "grid" : 4,
+                    "grid" : 2,
                     "normalize" : false
                 },
                 "options" : {
@@ -60,7 +70,6 @@
                 }).responseText;
             }
         </g:javascript>
-        <div id="piechart" class="span6"></div>
     </div>
 </div><!--/row-->
 </body>
