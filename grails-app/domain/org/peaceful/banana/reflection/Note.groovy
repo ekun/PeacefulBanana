@@ -4,16 +4,24 @@ import org.peaceful.banana.User
 
 class Note {
 
-    Date createdAt
-    String note
+    int mood
+    String contributions
+    String improvements
+    Date dateCreated // should be set by GORM
     boolean shared = false
 
     static belongsTo = [user: User]
 
-    static mapping = {
-        note type: 'text'
+    static constraints = {
+        mood range: 1..100
     }
 
-    static constraints = {
+    static mapping = {
+        contributions type: "text"
+        improvements type: "text"
     }
 }
+
+
+
+
