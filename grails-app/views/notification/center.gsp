@@ -16,9 +16,13 @@
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <g:each in="${user.getNotifications()}">
+        <h3>Notification Center</h3>
+        <g:each in="${!params.id ? user.getNotifications() : selected}">
             <g:formatNotificationLarge notification="${it}" />
         </g:each>
+        ${params.id && !selected ? '<div class="alert alert-error">\n' +
+                '<strong>Error</strong> Invalid id.' +
+                '</div>' : ''}
     </div><!--/span-->
 </div><!--/row-->
 </body>

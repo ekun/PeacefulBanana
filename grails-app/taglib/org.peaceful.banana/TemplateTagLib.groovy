@@ -19,9 +19,9 @@ class TemplateTagLib {
     def formatNotification = { attrs ->
         out << '<li style="padding: 0 5px;">'
         if(attrs.notification?.unread)
-            out << '<a href="'+getLink(attrs.notification?.notificationType)+'" style="background-color: #e2f1fb;">' // TODO: Sette link til riktig sted.
+            out << '<a href="'+getLink(attrs.notification?.notificationType)+'/'+attrs.notification?.id+'" style="background-color: #e2f1fb;">' // TODO: Sette link til riktig sted.
         else
-            out << '<a href="'+getLink(attrs.notification?.notificationType)+'">' // TODO: Sette link til riktig sted.
+            out << '<a href="'+getLink(attrs.notification?.notificationType)+'/'+attrs.notification?.id+'">' // TODO: Sette link til riktig sted.
         out << '<!-- Notification -->'
         out << '<p><b>'+attrs.notification?.title+'</b></p>'
         out << '<p>'+attrs.notification?.body+'</p>'
@@ -32,6 +32,15 @@ class TemplateTagLib {
 
     def formatNotificationLarge = { attrs ->
         out << render(template: "largeNotificationTemplate", model: [notification: attrs.notification])
+    }
+
+    def summaryForm = { attrs ->
+        if (!attrs.completed)
+            out << render(template: "summaryForm")
+        else {
+            out << "<hr>"
+            out << "<p>You have already submitted your summary today.</p>"
+        }
     }
 
     private String getLink(NotificationType notificationType) {

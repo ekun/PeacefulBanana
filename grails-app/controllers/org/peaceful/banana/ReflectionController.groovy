@@ -1,6 +1,7 @@
 package org.peaceful.banana
 
 import org.peaceful.banana.gitdata.Commit
+import org.peaceful.banana.reflection.Note
 
 class ReflectionController {
 
@@ -30,6 +31,7 @@ class ReflectionController {
             }
         }
 
-        [tagCloud: teamTags, user: user]
+        [tagCloud: teamTags, user: user, submittedForm: Note.findAllByUserAndDateCreatedGreaterThanEquals(user,
+                new Date(System.currentTimeMillis()-86400000)).size() > 0]
     }
 }

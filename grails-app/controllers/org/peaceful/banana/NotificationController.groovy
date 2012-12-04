@@ -8,8 +8,17 @@ class NotificationController {
 
     def center() {
         def user = User.get(springSecurityService.principal.id)
-        log.debug "Debug enabled?"
-        [user: user]
+        def selectedNotification
+
+        if (params.get("id")) {
+            selectedNotification = Notification.findByUserAndId(user, params.getInt("id"))
+            if (selectedNotification) {
+                selectedNotification.unread = false
+                selectedNotification.save()
+            }
+        }
+
+        [user: user, selected: selectedNotification]
     }
 
     def unread() {

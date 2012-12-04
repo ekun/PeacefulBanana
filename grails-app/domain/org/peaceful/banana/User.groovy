@@ -1,5 +1,7 @@
 package org.peaceful.banana
 
+import org.peaceful.banana.reflection.Note
+
 class User {
 
 	transient springSecurityService
@@ -36,6 +38,10 @@ class User {
 
     List<Notification> getNotifications() {
         Notification.findAllByUser(this, [sort: "dateCreated", order:'desc', max: '5']) as List
+    }
+
+    List<Note> getNotes() {
+        Note.findAllByUser(this) as List
     }
 
 	def beforeInsert() {
