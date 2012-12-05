@@ -44,6 +44,10 @@ class User {
         Notification.findAllByUserAndCleared(this, false) as List
     }
 
+    List<Notification> getLatestReflectionNotification() {
+        Notification.findAllByUserAndClearedAndNotificationType(this, false, NotificationType.REFLECTION, [sort: "dateCreated", order:'desc', max: '1']) as List
+    }
+
     List<Note> getNotes() {
         Note.findAllByUser(this) as List
     }
