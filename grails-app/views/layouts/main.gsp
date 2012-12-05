@@ -1,4 +1,4 @@
-<%@ page import="org.peaceful.banana.User" %>
+<%@ page import="org.peaceful.banana.Notification; org.peaceful.banana.User" %>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -110,6 +110,9 @@
                                        data-toggle="dropdown"
                                        href="#">
                                         <i class="icon-inbox"></i>
+                                        <g:if test="${Notification.findAllByUserAndUnread(User.findByUsername(sec.loggedInUserInfo(field:'username')), true).size() > 0}">
+                                            <span class="badge badge-important">${Notification.findAllByUserAndUnread(User.findByUsername(sec.loggedInUserInfo(field:'username')),true).size()}</span>
+                                        </g:if>
                                         <!--<b class="caret"></b> -->
                                     </a>
                                     <ul class="dropdown-menu" style="width: 300px;">
