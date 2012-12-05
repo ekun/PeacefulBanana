@@ -13,7 +13,6 @@ import org.peaceful.banana.gitdata.IssueEvent
 import org.eclipse.egit.github.core.event.IssuesPayload
 import org.eclipse.egit.github.core.event.IssueCommentPayload
 import org.peaceful.banana.gitdata.IssueComment
-import org.eclipse.egit.github.core.event.PushPayload
 
 class GithubSyncController {
 

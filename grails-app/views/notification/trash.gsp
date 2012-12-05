@@ -23,9 +23,20 @@
                 <strong>Success!</strong> The notification has been put in the trash.
             </div>
         </g:if>
-        <g:each in="${trash}">
-            <g:formatNotificationLarge notification="${it}" />
-        </g:each>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <g:sortableColumn property="title" title="Subject" />
+            <g:sortableColumn property="dateCreated" title="Received" />
+            <td class="span1"></td>
+        </tr>
+        </thead>
+        <tbody>
+        <div id="wookie">
+            <g:formatNotificationList notifications="${trash}"/>
+        </div>
+        </tbody>
+    </table>
     </div><!--/span-->
 </div><!--/row-->
 </body>

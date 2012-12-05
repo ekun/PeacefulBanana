@@ -18,9 +18,18 @@
     </div><!--/span-->
     <div class="span9">
         <h3>Unread</h3>
-        <g:each in="${unread}">
-            <g:formatNotificationLarge notification="${it}" />
-        </g:each>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <g:sortableColumn property="title" title="Subject" />
+                <g:sortableColumn property="dateCreated" title="Received" />
+                <td class="span1"></td>
+            </tr>
+            </thead>
+            <tbody>
+                <g:formatNotificationList notifications="${unread}"/>
+            </tbody>
+        </table>
     </div><!--/span-->
 </div><!--/row-->
 </body>

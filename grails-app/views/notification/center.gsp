@@ -18,12 +18,27 @@
     </div><!--/span-->
     <div class="span9">
         <h3>Inbox</h3>
-        <g:each in="${!params.id ? user.getNotifications() : selected}">
-            <g:formatNotificationLarge notification="${it}" />
-        </g:each>
+        <div id="feedback"></div>
+        <g:if test="${!params.id}">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <g:sortableColumn property="title" title="Subject" />
+                    <g:sortableColumn property="dateCreated" title="Received" />
+                    <td class="span1"></td>
+                </tr>
+                </thead>
+                <tbody>
+                    <g:formatNotificationList notifications="${user.getAllNotifications()}"/>
+                </tbody>
+            </table>
+        </g:if>
+        <g:if test="${params.id}">
         ${params.id && !selected ? '<div class="alert alert-error">\n' +
                 '<strong>Error</strong> Invalid id.' +
                 '</div>' : ''}
+            <g:formatNotificationLarge notification="${selected}" />
+        </g:if>
     </div><!--/span-->
 </div><!--/row-->
 </body>
