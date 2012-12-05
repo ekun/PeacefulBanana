@@ -37,7 +37,11 @@ class User {
 	}
 
     List<Notification> getNotifications() {
-        Notification.findAllByUser(this, [sort: "dateCreated", order:'desc', max: '5']) as List
+        Notification.findAllByUserAndCleared(this, false, [sort: "dateCreated", order:'desc', max: '5']) as List
+    }
+
+    List<Notification> getAllNotifications() {
+        Notification.findAllByUserAndCleared(this, false) as List
     }
 
     List<Note> getNotes() {

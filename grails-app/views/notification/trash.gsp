@@ -10,20 +10,22 @@
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
                 <li class="nav-header">Notification Center</li>
-                <li class="active"><a href="${createLink(action: 'center')}">Inbox</a></li>
+                <li><a href="${createLink(action: 'center')}">Inbox</a></li>
                 <li><a href="${createLink(action: 'unread')}">Unread</a></li>
-                <li><a href="${createLink(action: 'trash')}">Trash</a></li>
+                <li class="active"><a href="${createLink(action: 'trash')}">Trash</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h3>Inbox</h3>
-        <g:each in="${!params.id ? user.getNotifications() : selected}">
+        <h3>Trash</h3>
+        <g:if test="${params.id && trashed}">
+            <div class="alert alert-success">
+                <strong>Success!</strong> The notification has been put in the trash.
+            </div>
+        </g:if>
+        <g:each in="${trash}">
             <g:formatNotificationLarge notification="${it}" />
         </g:each>
-        ${params.id && !selected ? '<div class="alert alert-error">\n' +
-                '<strong>Error</strong> Invalid id.' +
-                '</div>' : ''}
     </div><!--/span-->
 </div><!--/row-->
 </body>

@@ -24,12 +24,21 @@ class NotificationController {
     def unread() {
         def user = User.get(springSecurityService.principal.id)
 
-        [trash: Notification.findAllByUserAndCleared(user, true), user: user]
+        [unread: Notification.findAllByUserAndCleared(user, true), user: user]
     }
 
     def trash() {
         def user = User.get(springSecurityService.principal.id)
+        def trashed
 
-        [trash: Notification.findAllByUserAndCleared(user, true), user: user]
+        if (params.get("id")) {
+            trashed = Notification.findByUserAndId(user, params.getInt("id"))
+            if (trashed) {
+                trashed.cleared = true
+                trashed.save(flush: true)
+            }
+        }
+
+        [trash: Notification.findAllByUserAndCleared(user, true), user: user, trashed: trashed]
     }
 }
