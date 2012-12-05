@@ -45,14 +45,14 @@ class SettingsController {
         def today = new Date().clearTime() //Today from 00:00:00
         if(user?.selectedRepo == 0){
             new Notification(user: user, title: "Congratulations", body: "You have selected your first project!", notificationType: NotificationType.OTHER).save(flush: true)
-            new Notification(user: user, title: "Daily Reflection", body: "You have not completed your daily reflection! Click here to do this now", notificationType: NotificationType.REFLECTION).save(flush: true)
+            new Notification(user: user, title: "Reminder: Daily Reflection", body: "You have not completed your daily reflection! Click here to do this now", notificationType: NotificationType.REFLECTION).save(flush: true)
         }
         else {
-            def latestNotification = user?.getLatestReflectionNotification()?.get(0)?.dateCreated //Improve this
+            def latestNotification = user?.getLatestReflectionNotification()?.dateCreated
 
             // Create a new reflection notification if one haven't been made today.
             if(latestNotification != null && latestNotification.before(today))  {
-                new Notification(user: user, title: "Daily reflection", body: "You have not completed your daily reflection! Click here to do this now", notificationType: NotificationType.REFLECTION).save(flush: true)
+                new Notification(user: user, title: "Reminder: Daily reflection", body: "You have not completed your daily reflection! Click here to do this now", notificationType: NotificationType.REFLECTION).save(flush: true)
                 //Clicking notification should lead to summary form
             }
         }
