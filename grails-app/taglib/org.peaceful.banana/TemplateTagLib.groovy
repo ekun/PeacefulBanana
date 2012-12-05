@@ -21,14 +21,13 @@ class TemplateTagLib {
      * will allways link to notification center
      */
     def formatNotification = { attrs ->
-        out << '<li style="padding: 0 5px;">'
+        out << '<li style="padding: 1px 5px;">'
         if(attrs.notification?.unread)
             out << '<a href="'+createLink(controller: 'notification', action: 'center', id: attrs.notification?.id)+'" style="background-color: #e2f1fb;">' // TODO: Sette link til riktig sted.
         else
             out << '<a href="'+createLink(controller: 'notification', action: 'center', id: attrs.notification?.id)+'">' // TODO: Sette link til riktig sted.
         out << '<!-- Notification -->'
-        out << '<p><b>'+attrs.notification?.title+'</b></p>'
-        out << '<p>'+attrs.notification?.body+'</p>'
+        out << '<b>'+attrs.notification?.title+'</b>'
         out << '<!-- END Notification -->'
         out << '</a>'
         out << '</li>'
