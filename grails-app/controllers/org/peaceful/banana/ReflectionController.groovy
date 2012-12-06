@@ -2,17 +2,32 @@ package org.peaceful.banana
 
 import org.peaceful.banana.gitdata.Commit
 import org.peaceful.banana.reflection.Note
+import org.hibernate.classic.ValidationFailure
 
 class ReflectionController {
 
-    static defaultAction = "center"
-
     def springSecurityService
+    static allowedMethods = [summary: ['POST','GET']]
 
-    def center() { }
+    def index() {
+        def user = User.get(springSecurityService.principal.id)
+
+        [notes: Note.findAllByUser(user,params), notesCount: Note.countByUser(user)]
+    }
 
     def summary() {
         def user = User.get(springSecurityService.principal.id)
+
+        if (params.get("id") == "save") {
+            // post data is set, now handle it
+            try {
+                log.error params.getInt("moodSelector")
+                new Note(mood: params.getInt("moodSelector"), contributions: params.get("contributions"), improvements: params.get("improvements"), user: user).save(flush: true, failOnError: true)
+            } catch (ValidationFailure e) {
+                log.error "Something went wrong!"
+            }
+        }
+
         def teamTags = new HashMap<String, Integer>()        //
 
         // generate summary

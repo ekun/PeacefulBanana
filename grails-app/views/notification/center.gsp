@@ -12,7 +12,7 @@
                 <li class="nav-header">Notification Center</li>
                 <li class="active"><a href="${createLink(action: 'center')}">Inbox</a></li>
                 <li><a href="${createLink(action: 'unread')}">Unread</a></li>
-                <li><a href="${createLink(action: 'trash')}">Trash</a></li>
+                <li><a href="${createLink(action: 'archive')}">Archived</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
@@ -25,13 +25,14 @@
                 <tr>
                     <g:sortableColumn property="title" title="Subject" />
                     <g:sortableColumn property="dateCreated" title="Received" />
-                    <td class="span1"></td>
+                    <th></th>
                 </tr>
                 </thead>
-                <tbody>
-                    <g:formatNotificationList notifications="${user.getAllNotifications()}"/>
+                <tbody id="target">
+                    <g:formatNotificationList notifications="${notifications}"/>
                 </tbody>
             </table>
+            <center><g:paginate controller="notification" maxsteps="5" action="center" total="${notificationsCount}"/></center>
         </g:if>
         <g:if test="${params.id}">
         ${params.id && !selected ? '<div class="alert alert-error">\n' +
@@ -41,5 +42,15 @@
         </g:if>
     </div><!--/span-->
 </div><!--/row-->
+<g:javascript>
+    function reloadList() {
+        $.ajax({type: "POST",
+            url: "${createLink(controller: 'notification', action: 'ajaxGetNotificationList')}",
+            success: function(msg){
+                document.getElementById('target').innerHTML = msg;
+            }
+        });
+    }
+</g:javascript>
 </body>
 </html>

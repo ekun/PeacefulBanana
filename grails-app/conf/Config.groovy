@@ -127,3 +127,5 @@ grails.plugins.springsecurity.authority.className = 'org.peaceful.banana.Role'
 
 // Added by the Spring Security OAuth plugin:
 grails.plugins.springsecurity.oauth.domainClass = 'org.peaceful.banana.OAuthID'
+
+grails.plugins.twitterbootstrap.fixtaglib = true

@@ -21,7 +21,8 @@ class NotificationController {
             }
         }
 
-        [user: user, selected: selectedNotification]
+        [notifications: Notification.findAllByUserAndCleared(user,false,params), notificationsCount: Notification.countByUserAndCleared(user, false),
+                user: user, selected: selectedNotification]
     }
 
     def unread() {
@@ -30,7 +31,7 @@ class NotificationController {
         [unread: Notification.findAllByUserAndCleared(user, true), user: user]
     }
 
-    def trash() {
+    def archive() {
         def user = User.get(springSecurityService.principal.id)
         def trashed
 
@@ -69,15 +70,9 @@ class NotificationController {
         render "<div class='alert alert-success'>The notification has been put in the trash.</div>"
     }
 
-    def ajaxGetNotifications() {
+    def ajaxGetNotificationList() {
         def user = User.get(springSecurityService.principal.id) // get the user logged in from session
 
-        user.getAllNotifications() as JSON
-    }
-
-    def ajaxGetUnreadNotifications() {
-        def user = User.get(springSecurityService.principal.id) // get the user logged in from session
-
-        Notification.findAllByUserAndUnread(user, true) as JSON
+        render(template: 'listNotification', model: [notifications: Notification.findAllByUserAndCleared(user,false)])
     }
 }

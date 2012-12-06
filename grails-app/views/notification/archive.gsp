@@ -12,7 +12,7 @@
                 <li class="nav-header">Notification Center</li>
                 <li><a href="${createLink(action: 'center')}">Inbox</a></li>
                 <li><a href="${createLink(action: 'unread')}">Unread</a></li>
-                <li class="active"><a href="${createLink(action: 'trash')}">Trash</a></li>
+                <li class="active"><a href="${createLink(action: 'archive')}">Archived</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
@@ -20,7 +20,7 @@
         <h3>Trash</h3>
         <g:if test="${params.id && trashed}">
             <div class="alert alert-success">
-                <strong>Success!</strong> The notification has been put in the trash.
+                <strong>Success!</strong> The notification has been put in the archive.
             </div>
         </g:if>
     <table class="table table-striped">
@@ -28,7 +28,7 @@
         <tr>
             <g:sortableColumn property="title" title="Subject" />
             <g:sortableColumn property="dateCreated" title="Received" />
-            <td class="span1"></td>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +38,16 @@
         </tbody>
     </table>
     </div><!--/span-->
+    <g:javascript>
+        function reloadList() {
+            $.ajax({type: "POST",
+                url: "/notification/ajaxGetNotificationList",
+                success: function(msg){
+                    document.getElementById('target').innerHTML = msg;
+                }
+            });
+        }
+    </g:javascript>
 </div><!--/row-->
 </body>
 </html>

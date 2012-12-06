@@ -12,7 +12,7 @@
                 <li class="nav-header">Notification Center</li>
                 <li><a href="${createLink(action: 'center')}">Inbox</a></li>
                 <li class="active"><a href="${createLink(action: 'unread')}">Unread</a></li>
-                <li><a href="${createLink(action: 'trash')}">Trash</a></li>
+                <li><a href="${createLink(action: 'archive')}">Archived</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
