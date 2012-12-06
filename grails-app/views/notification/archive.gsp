@@ -17,7 +17,7 @@
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h3>Trash</h3>
+        <h3>Archive</h3>
         <g:if test="${params.id && trashed}">
             <div class="alert alert-success">
                 <strong>Success!</strong> The notification has been put in the archive.

@@ -23,7 +23,7 @@
             <tr>
                 <g:sortableColumn property="title" title="Subject" />
                 <g:sortableColumn property="dateCreated" title="Received" />
-                <td class="span1"></td>
+                <th></th>
             </tr>
             </thead>
             <tbody>
