@@ -19,6 +19,7 @@ class User {
     String oAuthToken
     String gitLogin
 
+    static belongsTo = [team: Team]
 
 	static constraints = {
 		username blank: false, unique: true
