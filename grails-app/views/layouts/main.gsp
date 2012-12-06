@@ -110,8 +110,8 @@
                                        data-toggle="dropdown"
                                        href="#">
                                         <i class="icon-inbox"></i>
-                                        <g:if test="${Notification.findAllByUserAndUnread(User.findByUsername(sec.loggedInUserInfo(field:'username')), true).size() > 0}">
-                                            <span class="badge badge-important">${Notification.findAllByUserAndUnread(User.findByUsername(sec.loggedInUserInfo(field:'username')),true).size()}</span>
+                                        <g:if test="${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec.loggedInUserInfo(field:'username')), true, false).size() > 0}">
+                                            <span class="badge badge-important">${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec.loggedInUserInfo(field:'username')),true,false).size()}</span>
                                         </g:if>
                                         <!--<b class="caret"></b> -->
                                     </a>
