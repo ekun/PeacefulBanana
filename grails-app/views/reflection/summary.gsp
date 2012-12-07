@@ -10,8 +10,9 @@
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection</li>
-                <li><a href="${createLink(action: '')}">Index</a></li>
+                <li><a href="${createLink(action: '')}">Notes</a></li>
                 <li class="active"><a href="${createLink(action: 'summary')}">Summary</a></li>
+                <li><a href="${createLink(action: 'mood')}">Mood</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
@@ -71,7 +72,7 @@
                 }).responseText;
             }
         </g:javascript>
-        <g:if test="${note.validate() && !note.hasErrors()}">
+        <g:if test="${note && !note.hasErrors()}">
             <div class="alert alert-success">
                 <strong>Success!</strong> Your summary has been saved and you can view it <a href="${createLink(action: 'index')}">here</a>.
             </div>

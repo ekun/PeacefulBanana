@@ -16,7 +16,7 @@ class ReflectionController {
 
     def summary() {
         def user = User.get(springSecurityService.principal.id)
-        def note = new Note()
+        def note
 
         if (params.get("moodSelector") || params.get("contributions") || params.get("improvements")) {
             // post data is set, now handle it
@@ -44,5 +44,11 @@ class ReflectionController {
 
         [tagCloud: teamTags, user: user, submittedForm: Note.findAllByUserAndDateCreatedGreaterThanEquals(user,
                 new Date(System.currentTimeMillis()-86400000)).size() > 0, note: note]
+    }
+
+    def mood() {
+        def user = User.get(springSecurityService.principal.id)
+
+        // retrieve the users mood-data.
     }
 }

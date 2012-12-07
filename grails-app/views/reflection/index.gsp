@@ -10,8 +10,9 @@
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection</li>
-                <li class="active"><a href="${createLink(action: 'index')}">Notes</a></li>
+                <li class="active"><a href="${createLink(action: '')}">Notes</a></li>
                 <li><a href="${createLink(action: 'summary')}">Summary</a></li>
+                <li><a href="${createLink(action: 'mood')}">Mood</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->

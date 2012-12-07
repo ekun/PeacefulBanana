@@ -77,7 +77,7 @@ log4j = {
     // Example of changing the log pattern for the default console appender:
     //
     appenders {
-        console name:'stdout', layout:pattern(conversionPattern: '[%d{HH:mm:ss:SSS}] %-5p %c{2}: %m%n"')
+        console name:'stdout', layout:pattern(conversionPattern: '[%d{HH:mm:ss.SSS}] %-5p %c{2}: %m%n')
     }
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers

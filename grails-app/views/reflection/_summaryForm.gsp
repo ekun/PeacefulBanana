@@ -7,25 +7,25 @@
             <select class="span3" id="moodSelector" name="moodSelector">
                 <option value="1">Very sad</option>
                 <option value="25">Sad</option>
-                <option value="50">Neutral</option>
+                <option value="50" selected="">Neutral</option>
                 <option value="75">Happy</option>
                 <option value="100">Very happy</option>
             </select>
-            <span class="help-inline"><g:hasErrors bean="${note}"><g:message error="${note?.errors?.getFieldError("mood")}" /></g:hasErrors></span>
+            <span class="help-inline">Select your mood</span>
         </div>
     </div>
     <div class="control-group ${hasErrors(bean:note,field:'contributions','error')}">
         <label class="control-label" for="contributions">Top 2 contributions</label>
         <div class="controls">
-            <textarea rows="6" class="span5" id="contributions" name="contributions"></textarea>
+            <textarea rows="6" class="span5" id="contributions" name="contributions">${note?.errors?.getFieldValue("contributions")}</textarea>
             <span class="help-inline"><g:hasErrors bean="${note}"><g:message error="${note?.errors?.getFieldError("contributions")}" /></g:hasErrors></span>
         </div>
     </div>
     <div class="control-group ${hasErrors(bean:note,field:'improvements','error')}">
         <label class="control-label" for="improvements">Top 2 improvements</label>
         <div class="controls">
-            <textarea rows="6" class="span5" id="improvements" name="improvements"></textarea>
-            <span class="help-inline"><g:hasErrors bean="${note}"><g:message error="${note?.errors?.getFieldError("improvements")}" /></g:hasErrors></span>
+            <textarea rows="6" class="span5" id="improvements" name="improvements">${note?.errors?.getFieldValue("improvements")}</textarea>
+            <span class="help-inline"><g:hasErrors bean="${note}"><g:message message="${note?.errors?.getFieldError("improvements")}" /></g:hasErrors></span>
         </div>
     </div>
     <div class="control-group">
