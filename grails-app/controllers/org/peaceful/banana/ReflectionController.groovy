@@ -2,7 +2,6 @@ package org.peaceful.banana
 
 import org.peaceful.banana.gitdata.Commit
 import org.peaceful.banana.reflection.Note
-import org.hibernate.classic.ValidationFailure
 
 class ReflectionController {
 
@@ -17,15 +16,12 @@ class ReflectionController {
 
     def summary() {
         def user = User.get(springSecurityService.principal.id)
+        def note = new Note()
 
-        if (params.get("id") == "save") {
+        if (params.get("moodSelector") || params.get("contributions") || params.get("improvements")) {
             // post data is set, now handle it
-            try {
-                log.error params.getInt("moodSelector")
-                new Note(mood: params.getInt("moodSelector"), contributions: params.get("contributions"), improvements: params.get("improvements"), user: user).save(flush: true, failOnError: true)
-            } catch (ValidationFailure e) {
-                log.error "Something went wrong!"
-            }
+            note = new Note(mood: params.getInt("moodSelector"), contributions: params.get("contributions"), improvements: params.get("improvements"), user: user)
+            note.save() // Validating
         }
 
         def teamTags = new HashMap<String, Integer>()        //
@@ -47,6 +43,6 @@ class ReflectionController {
         }
 
         [tagCloud: teamTags, user: user, submittedForm: Note.findAllByUserAndDateCreatedGreaterThanEquals(user,
-                new Date(System.currentTimeMillis()-86400000)).size() > 0]
+                new Date(System.currentTimeMillis()-86400000)).size() > 0, note: note]
     }
 }

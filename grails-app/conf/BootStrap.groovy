@@ -2,6 +2,8 @@
 import org.peaceful.banana.Role
 import org.peaceful.banana.User
 import org.peaceful.banana.UserRole
+import org.peaceful.banana.Team
+import org.peaceful.banana.TeamUser
 
 class BootStrap {
 
@@ -15,6 +17,11 @@ class BootStrap {
 
         testUser = new User(username: 'marius', enabled: true, password: 'password', firstName: 'Marius', lastName: 'Glittum', email: 'ekunamatata@gmail.com')
         testUser.save(flush:  true)
+
+        def team = new Team(name: "Test")
+        team.save(flush: true)
+
+        TeamUser.create testUser, team, true
 
         UserRole.create testUser, userRole, true
 

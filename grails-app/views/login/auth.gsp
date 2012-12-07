@@ -50,7 +50,7 @@
         <input type="text" class="input-block-level" name='j_username' id='username' placeholder="<g:message code="springSecurity.login.username.label"/>">
         <input type="password" class="input-block-level" name='j_password' id='password' placeholder="<g:message code="springSecurity.login.password.label"/>">
         <label class="checkbox">
-            <input type="checkbox" value="remember-me" name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>> <g:message code="springSecurity.login.remember.me.label"/>
+            <input type="checkbox" name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>> <g:message code="springSecurity.login.remember.me.label"/>
         </label>
         <button class="btn btn-large btn-primary" type="submit">${message(code: "springSecurity.login.button")}</button>
     </form>

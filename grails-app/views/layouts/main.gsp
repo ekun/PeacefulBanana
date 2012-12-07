@@ -87,10 +87,10 @@
                                     <ul class="dropdown-menu">
                                         <!-- links -->
                                         <li>
-                                            <a href="#"><i class="icon-thumbs-up"></i> Mood</a>
+                                            <a href="${createLink(controller: 'reflection', action: 'mood')}"><i class="icon-thumbs-up"></i> Mood</a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="icon-book"></i> Notes</a>
+                                            <a href="${createLink(controller: 'reflection')}"><i class="icon-book"></i> Notes</a>
                                         </li>
                                         <li class="divider"></li>
                                         <li>
