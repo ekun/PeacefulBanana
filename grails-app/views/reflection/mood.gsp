@@ -23,20 +23,24 @@
     </div><!--/span-->
 </div><!--/row-->
 <g:javascript>
-    google.load('visualization', '1', {'packages':['annotatedtimeline']});
+    google.load('visualization', '1', {'packages':["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart() {
         var jsonData = $.ajax({
             url: "${createLink(controller: 'reflectionData', action: 'mood')}",
             dataType:"json",
             async: true,
-            success: function(jsdata) {
+            success: function(jsonData) {
                 // Create our data table out of JSON data loaded from server.
-                var data = new google.visualization.DataTable(jsdata);
+                var data = new google.visualization.DataTable(jsonData);
+
+                var options = {
+                    title: 'Mood Graph '
+                };
 
                 // Instantiate and draw our chart, passing in some options.
-                var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
-                chart.draw(data, {width: 700, height: 480, displayAnnotations: false});
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
             }
         }).responseText;
     }
