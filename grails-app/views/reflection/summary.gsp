@@ -33,7 +33,7 @@
             </g:each>
         </div>
     </div>
-    <g:javascript src="awesomecloud.js" />
+        <g:javascript src="awesomecloud.js" />
         <g:javascript>
             var settings = {
                 "size" : {
