@@ -11,7 +11,20 @@ class ReflectionController {
     def index() {
         def user = User.get(springSecurityService.principal.id)
 
-        [notes: Note.findAllByUser(user,params), notesCount: Note.countByUser(user)]
+        def notes
+        switch (params.get("id")){
+            case "sharedwith":
+                notes = Note.findAllByUserInListAndShared(TeamUser.findByUserAndActive(user, true).collect {it.user}, true, params)
+                break;
+            case "shared":
+                notes = Note.findAllByUserAndShared(user, true, params)
+                break;
+            default:
+                notes = Note.findAllByUser(user, params)
+                break;
+        }
+
+        [notes: notes, notesCount: Note.countByUser(user)]
     }
 
     def summary() {

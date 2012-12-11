@@ -10,8 +10,7 @@
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection</li>
-                <li><a href="${createLink(action: '')}">Notes</a></li>
-                <li class="active"><a href="${createLink(action: 'summary')}">Summary</a></li>
+                <li class="active"><a href="${createLink(action: '')}">Notes</a></li>
                 <li><a href="${createLink(action: 'mood')}">Mood</a></li>
             </ul>
         </div><!--/.well -->
@@ -19,7 +18,7 @@
     <div class="span9">
         <div class="row-fluid">
             <div class="pull-left">
-                <h1>Impact</h1>
+                <h1><a href="${createLink(action: '')}" alt="Back" title="Back"><i class="mega-icon mega-icon-arr-left"></i></a> Impact</h1>
             </div>
             <div class="pull-right">
                 <h1 class="pull-right">My Tagcloud</h1>
@@ -27,7 +26,7 @@
         </div>
         <div class="row-fluid">
             <div id="piechart" class="span6" style="width: 600px;"></div>
-            <div id="tagcloud" class="span6 pull-right" style="width: 800px;height: 400px;">
+            <div id="tagcloud" class="span6 pull-right" style="width: 600px;height: 300px;">
             <g:each in="${tagCloud}">
                 <span data-weight="${it.value}">${it.key}</span>
             </g:each>

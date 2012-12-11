@@ -11,13 +11,12 @@
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection</li>
                 <li><a href="${createLink(action: 'index')}">Notes</a></li>
-                <li><a href="${createLink(action: 'summary')}">Summary</a></li>
                 <li class="active"><a href="${createLink(action: 'mood')}">Mood</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h3>Mood</h3>
+        <h1>Mood</h1>
         <p>Here you will be presented with a mood-graph.</p>
         <div id='chart_div' style='width: 700px; height: 480px;'></div>
     </div><!--/span-->

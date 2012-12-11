@@ -1,4 +1,4 @@
-<%@ page import="org.joda.time.DateTime" %>
+<%@ page import="org.peaceful.banana.User; org.joda.time.DateTime" %>
 <g:each in="${notes}">
     <tr>
         <td>
@@ -8,6 +8,9 @@
             <joda:time value="${new DateTime(it.dateCreated)}">
                 <joda:format value="${it}" pattern="yyyy-MM-dd HH:mm:ss" />
             </joda:time>
+        </td>
+        <td>
+            ${it.user == User.findByUsername(sec.loggedInUserInfo(field:'username')) ? 'You' : it.user.firstName + " " + it.user.lastName}
         </td>
         <td>
             <div class="pull-right">

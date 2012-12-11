@@ -33,7 +33,7 @@ class ReflectionDataController {
         def cells
 
         // Gather mood-data with timestamps
-        Note.findAllByUser(user).each {
+        Note.findAllByUser(user, [sort: "dateCreated", order:'asc']).each {
             cells = []
             cells << [v: it.dateCreated.dateString] << [v: it.mood]
             rows << ['c': cells]

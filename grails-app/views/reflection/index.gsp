@@ -11,35 +11,38 @@
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection</li>
                 <li class="active"><a href="${createLink(action: '')}">Notes</a></li>
-                <li><a href="${createLink(action: 'summary')}">Summary</a></li>
                 <li><a href="${createLink(action: 'mood')}">Mood</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h3>Notes</h3>
+        <h1>Notes <a href="${createLink(action: 'summary')}" alt="Create note" title="Create note"><i class="mega-icon mega-icon-add"></i></a></h1>
+        <ul class="nav nav-tabs">
+            <li ${!params.get("id") ? 'class="active"' : ''}>
+                <a href="${createLink(action: '')}">Your</a>
+            </li>
+            <li ${params.get("id")=="shared" ? 'class="active"' : ''}>
+                <a href="${createLink(action: '', id: 'shared')}">Your shared</a>
+            </li>
+            <li ${params.get("id")=="sharedwith" ? 'class="active"' : ''}>
+                <a href="${createLink(action: '', id: 'sharedwith')}">Shared with you</a>
+            </li>
+        </ul>
         <div id="feedback"></div>
-        <g:if test="${!params.id}">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <g:sortableColumn property="id" title="#" />
-                    <g:sortableColumn property="dateCreated" title="Created" />
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody id="target">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <g:sortableColumn property="id" title="#" />
+                <g:sortableColumn property="dateCreated" title="Created" />
+                <g:sortableColumn property="user" title="User" />
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="target">
                 <g:formatNotesList notes="${notes}"/>
-                </tbody>
-            </table>
-            <center><g:paginate controller="reflection" maxsteps="5" action="index" total="${notesCount}"/></center>
-        </g:if>
-        <g:if test="${params.id}">
-            ${params.id && !selected ? '<div class="alert alert-error">\n' +
-                    '<strong>Error</strong> Invalid id.' +
-                    '</div>' : ''}
-            <g:formatNotesLarge notification="${selected}" />
-        </g:if>
+            </tbody>
+        </table>
+        <center><g:paginate controller="reflection" maxsteps="5" action="index" total="${notesCount}"/></center>
     </div><!--/span-->
 </div><!--/row-->
 <g:javascript>
