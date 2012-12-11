@@ -65,14 +65,14 @@ class NotificationController {
 
         if (fail) {
             response.status = 500
-            render "<div class='alert alert-error'>Failed to put the notification in the trash.</div>"
+            render "<div class='alert alert-error'>Failed to archive the notification.</div>"
         }
-        render "<div class='alert alert-success'>The notification has been put in the trash.</div>"
+        render "<div class='alert alert-success'>The notification has been archived.</div>"
     }
 
     def ajaxGetNotificationList() {
         def user = User.get(springSecurityService.principal.id) // get the user logged in from session
 
-        render(template: 'listNotification', model: [notifications: Notification.findAllByUserAndCleared(user,false)])
+        render(template: 'listNotification', model: [notifications: Notification.findAllByUserAndCleared(user,false,params)])
     }
 }

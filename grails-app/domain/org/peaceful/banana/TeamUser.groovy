@@ -5,6 +5,7 @@ class TeamUser implements Serializable {
     User user
     Team team
     TeamRole role = TeamRole.DEVELOPER
+    boolean active
 
     static mapping = {
         id composite:['user','team']

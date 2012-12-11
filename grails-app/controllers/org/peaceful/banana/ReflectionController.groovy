@@ -51,4 +51,24 @@ class ReflectionController {
 
         // retrieve the users mood-data.
     }
+
+    def ajaxShareNote() {
+        def user = User.get(springSecurityService.principal.id)
+        def note = Note.findByUserAndId(user, params.getLong("id"))
+        if (note) {
+            note.shared = true
+            note.save()
+
+            render "<div class='alert alert-success'>The note has been shared.</div>"
+        } else {
+            response.status = 500
+            render "<div class='alert alert-error'>Failed to share the note.</div>"
+        }
+    }
+
+    def ajaxGetNoteList() {
+        def user = User.get(springSecurityService.principal.id) // get the user logged in from session
+
+        render(template: 'listNote', model: [notes: Note.findAllByUser(user,params)])
+    }
 }

@@ -40,8 +40,17 @@
                     '</div>' : ''}
             <g:formatNotesLarge notification="${selected}" />
         </g:if>
-
     </div><!--/span-->
 </div><!--/row-->
+<g:javascript>
+    function reloadList() {
+        $.ajax({type: "POST",
+            url: "${createLink(controller: 'reflection', action: 'ajaxGetNoteList', params: params)}",
+            success: function(msg){
+                document.getElementById('target').innerHTML = msg;
+            }
+        });
+    }
+</g:javascript>
 </body>
 </html>

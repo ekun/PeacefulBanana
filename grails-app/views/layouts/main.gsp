@@ -47,6 +47,13 @@
                     onSyncing();
                     onSyncComplete();
                 }
+            },
+            error: function(data) {
+                $("#syncBtn").removeClass("btn-primary");
+                $("#syncBtn").addClass("btn-danger");
+                $("#syncBtn").attr("disabled", "disabled");
+                $("#syncBtn").addClass("disabled");
+                $("#syncBtn").attr("value", "Missing github token");
             }
         });
 
@@ -149,6 +156,18 @@
                                     <a href="${createLinkTo(dir:'repositories')}">
                                         <i class="icon-folder-open"></i>
                                         Repository
+                                    </a>
+                                </li>
+                                <li ${controllerName.equals('reflection') ? 'class="active"' : ''}>
+                                    <a href="${createLinkTo(dir:'reflection')}">
+                                        <i class="icon-book"></i>
+                                        Reflection
+                                    </a>
+                                </li>
+                                <li ${controllerName.equals('team') ? 'class="active"' : ''}>
+                                    <a href="${createLinkTo(dir:'team')}">
+                                        <i class="icon-globe"></i>
+                                        Team
                                     </a>
                                 </li>
                             </sec:ifLoggedIn>

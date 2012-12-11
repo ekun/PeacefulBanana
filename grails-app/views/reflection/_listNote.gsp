@@ -12,7 +12,7 @@
         <td>
             <div class="pull-right">
                 <g:if test="${!it.shared}">
-                    <g:submitToRemote class="btn btn-primary btn-mini" action="ajaxShareItem" id="${it?.id}"
+                    <g:submitToRemote class="btn btn-primary btn-mini" action="ajaxShareNote" id="${it?.id}"
                     update="feedback"
                     value="Share" onComplete="reloadList();"/>
                 </g:if>

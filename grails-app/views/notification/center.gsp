@@ -45,7 +45,7 @@
 <g:javascript>
     function reloadList() {
         $.ajax({type: "POST",
-            url: "${createLink(controller: 'notification', action: 'ajaxGetNotificationList')}",
+            url: "${createLink(controller: 'notification', action: 'ajaxGetNotificationList', params: params)}",
             success: function(msg){
                 document.getElementById('target').innerHTML = msg;
             }
