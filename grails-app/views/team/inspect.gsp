@@ -22,12 +22,12 @@
             <tr>
                 <g:sortableColumn property="id" title="#" />
                 <g:sortableColumn property="lastName" title="Name" />
-                <g:sortableColumn property="teamRole()" title="Role" />
+                <th>Role</th>
                 <th></th>
             </tr>
             </thead>
             <tbody id="target">
-            <g:formatTeamMembers users="${team.getMembers()}"/>
+            <g:formatTeamMembers users="${teamMembers}"/>
             </tbody>
         </table>
         <center><g:paginate controller="team" maxsteps="5" action="inspect" total="${team.getMembers().size()}"/></center>

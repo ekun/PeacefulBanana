@@ -20,7 +20,7 @@ class TeamController {
 
         // Retrieve all users in the team
         // Check if all of the users have set the correct repo
-        [team: team, user: user]
+        [team: team, teamMembers: User.findAllByIdInList(TeamUser.findAllByTeam(team).user.id, params), user: user]
     }
 
     def ajaxSwapTeam() {
