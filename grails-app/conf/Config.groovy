@@ -129,3 +129,7 @@ grails.plugins.springsecurity.authority.className = 'org.peaceful.banana.Role'
 grails.plugins.springsecurity.oauth.domainClass = 'org.peaceful.banana.OAuthID'
 
 grails.plugins.twitterbootstrap.fixtaglib = true
+
+grails.plugin.cloudfoundry.username = "ekunamatata@gmail.com"
+grails.plugin.cloudfoundry.password = "x8182AFa"
+grails.plugin.cloudfoundry.appname = "peacefulbanana"

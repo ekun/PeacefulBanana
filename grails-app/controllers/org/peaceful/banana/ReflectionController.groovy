@@ -13,11 +13,8 @@ class ReflectionController {
 
         def notes
         switch (params.get("id")){
-            case "sharedwith":
-                notes = Note.findAllByUserInListAndShared(TeamUser.findByUserAndActive(user, true).collect {it.user}, true, params)
-                break;
             case "shared":
-                notes = Note.findAllByUserAndShared(user, true, params)
+                notes = Note.findAllByUserInListAndShared(user.getActiveTeam().getMembers(), true, params)
                 break;
             default:
                 notes = Note.findAllByUser(user, params)

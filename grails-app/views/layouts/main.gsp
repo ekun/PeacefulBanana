@@ -72,7 +72,7 @@
         }
 
     </g:javascript>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-inverse navbar-fixed-top" style="z-index: 100001;">
             <div class="navbar-inner">
                 <div class="container-fluid">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -178,12 +178,11 @@
         </div>
     <div class="container-fluid">
         <g:layoutBody/>
-        <hr>
-
-        <footer>
-            <p>© The Plain Penguin Company 2012</p>
-        </footer>
-
+    </div>
+    <div id="footer">
+        <div class="container">
+            <p class="muted credit">© The Plain Penguin Company 2012</p>
+        </div>
     </div>
         <r:layoutResources/>
     </body>

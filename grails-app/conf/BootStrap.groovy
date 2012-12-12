@@ -15,7 +15,7 @@ class BootStrap {
         testUser.save(flush: true)
         UserRole.create testUser, adminRole, true
 
-        def team = new Team(name: "Test")
+        def team = new Team(name: "Test", repository: 6260348)
         team.save(flush: true)
 
         TeamUser.create testUser, team, true

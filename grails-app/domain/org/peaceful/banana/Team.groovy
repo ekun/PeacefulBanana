@@ -9,4 +9,8 @@ class Team {
         name blank:  false
         repository nullable: true, blank: true
     }
+
+    List<User> getMembers() {
+        TeamUser.findAllByTeam(this).user
+    }
 }

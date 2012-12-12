@@ -19,13 +19,10 @@
         <h1>Notes <a href="${createLink(action: 'summary')}" alt="Create note" title="Create note"><i class="mega-icon mega-icon-add"></i></a></h1>
         <ul class="nav nav-tabs">
             <li ${!params.get("id") ? 'class="active"' : ''}>
-                <a href="${createLink(action: '')}">Your</a>
+                <a href="${createLink(action: '')}">My notes</a>
             </li>
             <li ${params.get("id")=="shared" ? 'class="active"' : ''}>
-                <a href="${createLink(action: '', id: 'shared')}">Your shared</a>
-            </li>
-            <li ${params.get("id")=="sharedwith" ? 'class="active"' : ''}>
-                <a href="${createLink(action: '', id: 'sharedwith')}">Shared with you</a>
+                <a href="${createLink(action: '', id: 'shared')}">Shared notes</a>
             </li>
         </ul>
         <div id="feedback"></div>

@@ -51,6 +51,25 @@ class User {
         Note.findAllByUser(this) as List
     }
 
+    Team activeTeam() {
+        TeamUser.findByUserAndActive(this, true)?.team
+    }
+
+    TeamRole teamRole() {
+        TeamUser.findByUserAndActive(this, true)?.role
+    }
+
+    def setActiveTeam(Team team) {
+        def teamUserOld = TeamUser.findByUserAndTeam(this, this.getActiveTeam())
+        teamUserOld.active = false
+        teamUserOld.save()
+        def teamUserNew = TeamUser.findByUserAndTeam(this, team)
+        teamUserNew.active = true
+        teamUserNew.save()
+
+        this.selectedRepo = team.repository
+    }
+
 	def beforeInsert() {
 		encodePassword()
 	}
@@ -64,4 +83,8 @@ class User {
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
 	}
+
+    String toString() {
+        return this.firstName + " " + this.lastName
+    }
 }

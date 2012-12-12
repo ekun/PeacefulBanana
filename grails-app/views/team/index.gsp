@@ -1,3 +1,4 @@
+<%@ page import="org.peaceful.banana.gitdata.Repository" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -16,8 +17,8 @@
     </div><!--/span-->
     <div class="span9">
         <h3>Dashboard</h3>
-        <p>Here you will see your team.</p>
-        <p>Should you select one team as active at a time perhaps?</p>
+        <p><a href="${createLink(action: 'inspect')}">${team.name}</a></p>
+        <p><a href="${createLink(controller: 'repositories')}">${Repository.findByGithubId(team.repository).name}</a></p>
     </div><!--/span-->
 </div><!--/row-->
 </body>
