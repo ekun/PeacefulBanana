@@ -37,10 +37,8 @@ class GithubSyncController {
 
             render table  as JSON
         } else {
-            if (!session[oauthService.findSessionKeyForAccessToken('github')])
-                response.status = 500 // Failing
             def table = [update: false]
-            render table  as JSON
+            render(table) as JSON
         }
     }
 

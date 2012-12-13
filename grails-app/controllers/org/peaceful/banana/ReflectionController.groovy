@@ -53,7 +53,7 @@ class ReflectionController {
         }
 
         [tagCloud: teamTags, user: user, submittedForm: Note.findAllByUserAndDateCreatedGreaterThanEquals(user,
-                new Date(System.currentTimeMillis()-86400000)).size() > 0, note: note]
+                new Date(System.currentTimeMillis()).clearTime()).size() > 0, note: note]
     }
 
     def mood() {

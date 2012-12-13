@@ -40,20 +40,19 @@
             url: "${createLink(controller: 'githubSync', action: 'index')}",
             dataType:"json",
             async: true,
-            success: function(data) {
+            complete: function(data) {
                 if(data.update) {
                     $("#gotUpdate").show();
+                } else if(data.status == 500) {
+                    $("#syncBtn").removeClass("btn-primary");
+                    $("#syncBtn").addClass("btn-danger");
+                    $("#syncBtn").attr("disabled", "disabled");
+                    $("#syncBtn").addClass("disabled");
+                    $("#syncBtn").attr("value", "Missing github token");
                 } else {
                     onSyncing();
                     onSyncComplete();
                 }
-            },
-            error: function(data) {
-                $("#syncBtn").removeClass("btn-primary");
-                $("#syncBtn").addClass("btn-danger");
-                $("#syncBtn").attr("disabled", "disabled");
-                $("#syncBtn").addClass("disabled");
-                $("#syncBtn").attr("value", "Missing github token");
             }
         });
 

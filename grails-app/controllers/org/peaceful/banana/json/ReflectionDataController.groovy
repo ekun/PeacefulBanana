@@ -21,22 +21,43 @@ class ReflectionDataController {
     def mood() {
         def user = User.get(springSecurityService.principal.id)
 
+        def teamMember = user.activeTeam().members
+
         def columns = []
         columns << [label: 'Date', type: 'string']
-        columns << [label: user.firstName + " " + user.lastName, type: 'number']
-
-        // Team mood blir da kolonner slik:
-        // columns << [label: username1, type: 'number']
-        // columns << [label: username2, type: 'number']
+        teamMember.each {
+            columns << [label: it.firstName + " " + it.lastName, type: 'number']
+        }
 
         def rows = []
         def cells
 
-        // Gather mood-data with timestamps
-        Note.findAllByUser(user, [sort: "dateCreated", order:'asc']).each {
-            cells = []
-            cells << [v: it.dateCreated.dateString] << [v: it.mood]
-            rows << ['c': cells]
+        def i = 0
+        def memberNr = 0
+        // Gather mood-data with timestampss
+        teamMember.each {
+            i = 0
+            Note.findAllByUser(it, [sort: "dateCreated", order:'asc']).each {
+                cells = []
+                if (memberNr == 0){
+                    cells << [v:  it.dateCreated.dateString] << [v: it.mood]
+                    rows << ['c': cells]
+                } else {
+                    if (rows.size() <= i) {
+                        if (!cells.empty)
+                            cells.clear()
+                        cells << [v:  it.dateCreated.dateString]
+                        while(cells.size() < memberNr+1)
+                            cells << [v: null]
+                        cells << [v:  it.mood]
+                        rows << ['c': cells]
+                    } else {
+                        rows.get(i).c << [v: it.mood]
+                    }
+                }
+                i++
+            }
+            memberNr++
         }
         /**
          * Gather team average
