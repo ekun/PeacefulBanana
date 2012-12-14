@@ -52,6 +52,7 @@ class ReflectionDataController {
                         cells << [v:  it.mood]
                         rows << ['c': cells]
                     } else {
+                        // TODO: insert on correct date when it.dateCreated > c.v 
                         rows.get(i).c << [v: it.mood]
                     }
                 }
