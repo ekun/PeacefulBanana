@@ -1,5 +1,6 @@
-package org.peaceful.banana
+package org.peaceful.banana.reflection
 
+import org.peaceful.banana.User
 import org.peaceful.banana.gitdata.Commit
 import org.peaceful.banana.reflection.Note
 

@@ -1,4 +1,8 @@
-package org.peaceful.banana
+package org.peaceful.banana.reflection
+
+import org.peaceful.banana.Team
+import org.peaceful.banana.TeamUser
+import org.peaceful.banana.User
 
 class TeamController {
 
@@ -12,6 +16,11 @@ class TeamController {
         // Retrieve all users in the team
         // Check if all of the users have set the correct repo
         [team: team, user: user]
+    }
+
+    def create() {
+        // Show repositories that
+        def user = User.get(springSecurityService.principal.id)
     }
 
     def inspect() {
