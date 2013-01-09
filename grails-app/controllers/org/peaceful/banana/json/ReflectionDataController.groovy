@@ -22,9 +22,14 @@ class ReflectionDataController {
         def user = User.get(springSecurityService.principal.id)
 
         def teamMember = user.activeTeam().members
+        // Gathering the first ever note created by this team
+        def firstNote = Note.findAllByUserInList(teamMember, [sort: "dateCreated", order: "asc", max: 1]) // Get the first!
+
+        teamMember.remove(firstNote[0].user)
 
         def columns = []
         columns << [label: 'Date', type: 'string']
+        columns << [label: firstNote[0].user.firstName + " " + firstNote[0].user.lastName, type: 'number']
         teamMember.each {
             columns << [label: it.firstName + " " + it.lastName, type: 'number']
         }
@@ -33,27 +38,56 @@ class ReflectionDataController {
         def cells
 
         def i = 0
-        def memberNr = 0
+        def memberNr = 1
+
         // Gather mood-data with timestampss
+        // From the member with the earliest note
+        Note.findAllByUser(firstNote[0].user, [sort: "dateCreated", order:'asc']).each {
+            cells = []
+            cells << ['v':  it.dateCreated.dateString] << ['v': it.mood]
+            rows << ['c': cells]
+        }
+        // From the rest
         teamMember.each {
             i = 0
             Note.findAllByUser(it, [sort: "dateCreated", order:'asc']).each {
                 cells = []
-                if (memberNr == 0){
-                    cells << [v:  it.dateCreated.dateString] << [v: it.mood]
+                log.error rows.size() + " - " + i + " ::"
+                if (rows.size() <= i) {
+                    if (!cells.empty)
+                        cells.clear()
+                    cells << ['v':  it.dateCreated.dateString]
+                    while(cells.size() < memberNr+1)
+                        cells << ['v': null]
+                    cells << ['v':  it.mood]
                     rows << ['c': cells]
                 } else {
-                    if (rows.size() <= i) {
+                    log.error rows.get(i).c[0].v + " :: " + it.dateCreated.dateString + " == " + (it.dateCreated.dateString > rows.get(i).c[0].v)
+                    while(rows.size() >= i && it.dateCreated.dateString > rows.get(i).c[0].v){
+                        log.error("Finding the correct spot to insert.")
+                        rows.get(i).c << [v: null]
+                        i++
+                        if (rows.size() <= i) {
+                            if (!cells.empty)
+                                cells.clear()
+                            cells << ['v':  it.dateCreated.dateString]
+                            while(cells.size() < memberNr+1)
+                                cells << ['v': null]
+                        }
+                    }
+                    if(it.dateCreated.dateString < rows.get(i).c[0].v){
+                        log.error("Insert at " + i)
                         if (!cells.empty)
                             cells.clear()
-                        cells << [v:  it.dateCreated.dateString]
+                        cells << ['v':  it.dateCreated.dateString]
                         while(cells.size() < memberNr+1)
-                            cells << [v: null]
-                        cells << [v:  it.mood]
-                        rows << ['c': cells]
+                            cells << ['v': null]
+                        cells << ['v':  it.mood]
+
+                        rows.add(i, ['c': cells])
                     } else {
-                        // TODO: insert on correct date when it.dateCreated > c.v 
-                        rows.get(i).c << [v: it.mood]
+                        log.error "Added on row " + i + ". Next mood entry."
+                        rows.get(i).c << ['v': it.mood]
                     }
                 }
                 i++
