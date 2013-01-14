@@ -18,6 +18,11 @@ class TeamController {
         [team: team, user: user]
     }
 
+    def my() {
+        def user = User.get(springSecurityService.principal.id)
+        def teams = User.getTeams()
+    }
+
     def create() {
         // Show repositories that
         def user = User.get(springSecurityService.principal.id)
