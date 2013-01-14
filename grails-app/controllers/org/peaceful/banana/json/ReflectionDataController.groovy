@@ -61,33 +61,34 @@ class ReflectionDataController {
                     cells << ['v':  it.mood]
                     rows << ['c': cells]
                 } else {
-                    if(it.dateCreated.dateString == rows.get(i).c[0].v){
-                        // At the correct date, now add it to the correct user!
-                        while (rows.get(i).c.size() < memberNr)
-                            rows.get(i).c << [v: null]
-                        rows.get(i).c << ['v': it.mood]
-                    } else if (it.dateCreated.dateString > rows.get(i).c[0].v){
-                        while(rows.size() >= i && it.dateCreated.dateString > rows.get(i).c[0].v){
+                    boolean inserted = false
+                    while(rows.size() >= i && !inserted){
+                        if(it.dateCreated.dateString == rows.get(i).c[0].v){
+                            //log.error i + "("+(memberNr+1)+") :: "+ it.dateCreated.dateString +" == " + rows.get(i).c[0].v
+                            // At the correct date, now add it to the correct user!
+                            while (rows.get(i).c.size() < memberNr)
+                                rows.get(i).c << [v: null]
+                            rows.get(i).c << ['v': it.mood]
+
+                            inserted = true
+                        } else if (it.dateCreated.after(new Date(Date.parse(rows.get(i).c[0].v)))){
+                            //log.error i + "("+(memberNr+1)+") :: "+ it.dateCreated.dateString +" > " + rows.get(i).c[0].v
                             rows.get(i).c << [v: null]
                             i++
-                            if (rows.size() <= i) {
-                                if (!cells.empty)
-                                    cells.clear()
-                                cells << ['v':  it.dateCreated.dateString]
-                                while(cells.size() < memberNr+1)
-                                    cells << ['v': null]
-                            }
-                        }
-                        rows.get(i).c << ['v': it.mood]
-                    } else if(it.dateCreated.dateString < rows.get(i).c[0].v){
-                        if (!cells.empty)
-                            cells.clear()
-                        cells << ['v':  it.dateCreated.dateString]
-                        while(cells.size() < memberNr+1)
-                            cells << ['v': null]
-                        cells << ['v':  it.mood]
+                        } else if(it.dateCreated.before(new Date(Date.parse(rows.get(i).c[0].v)))){
+                            //log.error i + "("+(memberNr+1)+") :: "+ it.dateCreated.dateString +" < " + rows.get(i).c[0].v
+                            if (!cells.empty)
+                                cells.clear()
+                            cells << ['v':  it.dateCreated.dateString]
+                            while(cells.size() < memberNr+1)
+                                cells << ['v': null]
+                            cells << ['v':  it.mood]
 
-                        rows.add(i, ['c': cells])
+                            // Add the date with mood
+                            rows.add(i, ['c': cells])
+
+                            inserted = true
+                        }
                     }
                 }
                 i++
