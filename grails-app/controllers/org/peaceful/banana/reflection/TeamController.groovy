@@ -3,10 +3,16 @@ package org.peaceful.banana.reflection
 import org.peaceful.banana.Team
 import org.peaceful.banana.TeamUser
 import org.peaceful.banana.User
+import org.peaceful.banana.git.GitHubService
+import org.scribe.model.Token
+import uk.co.desirableobjects.oauth.scribe.OauthService
 
 class TeamController {
 
     def springSecurityService
+
+    GitHubService gitHubService
+    OauthService oauthService
 
     def index() {
         // Show dashboard over the users teams
@@ -20,7 +26,15 @@ class TeamController {
 
     def my() {
         def user = User.get(springSecurityService.principal.id)
-        def teams = User.getTeams()
+        Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
+
+        def teams = null
+
+        if (gitToken != null) {
+            gitHubService = new GitHubService(gitToken)
+            teams = Team.findAllByRepositoryInList(gitHubService.getRepositories().collect {it.getId()}.toList(), params)
+        }
+        [teams: teams, teamsCount: Team.findAllByRepositoryInList(gitHubService.getRepositories().collect {it.getId()}.toList()).size(), user: user]
     }
 
     def create() {

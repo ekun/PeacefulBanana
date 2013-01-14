@@ -51,10 +51,6 @@ class User {
         Note.findAllByUser(this) as List
     }
 
-    List<Team> getTeams() {
-        //Team.findAllByRepository()
-    }
-
     Team activeTeam() {
         TeamUser.findByUserAndActive(this, true)?.team
     }
