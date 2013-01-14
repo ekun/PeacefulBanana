@@ -52,7 +52,6 @@ class ReflectionDataController {
             i = 0
             Note.findAllByUser(it, [sort: "dateCreated", order:'asc']).each {
                 cells = []
-                log.error rows.size() + " - " + i + " ::"
                 if (rows.size() <= i) {
                     if (!cells.empty)
                         cells.clear()
@@ -62,21 +61,25 @@ class ReflectionDataController {
                     cells << ['v':  it.mood]
                     rows << ['c': cells]
                 } else {
-                    log.error rows.get(i).c[0].v + " :: " + it.dateCreated.dateString + " == " + (it.dateCreated.dateString > rows.get(i).c[0].v)
-                    while(rows.size() >= i && it.dateCreated.dateString > rows.get(i).c[0].v){
-                        log.error("Finding the correct spot to insert.")
-                        rows.get(i).c << [v: null]
-                        i++
-                        if (rows.size() <= i) {
-                            if (!cells.empty)
-                                cells.clear()
-                            cells << ['v':  it.dateCreated.dateString]
-                            while(cells.size() < memberNr+1)
-                                cells << ['v': null]
+                    if(it.dateCreated.dateString == rows.get(i).c[0].v){
+                        // At the correct date, now add it to the correct user!
+                        while (rows.get(i).c.size() < memberNr)
+                            rows.get(i).c << [v: null]
+                        rows.get(i).c << ['v': it.mood]
+                    } else if (it.dateCreated.dateString > rows.get(i).c[0].v){
+                        while(rows.size() >= i && it.dateCreated.dateString > rows.get(i).c[0].v){
+                            rows.get(i).c << [v: null]
+                            i++
+                            if (rows.size() <= i) {
+                                if (!cells.empty)
+                                    cells.clear()
+                                cells << ['v':  it.dateCreated.dateString]
+                                while(cells.size() < memberNr+1)
+                                    cells << ['v': null]
+                            }
                         }
-                    }
-                    if(it.dateCreated.dateString < rows.get(i).c[0].v){
-                        log.error("Insert at " + i)
+                        rows.get(i).c << ['v': it.mood]
+                    } else if(it.dateCreated.dateString < rows.get(i).c[0].v){
                         if (!cells.empty)
                             cells.clear()
                         cells << ['v':  it.dateCreated.dateString]
@@ -85,9 +88,6 @@ class ReflectionDataController {
                         cells << ['v':  it.mood]
 
                         rows.add(i, ['c': cells])
-                    } else {
-                        log.error "Added on row " + i + ". Next mood entry."
-                        rows.get(i).c << ['v': it.mood]
                     }
                 }
                 i++
