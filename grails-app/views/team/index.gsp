@@ -12,7 +12,7 @@
             <ul class="nav nav-list">
                 <li class="nav-header">Team</li>
                 <li class="active"><a href="${createLink(action: 'index')}">Dashboard</a></li>
-                <li class="active"><a href="${createLink(action: 'my')}">My teams</a></li>
+                <li><a href="${createLink(action: 'my')}">My teams</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->

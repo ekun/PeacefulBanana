@@ -1,3 +1,4 @@
+<%@ page import="org.peaceful.banana.gitdata.Repository" %>
 
 <html>
 <head>
@@ -17,7 +18,7 @@
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h3>Dashboard</h3>
+        <h1>Teams <a href="${createLink(action: 'create')}" alt="Create team" title="Create team"><i class="mega-icon mega-icon-add"></i></a></h1>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -31,10 +32,10 @@
                 <g:each in="${teams}">
                     <tr>
                         <td>
-                            ${it.name}
+                            <a href="${createLink(action: 'inspect', id: it.id)}">${it.name}</a>
                         </td>
                         <td>
-                            ${it.repository}
+                            ${Repository.findByGithubId(it.repository).name}
                         </td>
                         <td>
                             ${it.getMembers().size()}
@@ -42,12 +43,12 @@
                         <td>
                             <div class="pull-right">
                                 <g:if test="${it == user.activeTeam()}">
-                                    Active!
+                                    <b>Active</b>
                                 </g:if>
                                 <g:else>
-                                    <g:submitToRemote class="btn btn-danger btn-mini" action="ajaxTrashItem" id="${it?.id}"
+                                    <g:submitToRemote class="btn btn-danger btn-mini" action="ajaxSwapTeam" id="${it?.id}"
                                                       update="feedback"
-                                                      value="Archive" onComplete="reloadList();"/>
+                                                      value="Select team" onComplete=""/>
                                 </g:else>
                             </div>
                         </td>
