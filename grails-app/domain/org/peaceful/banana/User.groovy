@@ -60,9 +60,11 @@ class User {
     }
 
     def setActiveTeam(Team team) {
-        def teamUserOld = TeamUser.findByUserAndTeam(this, this.getActiveTeam())
-        teamUserOld.active = false
-        teamUserOld.save()
+        def teamUserOld = TeamUser.findByUserAndTeam(this, this.activeTeam())
+        if(teamUserOld) {
+            teamUserOld.active = false
+            teamUserOld.save()
+        }
         def teamUserNew = TeamUser.findByUserAndTeam(this, team)
         teamUserNew.active = true
         teamUserNew.save()

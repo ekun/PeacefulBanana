@@ -18,6 +18,8 @@ class TeamController {
         // Show dashboard over the users teams
         def user = User.get(springSecurityService.principal.id)
         def team = user.activeTeam()// By params.id
+        if(!team)
+            redirect(action: 'my')
 
         // Retrieve all users in the team
         // Check if all of the users have set the correct repo
@@ -58,7 +60,7 @@ class TeamController {
         def team = TeamUser.findByUserAndTeam(user, Team.get(params.getInt("id")))
 
         if (team){
-            user.setActiveTeam(team)
+            user.setActiveTeam(Team.get(params.getInt("id")))
             user.save()
 
             render "<div class='alert alert-success'>Team has been switched.</div>"
