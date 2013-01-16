@@ -28,20 +28,22 @@ class TeamController {
 
     def my() {
         def user = User.get(springSecurityService.principal.id)
-        Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
 
-        def teams = null
+        def teams = Team.findAllByOwner(user, params)
 
-        if (gitToken != null) {
-            gitHubService = new GitHubService(gitToken)
-            teams = Team.findAllByRepositoryInList(gitHubService.getRepositories().collect {it.getId()}.toList(), params)
-        }
-        [teams: teams, teamsCount: Team.findAllByRepositoryInList(gitHubService.getRepositories().collect {it.getId()}.toList()).size(), user: user]
+        [teams: teams, teamsCount: Team.findAllByOwner(user), user: user]
     }
 
     def create() {
         // Show repositories that
         def user = User.get(springSecurityService.principal.id)
+        Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
+
+        if (gitToken != null) {
+
+            gitHubService = new GitHubService(gitToken)
+            [user: user, repositories: gitHubService.getRepositories()]
+        }
     }
 
     def inspect() {
@@ -68,5 +70,9 @@ class TeamController {
             response.status = 500
             render "<div class='alert alert-error'>Failed to switch team.</div>"
         }
+    }
+
+    def ajaxCreateTeam() {
+        render "<div class='alert alert-success'>Team has been created.</div>"
     }
 }
