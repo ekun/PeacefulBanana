@@ -56,8 +56,18 @@
                 </g:each>
             </tbody>
         </table>
-        <center><g:paginate controller="notification" maxsteps="15" action="center" total="${teamsCount}"/></center>
+        <center><g:paginate controller="team" maxsteps="15" action="center" total="${teamsCount}"/></center>
     </div><!--/span-->
 </div><!--/row-->
+<g:javascript>
+    function reloadList() {
+        $.ajax({type: "POST",
+            url: "${createLink(controller: 'team', action: 'ajaxGetTeamList', params: params)}",
+            success: function(msg){
+                document.getElementById('target').innerHTML = msg;
+            }
+        });
+    }
+</g:javascript>
 </body>
 </html>

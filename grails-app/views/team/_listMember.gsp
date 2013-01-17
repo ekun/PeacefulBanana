@@ -1,13 +1,13 @@
 <g:each in="${users}">
-    <tr>
+    <tr ${!it.active ? 'class="error"' : ''}>
         <td>
-            ${it.id}
+            ${it.user.id}
         </td>
         <td>
-            ${it.toString()}
+            ${it.user.toString()}
         </td>
         <td>
-            ${it.teamRole()}
+            ${it.role}
         </td>
         <td>
             <div class="pull-right">

@@ -29,7 +29,7 @@ class TeamController {
     def my() {
         def user = User.get(springSecurityService.principal.id)
 
-        def teams = Team.findAllByOwner(user, params)
+        def teams = Team.findById(TeamUser.findByUser(user).teamId, params)
 
         [teams: teams, teamsCount: Team.findAllByOwner(user), user: user]
     }
@@ -52,7 +52,7 @@ class TeamController {
 
         // Retrieve all users in the team
         // Check if all of the users have set the correct repo
-        [team: team, teamMembers: User.findAllByIdInList(TeamUser.findAllByTeam(team).user.id, params), user: user]
+        [team: team, teamMembers: TeamUser.findAllByTeam(team,params), user: user]
     }
 
     def ajaxSwapTeam() {

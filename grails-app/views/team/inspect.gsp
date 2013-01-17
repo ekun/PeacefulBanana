@@ -1,4 +1,3 @@
-<%@ page import="org.peaceful.banana.gitdata.Repository" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -27,7 +26,7 @@
             </tr>
             </thead>
             <tbody id="target">
-            <g:formatTeamMembers users="${teamMembers}"/>
+                <g:formatTeamMembers users="${teamMembers}"/>
             </tbody>
         </table>
         <center><g:paginate controller="team" maxsteps="5" action="inspect" total="${team.getMembers().size()}"/></center>
