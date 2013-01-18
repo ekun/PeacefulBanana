@@ -43,6 +43,10 @@ class TeamController {
 
             gitHubService = new GitHubService(gitToken)
             [user: user, repositories: gitHubService.getRepositories()]
+        } else {
+            // Redirect to github-token settings
+            // TODO: erstatt denne med en modalboks elns
+            redirect(controller: 'settings', action: 'github')
         }
     }
 
@@ -50,9 +54,11 @@ class TeamController {
         def user = User.get(springSecurityService.principal.id)
         def team = user.activeTeam()// By params.id
 
+        log.error user.teamRole()
+
         // Retrieve all users in the team
         // Check if all of the users have set the correct repo
-        [team: team, teamMembers: TeamUser.findAllByTeam(team,params), user: user]
+        [team: team, teamMembers: TeamUser.findAllByTeam(team, params), user: user]
     }
 
     def ajaxSwapTeam() {

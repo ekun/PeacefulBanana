@@ -29,31 +29,7 @@
             </tr>
             </thead>
             <tbody id="target">
-                <g:each in="${teams}">
-                    <tr>
-                        <td>
-                            <a href="${createLink(action: 'inspect', id: it.id)}">${it.name}</a>
-                        </td>
-                        <td>
-                            ${Repository.findByGithubId(it.repository).name}
-                        </td>
-                        <td>
-                            ${it.getMembers().size()}
-                        </td>
-                        <td>
-                            <div class="pull-right">
-                                <g:if test="${it == user.activeTeam()}">
-                                    <b>Active</b>
-                                </g:if>
-                                <g:else>
-                                    <g:submitToRemote class="btn btn-danger btn-mini" action="ajaxSwapTeam" id="${it?.id}"
-                                                      update="feedback"
-                                                      value="Select team" onComplete=""/>
-                                </g:else>
-                            </div>
-                        </td>
-                    </tr>
-                </g:each>
+                <g:formatTeams teams="${teams}" user="${user}"/>
             </tbody>
         </table>
         <center><g:paginate controller="team" maxsteps="15" action="center" total="${teamsCount}"/></center>

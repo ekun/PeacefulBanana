@@ -26,7 +26,7 @@
             </tr>
             </thead>
             <tbody id="target">
-                <g:formatTeamMembers users="${teamMembers}"/>
+                <g:formatTeamMembers users="${teamMembers}" user="${user}"/>
             </tbody>
         </table>
         <center><g:paginate controller="team" maxsteps="5" action="inspect" total="${team.getMembers().size()}"/></center>

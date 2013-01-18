@@ -43,7 +43,11 @@ class TemplateTagLib {
     }
 
     def formatTeamMembers = { attrs ->
-        out << render(template: "listMember", model: [users: attrs.users])
+        out << render(template: "listMember", model: [users: attrs.users, user: attrs.user])
+    }
+
+    def formatTeams = { attrs ->
+        out << render(template: "listTeam", model: [teams: attrs.teams, user: attrs.user])
     }
 
     def formatNotificationLarge = { attrs ->
