@@ -6,7 +6,7 @@
         <td>
             ${it.user.toString()}
         </td>
-        <td>
+        <td>    
             ${it.role}
         </td>
         <td>
