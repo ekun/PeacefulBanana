@@ -14,6 +14,8 @@ class TeamController {
     GitHubService gitHubService
     OauthService oauthService
 
+    static allowedMethods = [ajaxCreateTeam: 'POST']
+
     def index() {
         // Show dashboard over the users teams
         def user = User.get(springSecurityService.principal.id)
@@ -78,7 +80,35 @@ class TeamController {
         }
     }
 
+    def ajaxChangeUserTeamRole() {
+        def user = User.get(springSecurityService.principal.id)
+
+        // Fetch team-id, team-role and user-id
+        if (true) { //TODO: FIX!
+            render "<div class='alert alert-success'>Team has been switched.</div>"
+        } else {
+            response.status = 500
+            render "<div class='alert alert-error'>Failed to switch team.</div>"
+        }
+    }
+
     def ajaxCreateTeam() {
+        // get the logged in user (needed to validate the user.
+        def user = User.get(springSecurityService.principal.id)
+
+        // Validate post-data
+        String team = params.inputName
+        def repo = params.inputRepo
+
+        log.error "[team: '"+team+"', repo: '"+repo+"']"
+
+        if (!team.empty && team.length() > 0 && !repo.empty) {
+
+        } else {
+
+        }
+
+
         render "<div class='alert alert-success'>Team has been created.</div>"
     }
 }
