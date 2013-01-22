@@ -1,6 +1,7 @@
 package org.peaceful.banana.reflection
 
 import org.peaceful.banana.Team
+import org.peaceful.banana.TeamRole
 import org.peaceful.banana.TeamUser
 import org.peaceful.banana.User
 import org.peaceful.banana.git.GitHubService
@@ -97,18 +98,37 @@ class TeamController {
         def user = User.get(springSecurityService.principal.id)
 
         // Validate post-data
-        String team = params.inputName
+        def team = params.inputName
         def repo = params.inputRepo
 
         log.error "[team: '"+team+"', repo: '"+repo+"']"
 
-        if (!team.empty && team.length() > 0 && !repo.empty) {
+        if (team && team.length() > 0 && repo) {
+            if (Team.countByRepository(repo) != 0) {
+                response.status = 500
+                render "<div class='alert alert-error'>This repository already has a team.</div>"
+            } else {
+                // Create the new team.
+                def newTeam = new Team(name: team, repository: repo, owner: user)
+                newTeam.save(flush:  true)
 
+                // Add the user which created it and add his a manager.
+                TeamUser.create user, newTeam, true
+                def teamUser = TeamUser.findByUserAndTeam(user, newTeam)
+                teamUser.role = TeamRole.MANAGER
+                teamUser.save(flush: true)
+
+                // Set the new team as the
+                user.setActiveTeam(newTeam)
+                user.save()
+
+                // Render response
+                render "<div class='alert alert-success'>Team has been created.<br>Inspect it <href='"+createLink(action: 'inspect', id: newTeam.id)+"'>here</a>.</div>"
+            }
         } else {
-
+            // Failed validation
+            response.status = 500
+            render "<div class='alert alert-error'>Please enter valid input.</div>"
         }
-
-
-        render "<div class='alert alert-success'>Team has been created.</div>"
     }
 }

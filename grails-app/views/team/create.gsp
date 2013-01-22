@@ -18,29 +18,32 @@
     </div><!--/span-->
     <div class="span9">
         <h3>Create Team</h3>
-        <!-- Form -->
-        <div id="response"> <!-- for ajax swap -->
-            <form class="form-horizontal">
-                <div class="control-group">
-                    <label class="control-label" for="inputName">Name</label>
-                    <div class="controls">
-                        <input type="text" id="inputName" placeholder="Name">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="inputRepo">Repository</label>
-                    <div class="controls">
-                        <g:select class="input-xlarge" name="inputRepo"
-                                  from="${repositories}"
-                                  optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}" onchange="resetButton()"/>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <button type="button" class="btn">Cancel</button>
-                </div>
-            </form>
+        <!-- Div for Ajax-response -->
+        <div id="response">
+            <!-- for ajax swap -->
         </div>
+        <!-- Form -->
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="inputName">Name</label>
+                <div class="controls">
+                    <input type="text" id="inputName" name="inputName" placeholder="Name">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputRepo">Repository</label>
+                <div class="controls">
+                    <g:select class="input-xlarge" name="inputRepo"
+                              from="${repositories}"
+                              optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}"/>
+                </div>
+            </div>
+            <div class="form-actions">
+                <g:submitToRemote class="btn btn-primary"  action="ajaxCreateTeam"
+                                  update="[success: 'response', failure: 'response']" value="Create" />
+                <button type="button" class="btn">Cancel</button>
+            </div>
+        </form>
         <!-- END Form -->
     </div><!--/span-->
 </div><!--/row-->
