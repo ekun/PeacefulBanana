@@ -17,8 +17,8 @@
                 </g:if>
                 <g:else>
                     <g:submitToRemote class="btn btn-danger btn-mini" action="ajaxSwapTeam" id="${it?.id}"
-                                      update="[success: 'feedback', failure: 'feedback']"
-                                      value="Select team" onComplete="reloadList()"/>
+                              update="[success: 'feedback', failure: 'feedback']"
+                              value="Set as active team" onComplete="reloadList()"/>
                 </g:else>
             </div>
         </td>
