@@ -48,19 +48,36 @@
             </tr>
             </thead>
             <tbody id="target2">
-            <g:formatAvailTeams teams="${availibleTeamsBasedOnRepos}" user="${user}"/>
+                <div id="spinner" class="spinner">
+                    <!-- Spinner while loading ajax content. -->
+                    <center><img src="${resource(dir: 'images', file: 'spinner.gif')}" alt="Spinner"/></center>
+                </div>
             </tbody>
         </table>
-        <center><g:paginate controller="team" maxsteps="15" action="center" total="${availTeamCount}"/></center>
+        <center><g:paginate controller="team" maxsteps="15" action="center" total="${availTeamCount - teamsCount.size()}"/></center>
 
     </div><!--/span-->
 </div><!--/row-->
 <g:javascript>
+
+    $(document).ready(function() {
+        reloadAvailList();
+    });
+
     function reloadList() {
         $.ajax({type: "POST",
             url: "${createLink(controller: 'team', action: 'ajaxGetTeamList', params: params)}",
             success: function(msg){
                 document.getElementById('target').innerHTML = msg;
+            }
+        });
+    }
+
+    function reloadAvailList() {
+        $.ajax({type: "POST",
+            url: "${createLink(controller: 'team', action: 'ajaxGetAvailTeamList', params: params)}",
+            success: function(msg){
+                document.getElementById('target2').innerHTML = msg;
             }
         });
     }

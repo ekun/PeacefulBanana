@@ -50,6 +50,10 @@ class TemplateTagLib {
         out << render(template: "listTeam", model: [teams: attrs.teams, user: attrs.user])
     }
 
+    def formatAvailTeams = { attrs ->
+        out << render(template: "listAvailTeam", model: [teams: attrs.teams, user: attrs.user])
+    }
+
     def formatNotificationLarge = { attrs ->
         out << render(template: "largeNotificationTemplate", model: [notification: attrs.notification])
     }

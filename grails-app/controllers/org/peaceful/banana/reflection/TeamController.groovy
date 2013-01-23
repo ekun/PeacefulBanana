@@ -176,7 +176,7 @@ class TeamController {
             availibleTeamBasedOnRepos = Team.findAllByRepositoryInList(
                     repos.collect {it.id}.toList(), params)
         }
-        render(template: "listTeam", model: [teams: availibleTeamBasedOnRepos, user: user])
+        render(template: "listAvailTeam", model: [teams: availibleTeamBasedOnRepos, user: user])
     }
 
     def ajaxJoinTeam() {
