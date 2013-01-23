@@ -12,12 +12,12 @@
         </td>
         <td>
             <div class="pull-right">
-                <g:if test="${it == user.activeTeam()}">
+                <g:if test="${it.id == user.activeTeam().id}">
                     <button class="btn btn-success btn-mini" disabled="true">Active</button>
                 </g:if>
                 <g:else>
                     <g:submitToRemote class="btn btn-danger btn-mini" action="ajaxSwapTeam" id="${it?.id}"
-                                      update="feedback"
+                                      update="[success: 'feedback', failure: 'feedback']"
                                       value="Select team" onComplete="reloadList()"/>
                 </g:else>
             </div>

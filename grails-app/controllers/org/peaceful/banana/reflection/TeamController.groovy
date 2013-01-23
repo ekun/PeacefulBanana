@@ -5,6 +5,7 @@ import org.peaceful.banana.TeamRole
 import org.peaceful.banana.TeamUser
 import org.peaceful.banana.User
 import org.peaceful.banana.git.GitHubService
+import org.peaceful.banana.git.GithubSyncController
 import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
 
@@ -32,9 +33,28 @@ class TeamController {
     def my() {
         def user = User.get(springSecurityService.principal.id)
 
-        def teams = Team.findById(TeamUser.findByUser(user).teamId, params)
+        def teams = Team.findAllByIdInList(TeamUser.findAllByUser(user).collect {it.teamId}.toList(), params)
 
-        [teams: teams, teamsCount: Team.findAllByOwner(user), user: user]
+        Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
+
+        def availibleTeamBasedOnRepos = null
+        def repos = null
+
+        if (gitToken != null) {
+
+            gitHubService = new GitHubService(gitToken)
+
+            repos = gitHubService.getRepositories()
+
+            availibleTeamBasedOnRepos = Team.findAllByRepositoryInList(
+                    repos.collect {it.id}.toList())
+        }
+
+        [teams: teams,
+                teamsCount: Team.findAllByOwner(user),
+                user: user,
+                availibleTeamsBasedOnRepos: availibleTeamBasedOnRepos,
+                availTeamCount: Team.countByRepositoryInList(repos.collect {it.id}.toList())]
     }
 
     def create() {
@@ -122,13 +142,51 @@ class TeamController {
                 user.setActiveTeam(newTeam)
                 user.save()
 
+                new GithubSyncController().sync()
+
                 // Render response
-                render "<div class='alert alert-success'>Team has been created.<br>Inspect it <href='"+createLink(action: 'inspect', id: newTeam.id)+"'>here</a>.</div>"
+                render "<div class='alert alert-success'>Team has been created.<br>Inspect it <a href='"+createLink(action: 'inspect', id: newTeam.id)+"'>here</a>.</div>"
             }
         } else {
             // Failed validation
             response.status = 500
             render "<div class='alert alert-error'>Please enter valid input.</div>"
         }
+    }
+
+    def ajaxGetTeamList() {
+        def user = User.get(springSecurityService.principal.id)
+        def teams = Team.findAllByIdInList(TeamUser.findAllByUser(user).collect {it.teamId}.toList(), params)
+
+        render(template: "listTeam", model: [teams: teams, user: user])
+    }
+
+    def ajaxGetAvailTeamList() {
+        def user = User.get(springSecurityService.principal.id)
+        Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
+        def availibleTeamBasedOnRepos = null
+        def repos = null
+
+        if (gitToken != null) {
+
+            gitHubService = new GitHubService(gitToken)
+
+            repos = gitHubService.getRepositories()
+
+            availibleTeamBasedOnRepos = Team.findAllByRepositoryInList(
+                    repos.collect {it.id}.toList(), params)
+        }
+        render(template: "listTeam", model: [teams: availibleTeamBasedOnRepos, user: user])
+    }
+
+    def ajaxJoinTeam() {
+        def user = User.get(springSecurityService.principal.id)
+        def team = Team.findById(params.getLong("id"))
+
+        TeamUser.create user, team, true
+
+        // Set the new team as the
+        user.setActiveTeam(team)
+        user.save()
     }
 }

@@ -47,5 +47,8 @@
         <!-- END Form -->
     </div><!--/span-->
 </div><!--/row-->
+<g:javascript>
+    function
+</g:javascript>
 </body>
 </html>
