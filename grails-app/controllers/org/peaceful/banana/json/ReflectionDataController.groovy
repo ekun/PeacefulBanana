@@ -23,7 +23,7 @@ class ReflectionDataController {
 
         def teamMember = user.activeTeam().members
         // Gathering the first ever note created by this team
-        def firstNote = Note.findAllByUserInList(teamMember, [sort: "dateCreated", order: "asc", max: 1]) // Get the first!
+        def firstNote = Note.findAllByTeamAndUserInList(user.activeTeam(),teamMember, [sort: "dateCreated", order: "asc", max: 1]) // Get the first!
 
         teamMember.remove(firstNote[0].user)
 
@@ -42,7 +42,7 @@ class ReflectionDataController {
 
         // Gather mood-data with timestampss
         // From the member with the earliest note
-        Note.findAllByUser(firstNote[0].user, [sort: "dateCreated", order:'asc']).each {
+        Note.findAllByUserAndTeam(firstNote[0].user, user.activeTeam(), [sort: "dateCreated", order:'asc']).each {
             cells = []
             cells << ['v':  it.dateCreated.dateString] << ['v': it.mood]
             rows << ['c': cells]

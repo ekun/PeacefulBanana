@@ -21,8 +21,9 @@
 	        </div><!--/.well -->
 	    </div><!--/span-->
 	 	<div class="span9">
-  			<h1> github </h1>
-            <g:if test="${gitUser != null}">
+  			<h1>Github</h1>
+            <g:if test="${gitUser == null}">
+                <p>We where unable to find your session with github, please click the link below.</p>
                 <g:githubOAuth/>
             </g:if>
             <g:else>

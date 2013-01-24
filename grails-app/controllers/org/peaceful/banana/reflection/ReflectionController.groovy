@@ -31,7 +31,7 @@ class ReflectionController {
 
         if (params.get("moodSelector") || params.get("contributions") || params.get("improvements")) {
             // post data is set, now handle it
-            note = new Note(mood: params.getInt("moodSelector"), contributions: params.get("contributions"), improvements: params.get("improvements"), user: user)
+            note = new Note(mood: params.getInt("moodSelector"), contributions: params.get("contributions"), improvements: params.get("improvements"), user: user, team: user.activeTeam())
             note.save() // Validating
         }
 
