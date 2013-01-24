@@ -53,7 +53,8 @@ class ReflectionController {
             }
         }
 
-        [tagCloud: teamTags, user: user, submittedForm: Note.findAllByUserAndDateCreatedGreaterThanEquals(user,
+        [tagCloud: teamTags, user: user, submittedForm: Note.findAllByUserAndTeamAndDateCreatedGreaterThanEquals(user,
+                user.activeTeam(),
                 new Date(System.currentTimeMillis()).clearTime()).size() > 0, note: note]
     }
 

@@ -1,5 +1,6 @@
 package org.peaceful.banana.reflection
 
+import org.peaceful.banana.Team
 import org.peaceful.banana.User
 import grails.validation.Validateable
 
@@ -11,6 +12,7 @@ class Note {
     String improvements
     Date dateCreated // should be set by GORM
     boolean shared = false
+    Team team
 
     static belongsTo = [user: User]
 

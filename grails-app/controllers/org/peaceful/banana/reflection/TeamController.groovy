@@ -140,7 +140,7 @@ class TeamController {
 
                 // Set the new team as the
                 user.setActiveTeam(newTeam)
-                user.save()
+                user.save(flush: true)
 
                 new GithubSyncController().sync()
 

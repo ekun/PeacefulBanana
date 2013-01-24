@@ -20,6 +20,7 @@
         <h3>Dashboard</h3>
         <p><b>Selected team:</b> <a href="${createLink(action: 'inspect')}">${team.name}</a> - Change?</p>
         <p><b>Repository:</b> <a href="${createLink(controller: 'repositories')}">${Repository.findByGithubId(team.repository).name}</a></p>
+        <p><b>Owner:</b> ${team.owner.toString()}</p>
     </div><!--/span-->
 </div><!--/row-->
 </body>

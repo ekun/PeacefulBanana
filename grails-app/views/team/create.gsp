@@ -48,7 +48,23 @@
     </div><!--/span-->
 </div><!--/row-->
 <g:javascript>
-    function
+    function success() {
+        $("#changeRepoButton").removeClass("btn-primary");
+        $("#changeRepoButton").addClass("btn-success");
+        $("#changeRepoButton").attr("value", "Saved");
+    }
+
+    function failure() {
+        $("#changeRepoButton").removeClass("btn-primary");
+        $("#changeRepoButton").addClass("btn-danger");
+        $("#changeRepoButton").attr("value", "Error..");
+    }
+
+    function loading() {
+        $("#changeRepoButton").attr("disabled", "disabled");
+        $("#changeRepoButton").addClass("disabled");
+        $("#changeRepoButton").attr("value", "Saving..");
+    }
 </g:javascript>
 </body>
 </html>

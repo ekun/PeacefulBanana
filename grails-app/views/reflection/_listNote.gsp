@@ -13,6 +13,9 @@
             ${it.user == User.findByUsername(sec.loggedInUserInfo(field:'username')) ? 'You' : it.user.firstName + " " + it.user.lastName}
         </td>
         <td>
+            ${it?.team?.name}
+        </td>
+        <td>
             <div class="pull-right">
                 <g:if test="${!it.shared}">
                     <g:submitToRemote class="btn btn-primary btn-mini" action="ajaxShareNote" id="${it?.id}"

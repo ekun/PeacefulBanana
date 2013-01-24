@@ -32,6 +32,7 @@
                 <g:sortableColumn property="id" title="#" />
                 <g:sortableColumn property="dateCreated" title="Created" />
                 <g:sortableColumn property="user" title="User" />
+                <g:sortableColumn property="team" title="Team" />
                 <th></th>
             </tr>
             </thead>
