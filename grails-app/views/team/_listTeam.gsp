@@ -12,7 +12,7 @@
         </td>
         <td>
             <div class="pull-right">
-                <g:if test="${it.id == user.activeTeam().id}">
+                <g:if test="${it.id == user.activeTeam()?.id}">
                     <button class="btn btn-success btn-mini" disabled="true">Active</button>
                 </g:if>
                 <g:else>

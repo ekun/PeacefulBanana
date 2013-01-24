@@ -54,6 +54,10 @@ class TemplateTagLib {
         out << render(template: "listAvailTeam", model: [teams: attrs.teams, user: attrs.user])
     }
 
+    def githubOAuth = { attrs ->
+        out << render(template: "/template/gitOAuth", )
+    }
+
     def formatNotificationLarge = { attrs ->
         out << render(template: "largeNotificationTemplate", model: [notification: attrs.notification])
     }

@@ -16,15 +16,16 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
-    String oAuthToken
     String gitLogin
+
+    static hasMany = [oAuthIDs: OAuthID]
 
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
-        oAuthToken nullable: true
         email email: true
         gitLogin nullable: true
+        oAuthIDs nullable: true
 	}
 
 	static mapping = {
