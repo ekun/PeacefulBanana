@@ -76,7 +76,9 @@
                 <strong>Success!</strong> Your summary has been saved and you can view it <a href="${createLink(action: 'index')}">here</a>.
             </div>
         </g:if>
-        <g:summaryForm completed="${submittedForm}" />
+        <div style="margin-bottom: 50px;">
+            <g:summaryForm completed="${submittedForm}"/>
+        </div>
     </div>
 </div><!--/row-->
 </body>

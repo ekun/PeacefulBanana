@@ -112,9 +112,8 @@ oauth {
             api = org.peaceful.banana.api.GitHubApi
             key = '7261cb7dcc394d1addb0'
             secret = '08c76b315f8bde88e2abe84ea63b2c6b337dc9a9'
-            callback = "http://localhost:8080/PeacefulBanana/oauth/github/callback"
+            callback = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/oauth/github/callback"
             scope = 'user,repo'
-            successUri = '/settings/github'
         }
     }
     debug = true
@@ -130,6 +129,6 @@ grails.plugins.springsecurity.oauth.domainClass = 'org.peaceful.banana.OAuthID'
 
 grails.plugins.twitterbootstrap.fixtaglib = true
 
-grails.plugin.cloudfoundry.username = "ekunamatata@gmail.com"
-grails.plugin.cloudfoundry.password = "x8182AFa"
-grails.plugin.cloudfoundry.appname = "peacefulbanana"
+tomcat.deploy.username="deploy"
+tomcat.deploy.password="banana"
+tomcat.deploy.url="http://vm-6121.idi.ntnu.no:8080/manager"

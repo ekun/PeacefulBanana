@@ -54,7 +54,7 @@
                 </div>
             </tbody>
         </table>
-        <center><g:paginate controller="team" maxsteps="15" action="center" total="${availTeamCount - teamsCount.size()}"/></center>
+        <center><g:paginate controller="team" maxsteps="15" action="center" total="${availTeamCount - teamsCount?.size()}"/></center>
 
     </div><!--/span-->
 </div><!--/row-->

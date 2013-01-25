@@ -65,12 +65,8 @@ class TeamController {
         if (gitToken != null) {
 
             gitHubService = new GitHubService(gitToken)
-            [user: user, repositories: gitHubService.getRepositories()]
-        } else {
-            // Redirect to github-token settings
-            // TODO: erstatt denne med en modalboks elns
-            redirect(controller: 'settings', action: 'github')
         }
+        [user: user, repositories: gitHubService.getRepositories()]
     }
 
     def inspect() {

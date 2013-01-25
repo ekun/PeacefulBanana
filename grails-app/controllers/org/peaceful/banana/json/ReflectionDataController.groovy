@@ -50,7 +50,7 @@ class ReflectionDataController {
         // From the rest
         teamMember.each {
             i = 0
-            Note.findAllByUser(it, [sort: "dateCreated", order:'asc']).each {
+            Note.findAllByUserAndTeam(it, user.activeTeam(), [sort: "dateCreated", order:'asc']).each {
                 cells = []
                 if (rows.size() <= i) {
                     if (!cells.empty)
