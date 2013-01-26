@@ -42,16 +42,16 @@
             async: true,
             complete: function(data) {
                 if(data.update) {
-                    $("#gotUpdate").show();
+                    $("#gotUpdate").show();+-74
                 } else if(data.status == 500) {
+                    // TODO: Fix show gittoken button here instead with tooltip.
                     $("#syncBtn").removeClass("btn-primary");
                     $("#syncBtn").addClass("btn-danger");
                     $("#syncBtn").attr("disabled", "disabled");
                     $("#syncBtn").addClass("disabled");
                     $("#syncBtn").attr("value", "Missing github token");
                 } else {
-                    onSyncing();
-                    onSyncComplete();
+                    $("#gotUpdate").hide();
                 }
             }
         });
@@ -91,7 +91,7 @@
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <!-- links -->
+                             7           <!-- li1047/nks -->
                                         <li>
                                             <a href="${createLink(controller: 'reflection', action: 'mood')}"><i class="icon-thumbs-up"></i> Mood</a>
                                         </li>
@@ -141,7 +141,7 @@
                             <ul class="nav pull-right">
                                 <li><g:link controller='login' action='auth'>Login</g:link></li>
                             </ul>
-                        </sec:ifNotLoggedIn>
+|                       </sec:ifNotLoggedIn>
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px;">
                             <sec:ifLoggedIn>
                                 <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
