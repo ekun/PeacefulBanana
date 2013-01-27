@@ -144,6 +144,14 @@
 |                       </sec:ifNotLoggedIn>
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px;">
                             <sec:ifLoggedIn>
+                                <!--
+                                <div class="popover left">
+                                    <div class="arrow"></div>
+                                    <h3 class="popover-title">Popover left</h3>
+                                    <div class="popover-content">
+                                        <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                                    </div>
+                                </div> -->
                                 <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
                                               update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync.." />
                             </sec:ifLoggedIn>
