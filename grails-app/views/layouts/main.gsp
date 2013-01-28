@@ -91,7 +91,7 @@
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">
-                             7           <!-- li1047/nks -->
+                                        <!-- li1047/nks -->
                                         <li>
                                             <a href="${createLink(controller: 'reflection', action: 'mood')}"><i class="icon-thumbs-up"></i> Mood</a>
                                         </li>
@@ -141,7 +141,7 @@
                             <ul class="nav pull-right">
                                 <li><g:link controller='login' action='auth'>Login</g:link></li>
                             </ul>
-|                       </sec:ifNotLoggedIn>
+                        </sec:ifNotLoggedIn>
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px;">
                             <sec:ifLoggedIn>
                                 <!--

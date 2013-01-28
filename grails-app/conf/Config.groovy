@@ -93,6 +93,8 @@ log4j = {
            'net.sf.ehcache.hibernate'
 
     debug   'grails.app.org.peaceful.banana'
+
+    warn 'grails.app.services.grails.plugins.springsecurity.ui.SpringSecurityUiService'
 }
 
 
@@ -120,9 +122,15 @@ oauth {
 }
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.peaceful.banana.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.peaceful.banana.UserRole'
-grails.plugins.springsecurity.authority.className = 'org.peaceful.banana.Role'
+grails.plugins.springsecurity.userLookup.userDomainClassName = "org.peaceful.banana.User"
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = "org.peaceful.banana.UserRole"
+grails.plugins.springsecurity.authority.className = "org.peaceful.banana.Role"
+
+// Registration
+grails.plugins.springsecurity.ui.register.postRegisterUrl = '/settings'
+grails.plugins.springsecurity.ui.register.emailFrom = 'fredfullbanan@gmail.com'
+grails.plugins.springsecurity.ui.register.emailSubject = 'Peaceful Banana - Registration'
+grails.plugins.springsecurity.ui.register.defaultRoleNames = ['ROLE_USER']
 
 // Added by the Spring Security OAuth plugin:
 grails.plugins.springsecurity.oauth.domainClass = 'org.peaceful.banana.OAuthID'
@@ -132,3 +140,16 @@ grails.plugins.twitterbootstrap.fixtaglib = true
 tomcat.deploy.username="deploy"
 tomcat.deploy.password="banana"
 tomcat.deploy.url="http://vm-6121.idi.ntnu.no:8080/manager"
+
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "fredfullbanan@gmail.com"
+        password = "Peaceful123"
+        props = ["mail.smtp.auth":"true",
+                "mail.smtp.socketFactory.port":"465",
+                "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                "mail.smtp.socketFactory.fallback":"false"]
+    }
+}

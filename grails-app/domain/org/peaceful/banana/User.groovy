@@ -10,8 +10,8 @@ class User {
 	String password
 	boolean enabled
     String email
-    String firstName
-    String lastName
+    String firstName = "TEST"
+    String lastName = "TESTESEN"
     long selectedRepo
 	boolean accountExpired
 	boolean accountLocked
@@ -23,6 +23,8 @@ class User {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
+        firstName blank: true, nullable: true
+        lastName blank: true, nullable: true
         email email: true
         gitLogin nullable: true
         oAuthIDs nullable: true
