@@ -36,7 +36,7 @@
         <center><g:paginate controller="team" maxsteps="15" action="center" total="${teamsCount}"/></center>
         <hr>
         <g:if test="${availibleTeamsBasedOnRepos != null}"></g:if>
-        <h1>Availible teams</h1>
+        <h1>Available teams</h1>
         <p>Based on your github repositories</p>
         <table class="table table-striped">
             <thead>
