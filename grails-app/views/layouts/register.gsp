@@ -1,46 +1,36 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
 <html>
 <head>
-    <meta name="layout" content="main"/>
-    <title>User Registration</title>
-    <r:require modules="bootstrap"/>
-    <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
+    <title>Peaceful Banana - <g:layoutTitle default="Home"/></title>
+    <meta name="viewport" content="initial-scale = 1.0">
 
-    <%--
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
 
-    The 'resources' tag in SecurityUiTagLib renders these tags if you're not using the resources plugin:
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
 
-        <g:javascript library='jquery' plugin='jquery' />
-        <link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'reset.css',plugin:'spring-security-ui')}"/>
-        <link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'spring-security-ui.css',plugin:'spring-security-ui')}"/>
-        <jqui:resources />
-        <link rel="stylesheet" media="screen" href="${resource(dir:'css/smoothness',file:'jquery-ui-1.8.2.custom.css',plugin:'spring-security-ui')}"/>
-        <link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'jquery.jgrowl.css',plugin:'spring-security-ui')}"/>
-        <link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'jquery.safari-checkbox.css',plugin:'spring-security-ui')}"/>
-        <link rel="stylesheet" media="screen" href="${resource(dir:'css',file:'auth.css',plugin:'spring-security-ui')}"/>
-
-    or these if you are:
-
-       <r:require module="register"/>
-       <r:layoutResources/>
-
-    If you need to customize the resources, replace the <s2ui:resources> tag with
-    the explicit tags above and edit those, not the taglib code.
-    --%>
-
+    <link href="${createLinkTo(dir:'css')}/main.css" rel="stylesheet" type="text/css">
     <g:layoutHead/>
+    <r:layoutResources />
 </head>
-
 <body>
-
-<s2ui:layoutResources module='register'/>
-<g:layoutBody/>
-<%--
-<g:javascript src='jquery/jquery.jgrowl.js' plugin='spring-security-ui'/>
-<g:javascript src='jquery/jquery.checkbox.js' plugin='spring-security-ui'/>
-<g:javascript src='spring-security-ui.js' plugin='spring-security-ui'/>
---%>
-
-<s2ui:showFlash/>
-
+<div class="container-fluid">
+    <g:layoutBody/>
+</div>
+<div id="footer">
+    <div class="container">
+        <p class="muted credit">© The Plain Penguin Company 2012</p>
+    </div>
+</div>
+<r:layoutResources/>
 </body>
 </html>

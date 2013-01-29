@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="register"/>
 
     <title>
         <g:message code="springSecurity.login.title"/>
@@ -42,8 +42,8 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" action='${postUrl}' method='POST' id='loginForm' autocomplete='off'>
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <form class="form-signin" action='${postUrl}' method='POST' id='loginForm' autocomplete='off'>
+            <h2 class="form-signin-heading">Please sign in</h2>
         <g:if test='${flash.message}'>
             <div class="alert alert-error">${flash.message}</div>
         </g:if>
@@ -53,6 +53,7 @@
             <input type="checkbox" name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>> <g:message code="springSecurity.login.remember.me.label"/>
         </label>
         <button class="btn btn-large btn-primary" type="submit">${message(code: "springSecurity.login.button")}</button>
+            <a href="${createLink(controller: 'register', action: 'forgotPassword')}">Forgot your password?</a>
     </form>
 </div>
 <script type='text/javascript'>
