@@ -21,6 +21,33 @@
     <link href="${createLinkTo(dir:'css')}/main.css" rel="stylesheet" type="text/css">
     <g:layoutHead/>
     <r:layoutResources />
+    <style type="text/css">
+    body {
+        padding-top: 140px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+    }
+    .form-signin {
+        max-width: 500px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+    .form-signin h1 {
+        margin-bottom: 20px;
+    }
+    .form-footer {
+        margin-top: 25px;
+        width: 100%;
+    }
+    </style>
 </head>
 <body>
 <div class="container-fluid">

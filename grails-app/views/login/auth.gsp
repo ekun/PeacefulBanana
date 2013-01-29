@@ -58,7 +58,9 @@
         </label>
         <div class="form-footer">
             <button class="btn btn-large btn-primary" type="submit">${message(code: "springSecurity.login.button")}</button>
-            <a class="btn btn-large" href="${createLink(controller: 'register')}">Not yet a user?</a>
+            <a class="btn btn-large pull-right" href="${createLink(controller: 'register', action: 'forgotPassword')}">Forgot your password?</a>
+            <hr>
+            <a href="${createLink(controller: 'register')}">Not yet a user?</a>
         </div>
     </form>
 </div>
