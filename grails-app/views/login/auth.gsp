@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="register"/>
+    <meta name="layout" content="main"/>
 
     <title>
         <g:message code="springSecurity.login.title"/>
@@ -37,13 +37,17 @@
         margin-bottom: 15px;
         padding: 7px 9px;
     }
+    .form-footer {
+        margin-top: 25px;
+        width: 100%;
+    }
     </style>
     <r:require modules="bootstrap"/>
 </head>
 <body>
 <div class="container">
-        <form class="form-signin" action='${postUrl}' method='POST' id='loginForm' autocomplete='off'>
-            <h2 class="form-signin-heading">Please sign in</h2>
+    <form class="form-signin" action='${postUrl}' method='POST' id='loginForm' autocomplete='off'>
+        <h2 class="form-signin-heading">Please sign in</h2>
         <g:if test='${flash.message}'>
             <div class="alert alert-error">${flash.message}</div>
         </g:if>
@@ -52,8 +56,10 @@
         <label class="checkbox">
             <input type="checkbox" name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>> <g:message code="springSecurity.login.remember.me.label"/>
         </label>
-        <button class="btn btn-large btn-primary" type="submit">${message(code: "springSecurity.login.button")}</button>
-            <a href="${createLink(controller: 'register', action: 'forgotPassword')}">Forgot your password?</a>
+        <div class="form-footer">
+            <button class="btn btn-large btn-primary" type="submit">${message(code: "springSecurity.login.button")}</button>
+            <a class="btn btn-large" href="${createLink(controller: 'register')}">Not yet a user?</a>
+        </div>
     </form>
 </div>
 <script type='text/javascript'>
