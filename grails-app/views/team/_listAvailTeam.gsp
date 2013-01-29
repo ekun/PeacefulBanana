@@ -6,7 +6,7 @@
                 ${it.name}
             </td>
             <td>
-                ${Repository.findByGithubId(it.repository).name}
+                ${Repository.findByGithubId(it.repository)?.name}
             </td>
             <td>
                 ${it.getMembers().size()}

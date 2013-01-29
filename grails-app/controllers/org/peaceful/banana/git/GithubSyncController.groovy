@@ -26,16 +26,21 @@ class GithubSyncController {
             session["lastCheck"] = System.currentTimeMillis()-60001;
         }
 
-        def user = User.get(springSecurityService.principal.id)
+        if (springSecurityService.principal.class != String) {
+            def user = User.get(springSecurityService.principal.id)
 
-        if(user?.selectedRepo && session[oauthService.findSessionKeyForAccessToken('github')]
-                && new Date((long)session["lastCheck"]).before(new Date(System.currentTimeMillis()-60000))) {
-            session["lastCheck"] = System.currentTimeMillis()
+            if(user?.selectedRepo && session[oauthService.findSessionKeyForAccessToken('github')]
+                    && new Date((long)session["lastCheck"]).before(new Date(System.currentTimeMillis()-60000))) {
+                session["lastCheck"] = System.currentTimeMillis()
 
-            GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
-            def table = [update: gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)]
+                GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
+                def table = [update: gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)]
 
-            render table  as JSON
+                render table  as JSON
+            } else {
+                def table = [update: false]
+                render(table) as JSON
+            }
         } else {
             def table = [update: false]
             render(table) as JSON

@@ -38,23 +38,25 @@ class TeamController {
         Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
 
         def availibleTeamBasedOnRepos = null
+        def availibleTeamBasedOnReposCount = 0
         def repos = null
 
         if (gitToken != null) {
-
+            // if the token is set
             gitHubService = new GitHubService(gitToken)
 
             repos = gitHubService.getRepositories()
 
             availibleTeamBasedOnRepos = Team.findAllByRepositoryInList(
                     repos.collect {it.id}.toList())
+            availibleTeamBasedOnReposCount = Team.countByRepositoryInList(repos.collect {it.id}.toList())
         }
 
         [teams: teams,
                 teamsCount: Team.findAllByOwner(user),
                 user: user,
                 availibleTeamsBasedOnRepos: availibleTeamBasedOnRepos,
-                availTeamCount: Team.countByRepositoryInList(repos.collect {it.id}.toList())]
+                availTeamCount: availibleTeamBasedOnReposCount]
     }
 
     def create() {
@@ -66,7 +68,7 @@ class TeamController {
 
             gitHubService = new GitHubService(gitToken)
         }
-        [user: user, repositories: gitHubService.getRepositories()]
+        [user: user, repositories: gitHubService?.getRepositories()]
     }
 
     def inspect() {
