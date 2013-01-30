@@ -10,8 +10,8 @@
 	        <div class="well sidebar-nav">
 	            <ul class="nav nav-list">
 	                <li class="nav-header">Menu</li>
-	                <li ${actionName.equals('index') ? 'class="active"' : ''}><a href="${createLinkTo(dir:'settings')}"><i class="mini-icon mini-icon-account-settings"></i> <sec:username/></a></li>
-	                <li ${actionName.equals('github') ? 'class="active"' : ''}><a href="${createLinkTo(dir:'settings')}/github"><i class="mini-icon mini-icon-blacktocat"></i> Github</a></li>
+	                <li class="active"><a href="${createLinkTo(dir:'settings')}"><i class="mini-icon mini-icon-account-settings"></i> <sec:username/></a></li>
+	                <li><a href="${createLinkTo(dir:'settings')}/github"><i class="mini-icon mini-icon-blacktocat"></i> Github</a></li>
 	                <!-- <li ${actionName.equals('settings') ? 'class="active"' : ''}><a href="#"><i class="icon-wrench"></i> Settings</a></li> -->
 	            </ul>
 	        </div><!--/.well -->
@@ -23,9 +23,10 @@
                 <p>Select a repository</p>
             </div>
             <div class="span6 offset1">
-                <p>${gitUser != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT linked your profile with github.">Important</span>'}</p>
-                <p>${user != null && user.selectedRepo != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT selected a repository.">Important</span>'}</p>
+                <p>${gitUser != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT linked your profile with github.">Missing</span>'}</p>
+                <p>${user != null && user.selectedRepo != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT selected a repository.">Missing</span>'}</p>
             </div>
+
     	</div><!--/span-->
     </div><!--/row-->
 </body>
