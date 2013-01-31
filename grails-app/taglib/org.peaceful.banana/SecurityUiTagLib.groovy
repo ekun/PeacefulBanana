@@ -91,4 +91,20 @@ class SecurityUiTagLib extends grails.plugins.springsecurity.ui.SecurityUiTagLib
 
         writeDocumentReady out, "\$('#${name}').date_input();"
     }
+
+    def submitButton = { attrs ->
+        String form = getRequiredAttribute(attrs, 'form', 'submitButton')
+        String elementId = getRequiredAttribute(attrs, 'elementId', 'submitButton')
+        String text = resolveText(attrs)
+
+        def writer = getOut()
+        //writer << """<a id="${elementId}" """
+        //writeRemainingAttributes writer, attrs
+        //writer << "></a>\n"
+        writer << "<button type='submit' id='${elementId}_submit' class='btn btn-large btn-primary'>${text}</button>"
+
+        String javascript = """
+		"""
+        writeDocumentReady writer, javascript
+    }
 }
