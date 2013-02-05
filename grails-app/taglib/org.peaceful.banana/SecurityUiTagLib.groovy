@@ -107,4 +107,19 @@ class SecurityUiTagLib extends grails.plugins.springsecurity.ui.SecurityUiTagLib
 		"""
         writeDocumentReady writer, javascript
     }
+
+    def submitButtonWithReset = { attrs ->
+        String form = getRequiredAttribute(attrs, 'form', 'submitButton')
+        String elementId = getRequiredAttribute(attrs, 'elementId', 'submitButton')
+        String text = resolveText(attrs)
+
+        def writer = getOut()
+
+        writer << "<button type='submit' id='${elementId}_submit' class='btn btn-large btn-primary'>${text}</button>"
+        writer << "<button type='reset' id='${elementId}_reset' class='btn btn-large pull-right'>Reset</button>"
+
+        String javascript = """
+		"""
+        writeDocumentReady writer, javascript
+    }
 }

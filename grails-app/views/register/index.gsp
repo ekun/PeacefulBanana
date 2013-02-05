@@ -9,7 +9,10 @@
 
 <div class="container">
     <g:form class="form-signin form-horizontal" action='register' name='registerForm' method='POST' autocomplete='off'>
-        <h2 class="form-signin-heading">Register</h2>
+        <h2 class="form-signin-heading">
+            <a href="${createLinkTo(dir: '')}" alt="Back" title="Back"><i class="mega-icon mega-icon-arr-left"></i></a>
+            <g:message code='spring.security.ui.register.title'/>
+        </h2>
         <fieldset>
             <g:if test='${emailSent}'>
                 <div class="alert alert-success">
@@ -26,8 +29,7 @@
                 <s2ui:passwordFieldRow name='password2' labelCode='user.password2.label' bean="${command}"
                                        size='20' labelCodeDefault='Password (again)' value="${command.password2}"/>
                 <div class="form-footer">
-                    <button class="btn btn-large btn-primary" type="submit" id="create"><g:message code="spring.security.ui.register.submit" /> </button>
-                    <a class="btn btn-large pull-right" href="${createLinkTo(dir: '')}">Cancel</a>
+                    <s2ui:submitButtonWithReset elementId='create' form='registerForm' messageCode='spring.security.ui.register.submit'/>
                 </div>
             </g:else>
         </fieldset>
