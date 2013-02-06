@@ -43,7 +43,7 @@ class TeamController {
 
         if (gitToken != null) {
             // if the token is set
-            gitHubService = new GitHubService(gitToken)
+            gitHubService = GitHubService.getInstance(gitToken)
 
             repos = gitHubService.getRepositories()
 
@@ -66,7 +66,7 @@ class TeamController {
 
         if (gitToken != null) {
 
-            gitHubService = new GitHubService(gitToken)
+            gitHubService = GitHubService.getInstance(gitToken)
         }
         [user: user, repositories: gitHubService?.getRepositories()]
     }
@@ -167,7 +167,7 @@ class TeamController {
 
         if (gitToken != null) {
 
-            gitHubService = new GitHubService(gitToken)
+            gitHubService = GitHubService.getInstance(gitToken)
 
             repos = gitHubService.getRepositories()
 

@@ -1,6 +1,6 @@
 package org.peaceful.banana
 
-class SecurityUiTagLib extends grails.plugins.springsecurity.ui.SecurityUiTagLib{
+class SecurityUiTagLib extends grails.plugins.springsecurity.ui.SecurityUiTagLib {
 
     def checkboxRow = { attrs ->
 

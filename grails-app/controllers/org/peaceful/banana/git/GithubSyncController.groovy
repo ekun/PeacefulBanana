@@ -33,7 +33,7 @@ class GithubSyncController {
                     && new Date((long)session["lastCheck"]).before(new Date(System.currentTimeMillis()-60000))) {
                 session["lastCheck"] = System.currentTimeMillis()
 
-                GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
+                GitHubService gitHubService = GitHubService.getInstance((Token)session[oauthService.findSessionKeyForAccessToken('github')])
                 def table = [update: gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)]
 
                 render table  as JSON
@@ -50,7 +50,7 @@ class GithubSyncController {
     def sync() {
         def user = User.get(springSecurityService.principal.id)
         // runAsync or callAsync?
-        GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
+        GitHubService gitHubService = GitHubService.getInstance((Token)session[oauthService.findSessionKeyForAccessToken('github')])
         def repository = gitHubService.getRepository(user.selectedRepo)
 
         session["lastCheck"] = System.currentTimeMillis()

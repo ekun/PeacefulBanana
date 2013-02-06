@@ -118,7 +118,7 @@ class RepositoriesController {
                 log.debug("Ingen accesstoken satt, redirecter.")
                 redirect(controller: 'settings', action: 'github')
             } else {
-                def gitHubService = new GitHubService(githubAccessToken)
+                def gitHubService = GitHubService.getInstance(githubAccessToken)
                 def repository = Repository.findByGithubId(user.selectedRepo)
                 WordProcessor wordProcessor = new WordProcessor();
 
