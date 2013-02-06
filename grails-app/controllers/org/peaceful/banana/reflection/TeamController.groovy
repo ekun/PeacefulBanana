@@ -73,7 +73,7 @@ class TeamController {
 
     def inspect() {
         def user = User.get(springSecurityService.principal.id)
-        def team = user.activeTeam()// By params.id
+        def team = Team.get(params.getInt("id"))// By params.id
 
         log.error user.teamRole()
 
@@ -87,16 +87,18 @@ class TeamController {
 
         // Find team based on id
         def team = TeamUser.findByUserAndTeam(user, Team.get(params.getInt("id")))
+        String output = ""
 
-        if (team){
+        if (team != null){
             user.setActiveTeam(Team.get(params.getInt("id")))
             user.save()
 
-            render "<div class='alert alert-success'>Team has been switched.</div>"
+            output = "<div class='alert alert-success'>Team has been switched.</div>"
         } else {
             response.status = 500
-            render "<div class='alert alert-error'>Failed to switch team.</div>"
+            output = "<div class='alert alert-error'>Failed to switch team.</div>"
         }
+        render output
     }
 
     def ajaxChangeUserTeamRole() {

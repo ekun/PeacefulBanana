@@ -40,17 +40,18 @@
             url: "${createLink(controller: 'githubSync', action: 'index')}",
             dataType:"json",
             async: true,
-            complete: function(data) {
+            success: function(data) {
                 if(data.update) {
                     $("#gotUpdate").show();
-                    $("#missing").hide();
-                } else if(data.status == 500) {
-                    // TODO: Fix show gittoken button here instead with tooltip.
-                    $("#missing").show();
+                    $("#missingToken").hide();
                 } else {
                     $("#gotUpdate").hide();
-                    $("#missing").hide();
+                    $("#missingToken").hide();
                 }
+            },
+            error: function(data) {
+                $("#gotUpdate").hide();
+                $("#missingToken").show();
             }
         });
 
@@ -140,26 +141,15 @@
                                 <li><g:link controller='login' action='auth'>Login</g:link></li>
                             </ul>
                         </sec:ifNotLoggedIn>
+                        <sec:ifLoggedIn>
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px;">
-                            <sec:ifLoggedIn>
-                                <!--
-                                <div class="popover left">
-                                    <div class="arrow"></div>
-                                    <h3 class="popover-title">Popover left</h3>
-                                    <div class="popover-content">
-                                        <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
-                                    </div>
-                                </div> -->
-
                                 <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
-                                              update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync.." />
-                            </sec:ifLoggedIn>
+                                              update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync.."/>
                         </p>
-                        <p class="nav pull-right" id="missing">
-                            <sec:ifLoggedIn>
-                                <oauth:connect provider="github" />
-                            </sec:ifLoggedIn>
+                        <p class="nav pull-right" id="missingToken" style="display: none;">
+                            <oauth:connect provider="github" class="btn btn-primary">Reactivate Github token</oauth:connect>
                         </p>
+                        </sec:ifLoggedIn>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
                             <sec:ifLoggedIn>
