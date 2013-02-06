@@ -116,6 +116,8 @@ oauth {
             secret = '08c76b315f8bde88e2abe84ea63b2c6b337dc9a9'
             callback = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/oauth/github/callback"
             scope = 'user,repo'
+            successUri = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/"
+            failureUri = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/settings/github"
         }
     }
     debug = true
@@ -131,16 +133,16 @@ grails.plugins.springsecurity.ui.register.postRegisterUrl = '/settings'
 grails.plugins.springsecurity.ui.register.emailFrom = 'fredfullbanan@gmail.com'
 grails.plugins.springsecurity.ui.register.emailSubject = 'Peaceful Banana - Registration'
 grails.plugins.springsecurity.ui.register.defaultRoleNames = ['ROLE_USER']
-grails.plugins.springsecurity. ui.password.minLength = 6
+grails.plugins.springsecurity.ui.password.minLength = 6
 
 // Added by the Spring Security OAuth plugin:
 grails.plugins.springsecurity.oauth.domainClass = 'org.peaceful.banana.OAuthID'
 
 grails.plugins.twitterbootstrap.fixtaglib = true
 
-tomcat.deploy.username="deploy"
-tomcat.deploy.password="banana"
-tomcat.deploy.url="http://vm-6121.idi.ntnu.no:8080/manager"
+tomcat.deploy.username="admin"
+tomcat.deploy.password="password"
+tomcat.deploy.url="http://vm-6121.idi.ntnu.no:8080/manager/html"
 
 grails {
     mail {

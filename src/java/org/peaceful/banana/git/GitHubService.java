@@ -20,8 +20,6 @@ import java.util.*;
  */
 public class GitHubService {
 
-    private static GitHubService INSTANCE = null;
-
     private GitHubClient gitHubClient;
     private RepositoryService repositoryService;
     private UserCommitService userCommitService;
@@ -30,18 +28,8 @@ public class GitHubService {
     private UserService userService;
     private EventService eventService;
 
-    private GitHubService() {
-        gitHubClient = new GitHubClient();
-        this.gitHubClient.setOAuth2Token(null);
-        this.repositoryService = new RepositoryService(gitHubClient);
-        this.userCommitService = new UserCommitService(gitHubClient);
-        this.milestoneService = new MilestoneService(gitHubClient);
-        this.issueService = new IssueService(gitHubClient);
-        this.userService = new UserService(gitHubClient);
-        this.eventService = new EventService(gitHubClient);
-    }
 
-    private GitHubService(Token gitHubToken) {
+    public GitHubService(Token gitHubToken) {
         gitHubClient = new GitHubClient();
         this.gitHubClient.setOAuth2Token(gitHubToken.getToken());
         this.repositoryService = new RepositoryService(gitHubClient);
@@ -287,13 +275,4 @@ public class GitHubService {
         return issueEvents;
     }
 
-    public static GitHubService getInstance(Token token) {
-        if(INSTANCE == null)
-            INSTANCE = new GitHubService(token);
-        else {
-            INSTANCE.setToken(token);
-        }
-
-        return INSTANCE;
-    }
 }

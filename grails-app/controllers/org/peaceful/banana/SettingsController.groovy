@@ -19,7 +19,7 @@ class SettingsController {
         def user = User.get(springSecurityService.principal.id)
 
         if (gitToken != null) {
-            gitHubService = GitHubService.getInstance(gitToken)
+            gitHubService = new GitHubService(gitToken)
 
             [user: user, gitUser: gitHubService.getAuthenticatedUser()]
         }
@@ -31,7 +31,7 @@ class SettingsController {
 
         if (gitToken != null) {
 
-            gitHubService = GitHubService.getInstance(gitToken)
+            gitHubService = new GitHubService(gitToken)
 
             user.gitLogin = gitHubService.getAuthenticatedUser().login
             user.save()

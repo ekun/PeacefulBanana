@@ -42,16 +42,14 @@
             async: true,
             complete: function(data) {
                 if(data.update) {
-                    $("#gotUpdate").show();+-74
+                    $("#gotUpdate").show();
+                    $("#missing").hide();
                 } else if(data.status == 500) {
                     // TODO: Fix show gittoken button here instead with tooltip.
-                    $("#syncBtn").removeClass("btn-primary");
-                    $("#syncBtn").addClass("btn-danger");
-                    $("#syncBtn").attr("disabled", "disabled");
-                    $("#syncBtn").addClass("disabled");
-                    $("#syncBtn").attr("value", "Missing github token");
+                    $("#missing").show();
                 } else {
                     $("#gotUpdate").hide();
+                    $("#missing").hide();
                 }
             }
         });
@@ -152,8 +150,14 @@
                                         <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
                                     </div>
                                 </div> -->
+
                                 <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
                                               update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync.." />
+                            </sec:ifLoggedIn>
+                        </p>
+                        <p class="nav pull-right" id="missing">
+                            <sec:ifLoggedIn>
+                                <oauth:connect provider="github" />
                             </sec:ifLoggedIn>
                         </p>
                         <ul class="nav">
