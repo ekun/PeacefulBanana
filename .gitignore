@@ -19,3 +19,4 @@ stacktrace.log
 .idea
 /target-eclipse/
 /bin/
+/prod
