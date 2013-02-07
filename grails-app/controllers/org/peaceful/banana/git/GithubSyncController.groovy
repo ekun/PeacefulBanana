@@ -35,14 +35,24 @@ class GithubSyncController {
 
                 GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
                 def table = [update: gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)]
-
+                if (table.update)
+                    log.error "WE GOT UPDATE!!"
+                else
+                    log.error "WE NOT got UPDATE!!"
                 render table  as JSON
             } else {
-                response.status = 500
-                def table = [update: false, status: 500]
-                render(table) as JSON
+                if (!session[oauthService.findSessionKeyForAccessToken('github')]){
+                    response.status = 500
+                    log.error "NO TOKEN"
+                } else {
+                    log.error "NO UPDATE"
+                    def table = [update: false]
+                    render(table) as JSON
+                }
+
             }
         } else {
+            log.error "Not logged in"
             def table = [update: false]
             render(table) as JSON
         }
