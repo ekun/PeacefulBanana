@@ -12,6 +12,7 @@
                 <li class="nav-header">Reflection</li>
                 <li class="active"><a href="${createLink(action: '')}">Notes</a></li>
                 <li><a href="${createLink(action: 'mood')}">Mood</a></li>
+                <li><a href="${createLink(action: 'preperation')}">Workshop preperation</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->

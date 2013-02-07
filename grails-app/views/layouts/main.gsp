@@ -1,4 +1,4 @@
-<%@ page import="org.peaceful.banana.Notification; org.peaceful.banana.User" %>
+<%@ page import="org.peaceful.banana.TeamRole; org.peaceful.banana.Notification; org.peaceful.banana.User" %>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -87,6 +87,7 @@
                     <div class="nav-collapse collapse">
                         <sec:ifLoggedIn>
                             <ul class="nav nav-pills pull-right">
+                                <li class="divider-vertical"></li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle"
                                        data-toggle="dropdown"
@@ -115,6 +116,7 @@
                                 </li>
                             </ul>
                             <ul class="nav nav-pills pull-right">
+                                <li class="divider-vertical"></li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle"
                                        data-toggle="dropdown"
@@ -123,7 +125,6 @@
                                         <g:if test="${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec.loggedInUserInfo(field:'username')), true, false).size() > 0}">
                                             <span class="badge badge-important">${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec.loggedInUserInfo(field:'username')),true,false).size()}</span>
                                         </g:if>
-                                        <!--<b class="caret"></b> -->
                                     </a>
                                     <ul class="dropdown-menu" style="width: 300px;">
                                         <!-- Notifications -->
@@ -159,23 +160,32 @@
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
                             <sec:ifLoggedIn>
                                 <li ${controllerName.equals('repositories') ? 'class="active"' : ''}>
-                                    <a href="${createLinkTo(dir:'repositories')}">
+                                    <a href="${createLink(controller: 'repositories')}">
                                         <i class="icon-folder-open"></i>
                                         Repository
                                     </a>
                                 </li>
                                 <li ${controllerName.equals('reflection') ? 'class="active"' : ''}>
-                                    <a href="${createLinkTo(dir:'reflection')}">
+                                    <a href="${createLink(controller: 'reflection')}">
                                         <i class="icon-book"></i>
                                         Reflection
                                     </a>
                                 </li>
                                 <li ${controllerName.equals('team') ? 'class="active"' : ''}>
-                                    <a href="${createLinkTo(dir:'team')}">
+                                    <a href="${createLink(controller:'team')}">
                                         <i class="icon-globe"></i>
                                         Team
                                     </a>
                                 </li>
+                                <g:if test="${User.findByUsername(sec.loggedInUserInfo(field:'username')).teamRole() == TeamRole.MANAGER}">
+                                    <li class="divider-vertical"></li>
+                                    <li ${controllerName.equals('workshop') ? 'class="active"' : ''}>
+                                        <a href="${createLink(controller: 'workshop')}" title="Manager status required" alt="Manager status required">
+                                            <i class="icon-briefcase"></i>
+                                            <font color=orange> Workshop</font>
+                                        </a>
+                                    </li>
+                                </g:if>
                             </sec:ifLoggedIn>
                         </ul>
                     </div><!--/.nav-collapse -->

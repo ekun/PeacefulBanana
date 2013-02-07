@@ -64,6 +64,19 @@ class ReflectionController {
         // retrieve the users mood-data.
     }
 
+/**
+ * This will show the user every note created by him this last periode so that he can prepair for the workshop
+ */
+    def preperation() {
+        // get the logged in user
+        def user = User.get(springSecurityService.principal.id)
+
+        // get the notes he have created and list them
+        def loggedInUserNotes = user.getNotes()
+
+        [notes: loggedInUserNotes]
+    }
+
     def ajaxShareNote() {
         def user = User.get(springSecurityService.principal.id)
         def note = Note.findByUserAndId(user, params.getLong("id"))
