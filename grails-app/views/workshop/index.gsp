@@ -17,7 +17,9 @@
     </div><!--/span-->
     <div class="span9">
         <h1>Workshop</h1>
-
+        <g:each in="${workshops}">
+            ${it.dateDeadline}
+        </g:each>
     </div><!--/span-->
 </div><!--/row-->
 </body>

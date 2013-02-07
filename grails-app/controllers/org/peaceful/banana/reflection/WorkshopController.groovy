@@ -14,6 +14,8 @@ class WorkshopController {
     def index() {
         // get the logged in user
         def user = User.get(springSecurityService.principal.id)
+
+        [workshops: user.activeTeam().workshops]
     }
 
     /**
@@ -27,5 +29,10 @@ class WorkshopController {
         def loggedInUserNotes = user.getNotes()
 
         [notes: loggedInUserNotes]
+    }
+
+    def create() {
+        // get the logged in user
+        def user = User.get(springSecurityService.principal.id)
     }
 }

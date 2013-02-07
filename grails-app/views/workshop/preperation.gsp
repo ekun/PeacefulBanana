@@ -1,3 +1,4 @@
+<%@ page import="org.joda.time.DateTime" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -21,22 +22,72 @@
         <div class="row">
             <div class="span5" style="margin-left: 30px;">
                 <h3>Contributions</h3>
-                <ul>
-                    <g:each in="${notes}">
-                        <li>${it.contributions}</li>
-                    </g:each>
-                </ul>
+                <g:each in="${notes}">
+                    <div class="comment">
+                        <div class="comment-bubble bubble">
+                            <div class="comment-inner">
+                                <div class="commit-header">
+                                    <span class="comment-header-text"><i class="mini-icon mini-icon-reference"></i> ${it.shared ? 'Shared' : 'Private'}</span>
+                                    <span class="comment-header-time pull-right">
+                                        <joda:time value="${new DateTime(it.dateCreated)}">
+                                            <joda:format value="${it}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                        </joda:time>
+                                    </span>
+                                </div>
+                                <div class="commit-content">${it.contributions}</div>
+                            </div>
+                        </div>
+                    </div>
+                </g:each>
             </div>
             <div class="span5 offset1">
                 <h3>Improvements</h3>
-                <ul>
-                    <g:each in="${notes}">
-                        <li>${it.improvements}</li>
-                    </g:each>
-                </ul>
+                <g:each in="${notes}">
+                    <div class="comment">
+                        <div class="comment-bubble bubble">
+                            <div class="comment-inner">
+                                <div class="commit-header">
+                                    <span class="comment-header-text"><i class="mini-icon mini-icon-reference"></i> ${it.shared ? 'Shared' : 'Private'}</span>
+                                    <span class="comment-header-time pull-right">
+                                        <joda:time value="${new DateTime(it.dateCreated)}">
+                                            <joda:format value="${it}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                        </joda:time>
+                                    </span>
+                                </div>
+                                <div class="commit-content">${it.improvements}</div>
+                            </div>
+                        </div>
+                    </div>
+                </g:each>
             </div>
+        </div>
+        <div class="row">
+            <div id='chart_div' style='width: 700px; height: 480px;'></div>
         </div>
     </div><!--/span-->
 </div><!--/row-->
+<g:javascript>
+    google.load('visualization', '1', {'packages':["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var jsonData = $.ajax({
+            url: "${createLink(controller: 'reflectionData', action: 'mood')}",
+            dataType:"json",
+            async: true,
+            success: function(jsonData) {
+                // Create our data table out of JSON data loaded from server.
+                var data = new google.visualization.DataTable(jsonData);
+
+                var options = {
+                    title: 'Mood Graph '
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+        }).responseText;
+    }
+</g:javascript>
 </body>
 </html>

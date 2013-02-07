@@ -1,5 +1,7 @@
 package org.peaceful.banana
 
+import org.peaceful.banana.reflection.Workshop
+
 class Team {
 
     String name
@@ -14,5 +16,9 @@ class Team {
 
     List<User> getMembers() {
         TeamUser.findAllByTeam(this).user
+    }
+
+    def getWorkshops() {
+        return Workshop.findAllByTeam(this)
     }
 }
