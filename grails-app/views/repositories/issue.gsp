@@ -12,12 +12,9 @@
 	                <li class="nav-header">Menu</li>
                     <li><a href="${createLink(action: '')}">${selectedRepo.name}</a></li>
 	                <li><a href="${createLink(action: 'milestone')}">Milestones</a></li>
-                    <li class="active"><a href="${createLink(action: 'issue')}">Issues</a></li>
+                    <li class="active"><a href="${createLink(action: 'issue')}">General Issues</a></li>
                     <li><a href="${createLink(action: 'tagcloud')}">Tagcloud</a></li>
                     <li><a href="${createLink(action: 'statistics')}">Statistics</a></li>
-                    <li class="nav-header">Team</li>
-                    <li><a href="${createLink(action: '')}">Members</a></li>
-                    <li><a href="${createLink(action: 'mood')}">Mood</a></li>
 	            </ul>
 	        </div><!--/.well -->
 	    </div><!--/span-->
