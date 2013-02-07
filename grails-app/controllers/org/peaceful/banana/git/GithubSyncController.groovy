@@ -35,8 +35,7 @@ class GithubSyncController {
 
                 GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
                 def table = [update: gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)]
-                if (table.update)
-                else
+
                 render table  as JSON
             } else {
                 if (!session[oauthService.findSessionKeyForAccessToken('github')]){
@@ -48,7 +47,6 @@ class GithubSyncController {
 
             }
         } else {
-            log.error "Not logged in"
             def table = [update: false]
             render(table) as JSON
         }
