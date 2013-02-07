@@ -42,22 +42,18 @@
             async: true,
             success: function(data) {
                 if(data.update) {
-                    console.log("Update, ONE buttons");
                     $("#gotUpdate").show();
                     $("#missingToken").hide();
                 } else {
-                    console.log("No update, no buttons");
                     $("#missingToken").hide();
                     $("#gotUpdate").hide();
                 }
             },
             error: function(data) {
                 if (data.status == 500) {
-                    console.log("MISSING TOKEN!!!");
                     $("#gotUpdate").hide();
                     $("#missingToken").show();
                 } else {
-                    console.log("No update, no buttons");
                     $("#missingToken").hide();
                     $("#gotUpdate").hide();
                 }
