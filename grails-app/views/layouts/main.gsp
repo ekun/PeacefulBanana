@@ -45,13 +45,18 @@
                     $("#gotUpdate").show();
                     $("#missingToken").hide();
                 } else {
-                    $("#gotUpdate").hide();
                     $("#missingToken").hide();
+                    $("#gotUpdate").hide();
                 }
             },
             error: function(data) {
-                $("#gotUpdate").hide();
-                $("#missingToken").show();
+                if (data.status == 500) {
+                    $("#gotUpdate").hide();
+                    $("#missingToken").show();
+                } else {
+                    $("#missingToken").hide();
+                    $("#gotUpdate").hide();
+                }
             }
         });
 
@@ -142,7 +147,7 @@
                             </ul>
                         </sec:ifNotLoggedIn>
                         <sec:ifLoggedIn>
-                        <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px;">
+                        <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px; display: none;">
                                 <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
                                               update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync.."/>
                         </p>
