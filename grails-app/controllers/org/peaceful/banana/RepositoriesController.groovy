@@ -19,8 +19,11 @@ class RepositoriesController {
         Token githubAccessToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
         if (!githubAccessToken) {
             log.debug("Ingen accesstoken satt, redirecter.")
-            redirect(controller: 'settings', action: 'github')
+            session.setAttribute("redirect", createLink(controller: 'repositories'))
+            redirect(controller: 'oauth', action: 'github', id: 'authenticate')
         } else {
+            if (!user.activeTeam())
+                redirect(controller: 'team')
             //def columns = [['string', 'Name'], ['number', 'Impact']]
             //def chartData = [['Even', 11], ['Marius', 2]]
             def repository = Repository.findByGithubId(user?.selectedRepo)
@@ -35,8 +38,11 @@ class RepositoriesController {
         Token githubAccessToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
         if (!githubAccessToken) {
             log.debug("Ingen accesstoken satt, redirecter.")
-            redirect(controller: 'settings', action: 'github')
+            session.setAttribute("redirect", createLink(controller: 'repositories', id: 'milestone'))
+            redirect(controller: 'oauth', action: 'github', id: 'authenticate')
         } else {
+            if (!user.activeTeam())
+                redirect(controller: 'team')
             def repository = Repository.findByGithubId(user?.selectedRepo)
             def milestones = repository.getMilestones().findAll {
                 it.state == "open"
@@ -85,14 +91,18 @@ class RepositoriesController {
 
 
     def issue() {
+
         def user = User.get(springSecurityService.principal.id)
 
         // if user.access-token for github is not set redirect to /settings/github
         Token githubAccessToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
         if (!githubAccessToken) {
             log.debug("Ingen accesstoken satt, redirecter.")
-            redirect(controller: 'settings', action: 'github')
+            session.setAttribute("redirect", createLink(controller: 'repositories', action: 'issue'))
+            redirect(controller: 'oauth', action: 'github', id: 'authenticate')
         } else {
+            if (!user.activeTeam())
+                redirect(controller: 'team')
             def repository = Repository.findByGithubId(user.selectedRepo)
             if(!params.getInt("id")) {
                 [selectedRepo: repository, issues: repository.getIssues()]
@@ -109,8 +119,12 @@ class RepositoriesController {
         Token githubAccessToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
         if (!githubAccessToken) {
             log.debug("Ingen accesstoken satt, redirecter.")
-            redirect(controller: 'settings', action: 'github')
+            session.setAttribute("redirect", createLink(controller: 'repositories', action: 'tagcloud'))
+            redirect(controller: 'oauth', action: 'github', id: 'authenticate')
         } else {
+            if (!user.activeTeam())
+                redirect(controller: 'team')
+
             def gitHubService = new GitHubService(githubAccessToken)
             def repository = Repository.findByGithubId(user.selectedRepo)
             WordProcessor wordProcessor = new WordProcessor();
@@ -164,23 +178,4 @@ class RepositoriesController {
             [selectedRepo: repository, tags: tags, mytags: myTags]
         }
     }
-
-/*    def statistics() {
-        def user = User.get(springSecurityService.principal.id)
-
-        if (user.selectedRepo != 0) {
-
-            // if user.access-token for github is not set redirect to /settings/github
-            Token githubAccessToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
-            if (!githubAccessToken) {
-                log.debug("Ingen accesstoken satt, redirecter.")
-                redirect(controller: 'settings', action: 'github')
-            } else {
-                def repository = Repository.findByGithubId(user.selectedRepo)
-
-                [selectedRepo: repository]
-            }
-        }
-    }
-    */
 }

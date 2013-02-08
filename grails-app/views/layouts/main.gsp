@@ -43,19 +43,6 @@
             success: function(data) {
                 if(data.update) {
                     $("#gotUpdate").show();
-                    $("#missingToken").hide();
-                } else {
-                    $("#missingToken").hide();
-                    $("#gotUpdate").hide();
-                }
-            },
-            error: function(data) {
-                if (data.status == 500) {
-                    $("#gotUpdate").hide();
-                    $("#missingToken").show();
-                } else {
-                    $("#missingToken").hide();
-                    $("#gotUpdate").hide();
                 }
             }
         });
@@ -149,9 +136,6 @@
                         <p class="nav pull-right" id="gotUpdate" style="padding-right: 15px; display: none;">
                                 <g:submitToRemote id="syncBtn" class="btn btn-primary" controller="githubSync" action="sync"
                                               update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync.."/>
-                        </p>
-                        <p class="nav pull-right" id="missingToken" style="display: none;">
-                            <oauth:connect provider="github" class="btn btn-primary">Reactivate Github token</oauth:connect>
                         </p>
                         </sec:ifLoggedIn>
                         <ul class="nav">

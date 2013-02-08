@@ -38,6 +38,9 @@ class TeamController {
             availibleTeamBasedOnRepos = Team.findAllByRepositoryInList(
                     repos.collect {it.id}.toList())
             availibleTeamBasedOnReposCount = Team.countByRepositoryInList(repos.collect {it.id}.toList())
+        } else {
+            session.setAttribute("redirect", createLink(controller: 'team'))
+            redirect(controller: 'oauth', action: 'github', id: 'authenticate')
         }
 
         [teams: teams,
@@ -55,6 +58,9 @@ class TeamController {
         if (gitToken != null) {
 
             gitHubService = new GitHubService(gitToken)
+        } else {
+            session.setAttribute("redirect", createLink(controller: 'team', action: 'create'))
+            redirect(controller: 'oauth', action: 'github', id: 'authenticate')
         }
         [user: user, repositories: gitHubService?.getRepositories()]
     }

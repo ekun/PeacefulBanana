@@ -43,39 +43,42 @@
                     ${selectedMilestone != null ? '<li class="active">\n' +
                         '<a href="${createLink(action: \'milestone\', id: '+selectedMilestone.id+')}">'+selectedMilestone.title+'</a></li>' : ''}
             </ul>
-            <div class="row" style="${selectedMilestone != null ? 'display: none;' : ''}">
-                <g:each in="${milestones}">
-                    <g:formatMilestone milestone="${it}"/>
-                </g:each>
-            </div>
-            <div class="row" style="${selectedMilestone == null ? 'display: none;' : ''}">
-                <div class="row-fluid">
-                    <g:formatMilestone milestone="${selectedMilestone}"/>
-                    <hr>
-                    <div id="tagcloud" class="span12" style="height: 600px;">
-                        <g:each in="${teamTags}">
-                            <span data-weight="${it.value}">${it.key}</span>
-                        </g:each>
-                    </div>
+            <g:if test="${selectedMilestone == null}">
+                <div class="row" style="${selectedMilestone != null ? 'display: none;' : ''}">
+                    <g:each in="${milestones}">
+                        <g:formatMilestone milestone="${it}"/>
+                    </g:each>
                 </div>
-
-                <g:javascript src="awesomecloud.js" />
-                <script>
-                    var settings = {
-                        "size" : {
-                            "grid" : 4,
-                            "normalize" : false
-                        },
-                        "options" : {
-                            "color" : "random-dark",
-                            "printMultiplier" : 2,
-                            "sort" : "random"
-                        },
-                        "font" : "Futura, Helvetica, sans-serif",
-                        "shape" : "square"
-                    };
-                    $("#tagcloud").awesomeCloud(settings);
-                </script>
+            </g:if>
+            <g:if test="${selectedMilestone != null}">
+                <div class="row">
+                    <div class="row-fluid">
+                        <g:formatMilestone milestone="${selectedMilestone}"/>
+                        <hr>
+                        <div id="tagcloud" class="span12" style="height: 600px;">
+                            <g:each in="${teamTags}">
+                                <span data-weight="${it.value}">${it.key}</span>
+                            </g:each>
+                        </div>
+                    </div>
+                    <g:javascript src="awesomecloud.js" />
+                    <script>
+                        var settings = {
+                            "size" : {
+                                "grid" : 4,
+                                "normalize" : false
+                            },
+                            "options" : {
+                                "color" : "random-dark",
+                                "printMultiplier" : 2,
+                                "sort" : "random"
+                            },
+                            "font" : "Futura, Helvetica, sans-serif",
+                            "shape" : "square"
+                        };
+                        $("#tagcloud").awesomeCloud(settings);
+                    </script>
+                </g:if>
             </div>
     	</div><!--/span-->
     </div><!--/row-->
