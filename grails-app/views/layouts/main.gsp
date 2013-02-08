@@ -193,6 +193,11 @@
             </div>
         </div>
     <div class="container-fluid">
+        <g:if test="${params.get('error')}">
+            <div class="alert alert-error">
+                ${params.get('error')}
+            </div>
+        </g:if>
         <g:layoutBody/>
     </div>
     <div id="footer">

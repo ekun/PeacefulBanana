@@ -15,10 +15,7 @@
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h1>Workshop <a href="${createLink(action: 'create')}" alt="Create workshop" title="Create workshop"><i class="mega-icon mega-icon-add"></i></a></h1>
-        <g:each in="${workshops}">
-            ${it.dateDeadline}
-        </g:each>
+        <h1>Create</h1>
     </div><!--/span-->
 </div><!--/row-->
 </body>

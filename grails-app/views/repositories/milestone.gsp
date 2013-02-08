@@ -49,6 +49,8 @@
             </div>
             <div class="row" style="${selectedMilestone == null ? 'display: none;' : ''}">
                 <div class="row-fluid">
+                    <g:formatMilestone milestone="${selectedMilestone}"/>
+                    <hr>
                     <div id="tagcloud" class="span12" style="height: 600px;">
                         <g:each in="${teamTags}">
                             <span data-weight="${it.value}">${it.key}</span>
