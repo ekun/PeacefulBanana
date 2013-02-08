@@ -142,7 +142,7 @@ grails.plugins.springsecurity.oauth.domainClass = 'org.peaceful.banana.OAuthID'
 grails.plugins.twitterbootstrap.fixtaglib = true
 
 tomcat.deploy.username="admin"
-tomcat.deploy.password="password"
+tomcat.deploy.password="Teech6ha"
 tomcat.deploy.url="http://vm-6121.idi.ntnu.no:8080/manager/html"
 
 grails {
