@@ -18,7 +18,7 @@
                             <li ${params.getLong("id") == it.id ? 'class="active"' : ''}><a href="${createLink(action: 'milestone',id: it.id)}">${it.title}<span class="label pull-right${it?.state == "closed" ? ' label-important">Closed' : it.dueOn?.before(new Date(System.currentTimeMillis())) ? ' label-warning">Overdue' : ' label-success">Open'}</span></a></li>
                         </g:each>
                     </ul>
-                    <li><a href="${createLink(action: 'issue')}">Issues</a></li>
+                    <li><a href="${createLink(action: 'issue')}">General Issues</a></li>
                     <li><a href="${createLink(action: 'tagcloud')}">Tagcloud</a></li>
                     <li><a href="${createLink(action: 'statistics')}">Statistics</a></li>
 	            </ul>
