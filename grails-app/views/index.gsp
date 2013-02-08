@@ -5,18 +5,8 @@
 </head>
 <body>
 	<div class="row-fluid">
-	    <div class="span3">
-            <sec:ifLoggedIn>
-	        <div class="well sidebar-nav">
-	            <ul class="nav nav-list">
-	                <li class="nav-header">Sidebar</li>
-	                <li class="active"><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
-	                <li><a href="repositories"><i class="icon-folder-open"></i> Repositories</a></li>
-                    <li><a href="team"><i class="icon-folder-open"></i> Team</a></li>
-	                <li><a href="settings"><i class="icon-wrench"></i> Settings</a></li>
-	            </ul>
-	        </div><!--/.well -->
-            </sec:ifLoggedIn>
+	    <div class="span3" style="margin-top: 50px; padding-left: 120px;">
+            <g:img file="banana-logo.png" dir="images" />
 	    </div><!--/span-->
 	    <div class="span9">
     		<h1> Home </h1>
