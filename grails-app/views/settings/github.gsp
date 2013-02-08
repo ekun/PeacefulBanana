@@ -29,12 +29,8 @@
             <g:else>
                 <p>
                     <g:form name="changeRepo" action="changeSelectedRepo" class="form-inline">
-                        <g:select class="input-xlarge" name="repoSelection"
-                              from="${repositories}"
-                              value="${user?.selectedRepo}"
-                              optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}" onchange="resetButton()"/>
-                        <g:submitToRemote class="btn btn-primary" action="changeSelectedRepo" id="changeRepoButton"
-                                      update="[success: 'message', failure: 'error']" onLoading="loading()" onSuccess="success()" onFailure="failure()" value="Save" />
+                        <g:submitToRemote class="btn btn-danger" action="changeSelectedRepo" id="changeRepoButton"
+                                      update="[success: 'message', failure: 'error']" onLoading="loading()" onSuccess="success()" onFailure="failure()" value="Force Github synchronization" />
                     </g:form>
                 </p>
             </g:else>

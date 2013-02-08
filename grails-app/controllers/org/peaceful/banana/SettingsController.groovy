@@ -41,7 +41,7 @@ class SettingsController {
     }
 
     def changeSelectedRepo() {
-        def user = User.get(springSecurityService.principal.id)
+/*        def user = User.get(springSecurityService.principal.id)
         def today = new Date().clearTime() //Today from 00:00:00
         if(user?.selectedRepo == 0){
             new Notification(user: user, title: "Congratulations", body: "You have selected your first project!", notificationType: NotificationType.OTHER).save(flush: true)
@@ -58,7 +58,7 @@ class SettingsController {
         }
         user?.selectedRepo = params.getLong("repoSelection")
         user.save()
-
+*/
         new GithubSyncController().sync()
 
         render("Completed syncing data from github.")
