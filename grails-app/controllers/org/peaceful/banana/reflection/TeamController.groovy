@@ -21,18 +21,6 @@ class TeamController {
     def index() {
         // Show dashboard over the users teams
         def user = User.get(springSecurityService.principal.id)
-        def team = user.activeTeam()// By params.id
-        if(!team)
-            redirect(action: 'my')
-
-        // Retrieve all users in the team
-        // Check if all of the users have set the correct repo
-        [team: team, user: user]
-    }
-
-    def my() {
-        def user = User.get(springSecurityService.principal.id)
-
         def teams = Team.findAllByIdInList(TeamUser.findAllByUser(user).collect {it.teamId}.toList(), params)
 
         Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]

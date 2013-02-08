@@ -165,7 +165,7 @@ class RepositoriesController {
         }
     }
 
-    def statistics() {
+/*    def statistics() {
         def user = User.get(springSecurityService.principal.id)
 
         if (user.selectedRepo != 0) {
@@ -182,4 +182,5 @@ class RepositoriesController {
             }
         }
     }
+    */
 }

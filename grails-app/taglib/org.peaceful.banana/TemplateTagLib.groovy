@@ -1,7 +1,5 @@
 package org.peaceful.banana
 
-import org.codehaus.groovy.grails.web.util.StreamCharBuffer
-
 class TemplateTagLib {
 
     def formatMilestone = { attrs ->
@@ -21,17 +19,27 @@ class TemplateTagLib {
      * will allways link to notification center
      */
     def formatNotification = { attrs ->
-        out << '<li style="padding: 1px 5px;">'
-        if(attrs.notification?.unread)
-            out << '<a href="'+createLink(controller: 'notification', action: 'center', id: attrs.notification?.id)+
-                    '" style="background-color: #e2f1fb;"><i class="icon-envelope"></i> ' // TODO: Sette link til riktig sted.
-        else
-            out << '<a href="'+createLink(controller: 'notification', action: 'center', id: attrs.notification?.id)+'">' // TODO: Sette link til riktig sted.
-        out << '<!-- Notification -->'
-        out << '<b>'+attrs.notification?.title+'</b>'
-        out << '<!-- END Notification -->'
-        out << '</a>'
-        out << '</li>'
+        if (attrs.notification.size() > 0) {
+            attrs.notification.each {
+                out << '<li style="padding: 1px 5px;">'
+                if(attrs.notification?.unread)
+                    out << '<a href="'+createLink(controller: 'notification', action: 'center', id: attrs.notification?.id)+
+                            '" style="background-color: #e2f1fb;"><i class="icon-envelope"></i> '
+                else
+                    out << '<a href="'+createLink(controller: 'notification', action: 'center', id: attrs.notification?.id)+'">'
+                out << '<!-- Notification -->'
+                out << '<b>'+attrs.notification?.title+'</b>'
+                out << '<!-- END Notification -->'
+                out << '</a>'
+                out << '</li>'
+            }
+        } else {
+            out << '<li style="padding: 1px 5px;">'
+            out << '<!-- Notification -->'
+            out << '<center>Empty inbox</center>'
+            out << '<!-- END Notification -->'
+            out << '</li>'
+        }
     }
 
     def formatNotificationList = { attrs ->

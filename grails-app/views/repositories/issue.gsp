@@ -14,7 +14,6 @@
 	                <li><a href="${createLink(action: 'milestone')}">Milestones</a></li>
                     <li class="active"><a href="${createLink(action: 'issue')}">General Issues</a></li>
                     <li><a href="${createLink(action: 'tagcloud')}">Tagcloud</a></li>
-                    <li><a href="${createLink(action: 'statistics')}">Statistics</a></li>
 	            </ul>
 	        </div><!--/.well -->
 	    </div><!--/span-->

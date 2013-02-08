@@ -126,11 +126,9 @@
                                             <span class="badge badge-important">${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec.loggedInUserInfo(field:'username')),true,false).size()}</span>
                                         </g:if>
                                     </a>
-                                    <ul class="dropdown-menu" style="width: 300px;">
+                                    <ul class="dropdown-menu" style="width: 300px; margin-top: 3px;">
                                         <!-- Notifications -->
-                                        <g:each in="${User.findByUsername(sec.loggedInUserInfo(field:'username')).notifications}">
-                                            <g:formatNotification notification="${it}" />
-                                        </g:each>
+                                        <g:formatNotification notification="${User.findByUsername(sec.loggedInUserInfo(field:'username')).notifications}" />
                                         <!-- END Notifications -->
                                         <li class="divider"></li>
                                         <li>
