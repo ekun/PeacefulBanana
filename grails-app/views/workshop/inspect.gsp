@@ -15,10 +15,12 @@
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h1>Workshop <a href="${createLink(action: 'create')}" alt="Create workshop" title="Create workshop"><i class="mega-icon mega-icon-add"></i></a></h1>
-        <g:each in="${workshops}">
-            <a href="${createLink(action: 'inspect', id: it.id)}">${it.id}</a><br>
-        </g:each>
+        <h1>Workshop</h1>
+        <ul style="padding-bottom: 100px;">
+            <g:each in="${questions}">
+                <li>${it.questionText}</li>
+            </g:each>
+        </ul>
     </div><!--/span-->
 </div><!--/row-->
 </body>

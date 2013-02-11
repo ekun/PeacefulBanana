@@ -16,6 +16,22 @@
     </div><!--/span-->
     <div class="span9">
         <h1>Create</h1>
+        <div id="target"></div>
+        <g:form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="dateReflectionPeriode">From date</label>
+                <div class="controls">
+                    <g:datePicker name="dateReflectionPeriode" precision="day" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <label class="checkbox">
+                    </label>
+                    <g:submitToRemote class="btn btn-primary" update="target" value="Create"  action="ajaxCreateWorkshop"/>
+                </div>
+            </div>
+        </g:form>
     </div><!--/span-->
 </div><!--/row-->
 </body>

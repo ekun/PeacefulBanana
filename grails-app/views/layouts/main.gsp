@@ -138,6 +138,9 @@
                                               update="[success: 'message', failure: 'error']" onComplete="onSyncComplete()" onLoading="onSyncing()" value="Sync.."/>
                         </p>
                         </sec:ifLoggedIn>
+                        <div id="spinner" class="nav spinner pull-right" style="padding: 8px;">
+                            <img src="${resource(dir: 'images', file: 'spinner.gif')}" alt="Spinner"/>
+                        </div>
                         <ul class="nav">
                             <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
                             <sec:ifLoggedIn>

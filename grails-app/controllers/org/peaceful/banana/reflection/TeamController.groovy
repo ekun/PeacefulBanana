@@ -115,8 +115,6 @@ class TeamController {
         def team = params.inputName
         def repo = params.inputRepo
 
-        log.error "[team: '"+team+"', repo: '"+repo+"']"
-
         if (team && team.length() > 0 && repo) {
             if (Team.countByRepository(repo) != 0) {
                 response.status = 500
@@ -136,7 +134,10 @@ class TeamController {
                 user.setActiveTeam(newTeam)
                 user.save(flush: true)
 
-                new GithubSyncController().sync()
+                // TODO: FIKS DENNE!
+                runAsync {
+                    new GithubSyncController().sync()
+                }
 
                 // Render response
                 render "<div class='alert alert-success'>Team has been created.<br>Inspect it <a href='"+createLink(action: 'inspect', id: newTeam.id)+"'>here</a>.</div>"

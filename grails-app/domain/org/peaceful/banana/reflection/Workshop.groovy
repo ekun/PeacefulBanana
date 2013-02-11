@@ -6,7 +6,6 @@ class Workshop {
 
     Date dateCreated // should be set by GORM
     Date dateStart
-    Date dateReflectionPeriodeStart
     Team team
 
     static constraints = {

@@ -67,7 +67,7 @@ class ReflectionController {
 /**
  * This will show the user every note created by him this last periode so that he can prepair for the workshop
  */
-    def preperation() {
+    def preparation() {
         // get the logged in user
         def user = User.get(springSecurityService.principal.id)
 

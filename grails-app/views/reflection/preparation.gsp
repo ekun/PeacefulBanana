@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Preperation for reflection workshop</title>
+    <title>Preparation for reflection workshop</title>
     <r:require modules="bootstrap"/>
 </head>
 <body>
@@ -13,7 +13,7 @@
                 <li class="nav-header">Reflection</li>
                 <li><a href="${createLink(action: 'index')}">Notes</a></li>
                 <li><a href="${createLink(action: 'mood')}">Mood</a></li>
-                <li class="active"><a href="${createLink(action: 'preperation')}">Workshop preperation</a></li>
+                <li class="active"><a href="${createLink(action: 'preparation')}">Workshop preparation</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->

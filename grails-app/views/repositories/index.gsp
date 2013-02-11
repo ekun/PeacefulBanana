@@ -23,9 +23,6 @@
             <p>${selectedRepo != null ? selectedRepo?.description : ''}</p>
             <div class="span5">
                 <h3>Impact</h3>
-                <div id="spinner" class="spinner">
-                    <img src="${resource(dir: 'images', file: 'spinner.gif')}" alt="Spinner"/>
-                </div>
                 <g:javascript>
                 // Load the Visualization API and the piechart package.
                 google.load('visualization', '1', {'packages':['corechart']});
@@ -52,7 +49,7 @@
                 <div id="piechart"></div>
             </div>
             <div class="span5">
-                <h3>Asdf</h3>
+                <h3>Configuration</h3>
                 Commitcount: ${Commit.countByRepository(selectedRepo)}
             </div>
     	</div><!--/span-->

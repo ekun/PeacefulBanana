@@ -110,20 +110,20 @@ grails.plugins.springsecurity.interceptUrlMap = [
 
 oauth {
     providers {
-    }
-    github {
-        api = org.peaceful.banana.api.GitHubApi
-        key = '7261cb7dcc394d1addb0'
-        secret = '08c76b315f8bde88e2abe84ea63b2c6b337dc9a9'
-        scope = 'user,repo'
+        github {
+            api = org.peaceful.banana.api.GitHubApi
+            key = '7261cb7dcc394d1addb0'
+            secret = '08c76b315f8bde88e2abe84ea63b2c6b337dc9a9'
+            scope = 'user,repo'
 
-        // For deploy
-        callback = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/oauth/github/callback"
-        successUri = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/githubResponse"
+            // For deploy
+            callback = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/oauth/github/callback"
+            successUri = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/githubResponse"
 
-        // For testing localy
-        //callback = "http://localhost:8080/PeacefulBanana/oauth/github/callback"
-        //successUri = "http://localhost:8080/PeacefulBanana/githubResponse"
+            // For testing localy
+            //callback = "http://localhost:8080/PeacefulBanana/oauth/github/callback"
+            //successUri = "http://localhost:8080/PeacefulBanana/githubResponse"
+        }
     }
     debug = true
 }
