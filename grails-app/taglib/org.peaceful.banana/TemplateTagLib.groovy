@@ -21,16 +21,17 @@ class TemplateTagLib {
     def formatNotification = { attrs ->
         if (attrs.notification.size() > 0) {
             attrs.notification.each {
-                out << '<li style="padding: 1px 5px;">'
-                if(attrs.notification?.unread)
-                    out << '<a href="'+createLink(controller: 'notification', action: 'center', id: attrs.notification?.id)+
+                out << '<li style="padding: 1px 5px; overflow: hidden;">'
+                out << '<!-- Notification -->'
+                if(it.unread)
+                    out << '<a href="'+createLink(controller: 'notification', action: 'center', id: it.id)+
                             '" style="background-color: #e2f1fb;"><i class="icon-envelope"></i> '
                 else
-                    out << '<a href="'+createLink(controller: 'notification', action: 'center', id: attrs.notification?.id)+'">'
-                out << '<!-- Notification -->'
-                out << '<b>'+attrs.notification?.title+'</b>'
-                out << '<!-- END Notification -->'
+                    out << '<a href="'+createLink(controller: 'notification', action: 'center', id: it.id)+'">'
+
+                out << '<b>'+it.title+'</b>'
                 out << '</a>'
+                out << '<!-- END Notification -->'
                 out << '</li>'
             }
         } else {

@@ -182,5 +182,7 @@ class TeamController {
         // Set the new team as the
         user.setActiveTeam(team)
         user.save()
+
+        render "<div class='alert alert-success'>Team has been joined.</div>"
     }
 }

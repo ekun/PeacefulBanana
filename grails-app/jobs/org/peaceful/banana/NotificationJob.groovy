@@ -12,7 +12,7 @@ class NotificationJob {
                         user: it.user,
                         title: "Reminder: Daily reflection",
                         body: "You have not completed your daily reflection! Click here to do this now",
-                        notificationType: NotificationType.REFLECTION).save()
+                        notificationType: NotificationType.REFLECTION).save(flush:  true)
             }
         }
     }

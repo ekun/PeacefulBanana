@@ -27,12 +27,17 @@
                 <g:githubOAuth/>
             </g:if>
             <g:else>
+                <g:if test="${user?.activeTeam()}">
                 <p>
                     <g:form name="changeRepo" action="changeSelectedRepo" class="form-inline">
                         <g:submitToRemote class="btn btn-danger" action="changeSelectedRepo" id="changeRepoButton"
                                       update="[success: 'message', failure: 'error']" onLoading="loading()" onSuccess="success()" onFailure="failure()" value="Force Github synchronization" />
                     </g:form>
                 </p>
+                </g:if>
+                <g:else>
+                    <p>You need to select a active team inorder to sync with Github.</p>
+                </g:else>
             </g:else>
         <div id="message"></div>
         <div id="error"></div>
@@ -42,7 +47,7 @@
     function success() {
         $("#changeRepoButton").removeClass("btn-primary");
         $("#changeRepoButton").addClass("btn-success");
-        $("#changeRepoButton").attr("value", "Saved");
+        $("#changeRepoButton").attr("value", "Synced");
     }
 
     function failure() {
@@ -54,13 +59,13 @@
     function loading() {
         $("#changeRepoButton").attr("disabled", "disabled");
         $("#changeRepoButton").addClass("disabled");
-        $("#changeRepoButton").attr("value", "Saving..");
+        $("#changeRepoButton").attr("value", "Syncing..");
     }
 
     function resetButton() {
         $("#changeRepoButton").removeClass("btn-success");
         $("#changeRepoButton").addClass("btn-primary");
-        $("#changeRepoButton").attr("value", "Save");
+        $("#changeRepoButton").attr("value", "Force Github synchronization");
     }
 </g:javascript>
 </body>
