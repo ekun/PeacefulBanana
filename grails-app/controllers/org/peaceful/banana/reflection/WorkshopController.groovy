@@ -42,7 +42,7 @@ class WorkshopController {
         if (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user) {
 
             def newWorkshop = new Workshop(team: user.activeTeam(), dateStart: params.getDate("dateStart"),
-                    dateReflectionPeriodeStart: params.getDate("dateReflectionPeriode")).save()
+                    dateReflectionPeriodeStart: params.getDate("dateReflectionPeriode")).save(flush: true)
 
             // Generate questions based on hashtags
             def commits = Commit.findAllByRepositoryAndCreatedAtBetween(
@@ -66,11 +66,22 @@ class WorkshopController {
             }
 
             // sort after value
-            commitTags.sort()
-            def maxTagCount = commitTags.values()[0]
+            def maxTagCount = commitTags.values().sort()[0]
+
+            new WorkshopQuestion(questionText: "What were your initial expectations to this iteration? Did these expectations change during the iteration? How? Why?",
+                    workshop: newWorkshop).save()
+            new WorkshopQuestion(questionText: "What could be done to improve team collaboration?",
+                    workshop: newWorkshop).save()
+            new WorkshopQuestion(questionText: "What did you do that seemed to be effective or ineffective in the team?",
+                    workshop: newWorkshop).save()
+            new WorkshopQuestion(questionText: "What are the most difficult or satisfying parts of your work? Why?",
+                    workshop: newWorkshop).save()
+            new WorkshopQuestion(questionText: "Talk about any disappointments or successes of your project. What did you learn from it?",
+                    workshop: newWorkshop).save()
 
             commitTags.each {
-                new WorkshopQuestion(questionText: generateQuestion(it.key, it.value, maxTagCount)).save()
+                if (!(it.value > (maxTagCount/3)))
+                    new WorkshopQuestion(questionText: generateQuestion(it.key, it.value, maxTagCount), workshop: newWorkshop).save()
             }
 
         } else {
@@ -79,16 +90,15 @@ class WorkshopController {
     }
 
     private String generateQuestion(String tag, int count, int maxCount) {
-
-        if (tag.substring(1).integer)
-            tag = Issue.findByNumber(tag.substring(0).toInteger()).title
+        tag = tag.substring(1)
+        if (tag.integer)
+            tag = Issue.findByNumber(tag.toInteger()).title
 
         if (count > ((maxCount*2)/3)) {
-            return "Was there anything that could have been done differently when working on '"+tag+"'?"
+            return "You have had a high activity working with '"+tag+"'. Did you experience any particular problems? Why or why not?"
         } else if (count < ((maxCount*2)/3) && count > (maxCount/3)) {
-
+            return "Could there be any improvements on how you worked with '"+tag+"'?"
         }
-        return ""
     }
 
 }
