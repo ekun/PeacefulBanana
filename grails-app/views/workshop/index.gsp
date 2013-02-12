@@ -17,7 +17,7 @@
     <div class="span9">
         <h1>Workshop <a href="${createLink(action: 'create')}" alt="Create workshop" title="Create workshop"><i class="mega-icon mega-icon-add"></i></a></h1>
         <g:each in="${workshops}">
-            <a href="${createLink(action: 'inspect', id: it.id)}">${it.id}</a><br>
+            <a href="${createLink(action: 'inspect', id: it.id)}">${it.dateStart}</a> ${it.duration}<br>
         </g:each>
     </div><!--/span-->
 </div><!--/row-->

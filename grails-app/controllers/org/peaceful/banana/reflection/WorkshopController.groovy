@@ -116,7 +116,15 @@ class WorkshopController {
     }
 
     def ajaxDeleteQuestion() {
-        
+        def user = User.get(springSecurityService.principal.id)
+        def workshopQuestions = WorkshopQuestion.findById(params.getLong("id"))
+
+        // Check if the user is a manager / owner of his active team
+        if (workshopQuestions.workshop.team == user.activeTeam() &&
+                (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
+            workshopQuestions.delete()
+            render("SUCCESS")
+        }
     }
 
     def ajaxGetQuestions() {
@@ -126,7 +134,7 @@ class WorkshopController {
         // Check if the user is a manager / owner of his active team
         if (workshop.team == user.activeTeam() &&
                 (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
-            render(template: "listAvailTeam", model: [questions: workshop.questions])
+            render(template: "listQuestions", model: [questions: workshop.questions])
         } else {
             render("FAIL!")
         }
