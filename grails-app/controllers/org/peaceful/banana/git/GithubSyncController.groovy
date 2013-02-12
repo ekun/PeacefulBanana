@@ -6,15 +6,6 @@ import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
 import org.peaceful.banana.gitdata.Repository
 import grails.converters.JSON
-import org.peaceful.banana.gitdata.Commit
-import org.peaceful.banana.gitdata.Issue
-import grails.validation.ValidationException
-import org.peaceful.banana.gitdata.Milestone
-import org.peaceful.banana.gitdata.IssueEvent
-import org.eclipse.egit.github.core.event.IssuesPayload
-import org.eclipse.egit.github.core.event.IssueCommentPayload
-import org.peaceful.banana.gitdata.IssueComment
-import groovy.time.TimeCategory
 
 class GithubSyncController {
 

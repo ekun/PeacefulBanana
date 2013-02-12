@@ -63,6 +63,10 @@ class TemplateTagLib {
         out << render(template: "listAvailTeam", model: [teams: attrs.teams, user: attrs.user])
     }
 
+    def formatWorkshopQuestions = { attrs ->
+        out << render(template: "listQuestions", model: [questions: attrs.questions])
+    }
+
     def githubOAuth = { attrs ->
         out << render(template: "/template/gitOAuth", )
     }
@@ -80,21 +84,4 @@ class TemplateTagLib {
         }
     }
 
-    private String getLink(NotificationType notificationType) {
-        def controller = ""
-        def action = ""
-        switch(notificationType){
-        //TODO: add more types
-            case NotificationType.REFLECTION:
-                controller = "reflection"
-                break;
-
-            default:
-                controller = "notification"
-                action = "center"
-                break;
-        }
-
-        return createLink(controller: controller, action: action)
-    }
 }

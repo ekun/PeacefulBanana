@@ -16,12 +16,20 @@
     </div><!--/span-->
     <div class="span9">
         <h1>Workshop</h1>
-        <ul style="padding-bottom: 100px;">
-            <g:each in="${questions}">
-                <li>${it.questionText}</li>
-            </g:each>
-        </ul>
+        <div id="target">
+            <g:formatWorkshopQuestions questions="${questions}" />
+        </div>
     </div><!--/span-->
 </div><!--/row-->
+<g:javascript>
+    function reloadList() {
+            $.ajax({type: "POST",
+                url: "${createLink(controller: 'workshop', action: 'ajaxGetQuestions', params: params)}",
+                success: function(msg){
+                    document.getElementById('target').innerHTML = msg;
+                }
+            });
+        }
+</g:javascript>
 </body>
 </html>

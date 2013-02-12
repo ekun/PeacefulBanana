@@ -115,6 +115,23 @@ class WorkshopController {
 
     }
 
+    def ajaxDeleteQuestion() {
+        
+    }
+
+    def ajaxGetQuestions() {
+        def user = User.get(springSecurityService.principal.id)
+        def workshop = Workshop.findById(params.getLong("id"))
+
+        // Check if the user is a manager / owner of his active team
+        if (workshop.team == user.activeTeam() &&
+                (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
+            render(template: "listAvailTeam", model: [questions: workshop.questions])
+        } else {
+            render("FAIL!")
+        }
+    }
+
     private String generateQuestion(String tag, int count, int maxCount) {
         tag = tag.substring(1)
         if (tag.integer)
