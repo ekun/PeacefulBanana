@@ -13,6 +13,7 @@ import org.peaceful.banana.gitdata.IssueEvent
 import org.eclipse.egit.github.core.event.IssuesPayload
 import org.eclipse.egit.github.core.event.IssueCommentPayload
 import org.peaceful.banana.gitdata.IssueComment
+import groovy.time.TimeCategory
 
 class GithubSyncController {
 
@@ -58,7 +59,6 @@ class GithubSyncController {
 
         session["lastCheck"] = System.currentTimeMillis()
 
-        def results = callAsync {
             def domainRepo = new Repository(name: repository.name,
                     description: repository.description, githubId: repository.id,
                     created: repository.createdAt, updated: repository.updatedAt)
@@ -218,8 +218,11 @@ class GithubSyncController {
             }
 
             Date lastUpdate = null
-            if(!firstSave)
-                lastUpdate = domainRepo.updated
+            if(!firstSave) {
+                use ( TimeCategory ) {
+                    lastUpdate = domainRepo.updated + 1.seconds
+                }
+            }
 
             gitHubService.getCommitsSince(repository, lastUpdate).each {
                 try {
@@ -238,8 +241,7 @@ class GithubSyncController {
             // So that we get the latest commits.
             domainRepo.updated = repository.updatedAt
             domainRepo.save(flush: true)
-        }
-        results.get() // wait for async-call
+
         def table = [update: true]
         render table  as JSON
     }

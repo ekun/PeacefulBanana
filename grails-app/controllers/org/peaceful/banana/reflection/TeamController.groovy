@@ -1,11 +1,21 @@
 package org.peaceful.banana.reflection
 
+import grails.validation.ValidationException
+import groovy.time.TimeCategory
+import org.eclipse.egit.github.core.event.IssueCommentPayload
+import org.eclipse.egit.github.core.event.IssuesPayload
 import org.peaceful.banana.Team
 import org.peaceful.banana.TeamRole
 import org.peaceful.banana.TeamUser
 import org.peaceful.banana.User
 import org.peaceful.banana.git.GitHubService
 import org.peaceful.banana.git.GithubSyncController
+import org.peaceful.banana.gitdata.Commit
+import org.peaceful.banana.gitdata.Issue
+import org.peaceful.banana.gitdata.IssueComment
+import org.peaceful.banana.gitdata.IssueEvent
+import org.peaceful.banana.gitdata.Milestone
+import org.peaceful.banana.gitdata.Repository
 import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
 
@@ -134,10 +144,7 @@ class TeamController {
                 user.setActiveTeam(newTeam)
                 user.save(flush: true)
 
-                // TODO: FIKS DENNE!
-                runAsync {
-                    new GithubSyncController().sync()
-                }
+                new GithubSyncController().sync()
 
                 // Render response
                 render "<div class='alert alert-success'>Team has been created.<br>Inspect it <a href='"+createLink(action: 'inspect', id: newTeam.id)+"'>here</a>.</div>"

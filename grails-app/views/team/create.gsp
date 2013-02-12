@@ -32,14 +32,9 @@
             <div class="control-group">
                 <label class="control-label" for="inputRepo">Repository</label>
                 <div class="controls">
-                    <g:if test="${repositories == null}">
-                        <g:githubOAuth/>
-                    </g:if>
-                    <g:else>
-                        <g:select class="input-xlarge" name="inputRepo"
-                                  from="${repositories}"
-                                  optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}"/>
-                    </g:else>
+                    <g:select class="input-xlarge" name="inputRepo"
+                              from="${repositories}"
+                              optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}"/>
                 </div>
             </div>
             <div class="form-actions">

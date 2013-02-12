@@ -46,10 +46,6 @@
             </tr>
             </thead>
             <tbody id="target2">
-            <div id="spinner" class="spinner">
-                <!-- Spinner while loading ajax content. -->
-                <center><img src="${resource(dir: 'images', file: 'spinner.gif')}" alt="Spinner"/></center>
-            </div>
             </tbody>
         </table>
         <center><g:paginate controller="team" maxsteps="15" action="center" total="${availTeamCount - teamsCount?.size()}"/></center>
@@ -78,6 +74,7 @@
                     document.getElementById('target2').innerHTML = msg;
                 }
             });
+            reloadList();
         }
     </g:javascript>
     </div><!--/row-->

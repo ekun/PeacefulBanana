@@ -6,6 +6,7 @@ class Workshop {
 
     Date dateCreated // should be set by GORM
     Date dateStart
+    String duration
     Team team
 
     static constraints = {

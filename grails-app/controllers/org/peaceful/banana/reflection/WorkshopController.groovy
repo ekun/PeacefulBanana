@@ -1,5 +1,8 @@
 package org.peaceful.banana.reflection
 
+import org.apache.commons.lang.time.DurationFormatUtils
+import org.joda.time.Duration
+import org.joda.time.format.PeriodFormat
 import org.peaceful.banana.TeamRole
 import org.peaceful.banana.User
 import org.peaceful.banana.gitdata.Commit
@@ -40,7 +43,8 @@ class WorkshopController {
         def workshop = Workshop.findById(params.getLong("id"))
 
         // Check if the user is a manager / owner of his active team
-        if (workshop.team == user.activeTeam() && (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
+        if (workshop.team == user.activeTeam() &&
+                (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
             [questions: workshop.questions, user: user]
         } else {
             redirect(controller: 'workshop', action: '')
@@ -54,21 +58,23 @@ class WorkshopController {
         // Check if the user is a manager / owner of his active team
         if (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user) {
 
-            def newWorkshop = new Workshop(team: user.activeTeam(), dateStart: new Date()).save(flush: true, failOnError: true)
+            log.error PeriodFormat.getDefault().print(new Duration(((Date)params.dateReflectionPeriode).time, new Date().time).toPeriod())
+
+            def newWorkshop = new Workshop(
+                    team: user.activeTeam(),
+                    dateStart: new Date(),
+                    duration: new Duration(((Date)params.dateReflectionPeriode).time, new Date().time).toString()).save(flush: true, failOnError: true)
 
             // Generate questions based on hashtags
             def commits = Commit.findAllByRepositoryAndCreatedAtBetween(
                     Repository.findByGithubId(user.activeTeam().repository),
-                    params.dateReflectionPeriode, new Date())
+                    (Date)params.dateReflectionPeriode, new Date())
 
             def commitTags = new HashMap<String, Integer>()
 
             // Gather hashtags from commit-messages
             // From a 2-3 week periode
             commits.each {
-                it.message.replaceAll(".","")
-                it.message.replaceAll(",","")
-                it.message.replaceAll("!","")
                 it.message.split(" ").each {
                     if(it.startsWith("#")) {
                         while(it.contains(".") || it.contains(",") || it.contains("!"))
@@ -97,7 +103,6 @@ class WorkshopController {
                     workshop: newWorkshop).save()
 
             commitTags.each {
-                log.error it.value + " - " + it.key
                 if (!(it.value < (maxTagCount/3)))
                     new WorkshopQuestion(questionText: generateQuestion(it.key, it.value, maxTagCount), workshop: newWorkshop).save()
             }
