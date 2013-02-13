@@ -115,18 +115,18 @@ oauth {
             scope = 'user,repo'
 
             // For deploy
-/*            key = '7261cb7dcc394d1addb0'
+            key = '7261cb7dcc394d1addb0'
             secret = '08c76b315f8bde88e2abe84ea63b2c6b337dc9a9'
             callback = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/oauth/github/callback"
             successUri = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/githubResponse"
-*/
 
-            // For testing localy
+
+/*            // For testing localy
             key = '8ee7aa535906d0157db2'
             secret = 'b09ebba58897895fa81c8879d5269d54cee6efaa'
             callback = "http://localhost:8080/PeacefulBanana/oauth/github/callback"
             successUri = "http://localhost:8080/PeacefulBanana/githubResponse"
-
+*/
         }
     }
     debug = true
