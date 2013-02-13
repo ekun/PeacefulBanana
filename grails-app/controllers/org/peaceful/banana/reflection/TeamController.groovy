@@ -1,6 +1,8 @@
 package org.peaceful.banana.reflection
 
 import org.peaceful.banana.GitSyncer
+import org.peaceful.banana.Notification
+import org.peaceful.banana.NotificationType
 import org.peaceful.banana.Team
 import org.peaceful.banana.TeamRole
 import org.peaceful.banana.TeamUser
@@ -56,7 +58,6 @@ class TeamController {
         Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
 
         if (gitToken != null) {
-
             gitHubService = new GitHubService(gitToken)
         } else {
             session.setAttribute("redirect", createLink(controller: 'team', action: 'create'))
@@ -134,11 +135,11 @@ class TeamController {
                 user.setActiveTeam(newTeam)
                 user.save(flush: true)
 
-                // Run repo sync async in the background
+                new Notification(user: user, title: "Congratulations", body: "You have created a team project!", notificationType: NotificationType.OTHER).save(flush: true)
 
+                // Run repo sync
                 def gitSync = new GitSyncer()
                 gitSync.sync(user, (Token)session[oauthService.findSessionKeyForAccessToken('github')])
-
 
                 // Render response
                 render "<div class='alert alert-success'>Team has been created.<br>Inspect it <a href='"+createLink(action: 'inspect', id: newTeam.id)+"'>here</a>.</div>"
