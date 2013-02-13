@@ -119,7 +119,7 @@ class WorkshopController {
                     new WorkshopQuestion(questionText: generateQuestion(it.key, it.value, maxTagCount),
                             commitTag: it.key, workshop: newWorkshop).save()
             }
-            render "<div class='alert alert-success'>Workshop created..</div>"
+            render "<div class='alert alert-success'>Workshop created..<br>Inspect it <a href='"+createLink(action: 'inspect', id: newWorkshop.id)+"'>here</a>.</div>"
         } else {
             log.error "Not rights!"
             response.status = 500
