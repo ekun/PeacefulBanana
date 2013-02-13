@@ -72,6 +72,8 @@ class RepositoriesController {
                             it.commits.each {
                                 it.message.split(" ").each {
                                     if(it.startsWith("#")) {
+                                        while(it.contains(".") || it.contains(",") || it.contains("!"))
+                                            it = it - "." - "!" - ","
                                         if(teamTags.get(it.toLowerCase())){
                                             teamTags.putAt(it.toLowerCase(), teamTags.get(it.toLowerCase()).intValue()+1)
                                         } else {
@@ -127,28 +129,21 @@ class RepositoriesController {
 
             def gitHubService = new GitHubService(githubAccessToken)
             def repository = Repository.findByGithubId(user.selectedRepo)
-            WordProcessor wordProcessor = new WordProcessor();
 
             HashMap<String, Integer> tags = new HashMap<String, Integer>()
             HashMap<String, Integer> myTags = new HashMap<String, Integer>()
 
             // Generate tagcloud data
             Commit.findAllByRepository(repository).each {
-                if(!it.message.startsWith("Merge branch"))  {
-                    it.message.replaceAll("[-+.^:,]","").split(' ').each {
-                        if(!wordProcessor.isStopWord(it.toLowerCase())) {
-                            if(tags.get(it.toLowerCase())){
-                                tags.putAt(it.toLowerCase(), tags.get(it.toLowerCase()).intValue()+1)
-                            } else {
-                                tags.put(it.toLowerCase(),1)
-                            }
+                it.message.split(" ").each {
+                    while(it.contains(".") || it.contains(",") || it.contains("!"))
+                        it = it - "." - "!" - ","
+                    if(it.startsWith("#")) {
+                        if(tags.get(it.toLowerCase())){
+                            tags.putAt(it.toLowerCase(), tags.get(it.toLowerCase()).intValue()+1)
+                        } else {
+                            tags.put(it.toLowerCase(),1)
                         }
-                    }
-                } else {
-                    if(tags.get("merge branch")){
-                        tags.putAt("merge branch", tags.get("merge branch").intValue()+1)
-                    } else {
-                        tags.put("merge branch",1)
                     }
                 }
             }
@@ -156,21 +151,15 @@ class RepositoriesController {
 
             // Generate tagcloud data
             Commit.findAllByRepositoryAndLogin(repository, gitHubService.getAuthenticatedUser().getLogin()).each {
-                if(!it.message.startsWith("Merge branch"))  {
-                    it.message.replaceAll("[-+.^:,]","").split(' ').each {
-                        if(!wordProcessor.isStopWord(it.toLowerCase())) {
-                            if(myTags.get(it.toLowerCase())){
-                                myTags.putAt(it.toLowerCase(), myTags.get(it.toLowerCase()).intValue()+1)
-                            } else {
-                                myTags.put(it.toLowerCase(),1)
-                            }
+                it.message.split(" ").each {
+                    if(it.startsWith("#")) {
+                        while(it.contains(".") || it.contains(",") || it.contains("!"))
+                            it = it - "." - "!" - ","
+                        if(myTags.get(it.toLowerCase())){
+                            myTags.putAt(it.toLowerCase(), myTags.get(it.toLowerCase()).intValue()+1)
+                        } else {
+                            myTags.put(it.toLowerCase(),1)
                         }
-                    }
-                } else {
-                    if(myTags.get("merge branch")){
-                        myTags.putAt("merge branch", myTags.get("merge branch").intValue()+1)
-                    } else {
-                        myTags.put("merge branch",1)
                     }
                 }
             }

@@ -3,6 +3,8 @@ package org.peaceful.banana.reflection
 import org.apache.commons.lang.time.DurationFormatUtils
 import org.joda.time.Duration
 import org.joda.time.format.PeriodFormat
+import org.joda.time.format.PeriodFormatter
+import org.joda.time.format.PeriodFormatterBuilder
 import org.peaceful.banana.TeamRole
 import org.peaceful.banana.User
 import org.peaceful.banana.gitdata.Commit
@@ -58,12 +60,24 @@ class WorkshopController {
         // Check if the user is a manager / owner of his active team
         if (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user) {
 
-            log.error PeriodFormat.getDefault().print(new Duration(((Date)params.dateReflectionPeriode).time, new Date().time).toPeriod())
+            PeriodFormatter monthWeekDays = new PeriodFormatterBuilder()
+                    .appendMonths()
+                    .appendSuffix(" month", " months")
+                    .appendSeparator(" and ")
+                    .appendWeeks()
+                    .appendSuffix(" week", " weeks")
+                    .appendSeparator(" and ")
+                    .appendDays()
+                    .appendSuffix(" day", " days")
+                    .toFormatter();
 
             def newWorkshop = new Workshop(
                     team: user.activeTeam(),
                     dateStart: new Date(),
-                    duration: new Duration(((Date)params.dateReflectionPeriode).time, new Date().time).toString()).save(flush: true, failOnError: true)
+                    duration: monthWeekDays.print(new Duration(
+                            ((Date)params.dateReflectionPeriode).time,
+                            new Date().time).toPeriod())
+            ).save(flush: true)
 
             // Generate questions based on hashtags
             def commits = Commit.findAllByRepositoryAndCreatedAtBetween(

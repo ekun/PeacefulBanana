@@ -82,7 +82,7 @@
                                         <i class="icon-user"></i> <sec:username/>
                                         <b class="caret"></b>
                                     </a>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu" style="margin-top: 3px;">
                                         <!-- li1047/nks -->
                                         <li>
                                             <a href="${createLink(controller: 'reflection', action: 'mood')}"><i class="icon-thumbs-up"></i> Mood</a>

@@ -1,9 +1,6 @@
 <g:each in="${users}">
     <tr ${!it.active ? 'class="error"' : ''}>
         <td>
-            ${it.user.id}
-        </td>
-        <td>
             ${it.user.toString()}
         </td>
         <td>

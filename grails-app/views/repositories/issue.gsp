@@ -19,10 +19,14 @@
 	    </div><!--/span-->
 	 	<div class="span9">
   			<h1>Issues</h1>
-            <g:each in="${issues}">
-                <g:formatIssues issue="${it}"/>
-            </g:each>
-            <g:formatIssue issue="${issue}"/>
+            <g:if test="${!issue}">
+                <g:each in="${issues}">
+                    <g:formatIssues issue="${it}"/>
+                </g:each>
+            </g:if>
+            <g:else>
+                <g:formatIssue issue="${issue}"/>
+            </g:else>
     	</div><!--/span-->
     </div><!--/row-->
 </body>

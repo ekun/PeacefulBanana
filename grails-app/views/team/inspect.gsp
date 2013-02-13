@@ -19,7 +19,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <g:sortableColumn property="id" title="#" />
                 <g:sortableColumn property="lastName" title="Name" />
                 <th>Role</th>
                 <th></th>
