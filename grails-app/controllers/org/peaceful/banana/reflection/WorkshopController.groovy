@@ -54,7 +54,10 @@ class WorkshopController {
 
             def commitTags = generateTagMap(commits)
 
+            int i = 0
+
             workshop.questions.each {
+                log.error "["+ i++ +"]" + it.commitTag
                 commitTags.remove(it.commitTag)
             }
 

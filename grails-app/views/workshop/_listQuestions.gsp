@@ -24,9 +24,11 @@
         <div id="collapseTwo" class="accordion-body collapse">
             <div class="accordion-inner">
                 <ol start="6">
-                    <g:each in="${questions.subList(6,questions.size())}">
-                        <li style="padding: 15px 15px;">${it.questionText}<g:submitToRemote class="btn btn-mini btn-danger pull-right" action="ajaxDeleteQuestion" id="${it.id}" value="Remove" onComplete="reloadList();"></g:submitToRemote></li>
-                    </g:each>
+                    <g:if test="${questions.size() > 5}">
+                        <g:each in="${questions.subList(6,questions.size())}">
+                            <li style="padding: 15px 15px;">${it.questionText}<g:submitToRemote class="btn btn-mini btn-danger pull-right" action="ajaxDeleteQuestion" id="${it.id}" value="Remove" onComplete="reloadList();"></g:submitToRemote></li>
+                        </g:each>
+                    </g:if>
                 </ol>
             </div>
         </div>
