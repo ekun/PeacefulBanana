@@ -64,7 +64,7 @@ class TemplateTagLib {
     }
 
     def formatWorkshopQuestions = { attrs ->
-        out << render(template: "listQuestions", model: [questions: attrs.questions])
+        out << render(template: "listQuestions", model: [questions: attrs.questions, tags: attrs.tags])
     }
 
     def githubOAuth = { attrs ->

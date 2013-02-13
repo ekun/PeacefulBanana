@@ -39,9 +39,9 @@
                 </div>
             </div>
             <div class="form-actions">
-                <g:submitToRemote class="btn btn-primary"  action="ajaxCreateTeam"
-                                  update="[success: 'response', failure: 'response']" value="Create" />
-                <button type="button" class="btn">Cancel</button>
+                <g:submitToRemote class="btn btn-primary"  action="ajaxCreateTeam" id="createTeam"
+                                  update="[success: 'response', failure: 'response']" value="Create" onSuccess="success()"
+                                  onFailure="failure()" onclick="loading()"/>
             </div>
         </form>
         <!-- END Form -->
@@ -49,21 +49,21 @@
 </div><!--/row-->
 <g:javascript>
     function success() {
-        $("#changeRepoButton").removeClass("btn-primary");
-        $("#changeRepoButton").addClass("btn-success");
-        $("#changeRepoButton").attr("value", "Saved");
+        $("#createTeam").removeClass("btn-primary");
+        $("#createTeam").addClass("btn-success");
+        $("#createTeam").attr("value", "Created");
     }
 
     function failure() {
-        $("#changeRepoButton").removeClass("btn-primary");
-        $("#changeRepoButton").addClass("btn-danger");
-        $("#changeRepoButton").attr("value", "Error..");
+        $("#createTeam").removeClass("btn-primary");
+        $("#createTeam").addClass("btn-danger");
+        $("#createTeam").attr("value", "Error..");
     }
 
     function loading() {
-        $("#changeRepoButton").attr("disabled", "disabled");
-        $("#changeRepoButton").addClass("disabled");
-        $("#changeRepoButton").attr("value", "Saving..");
+        $("#createTeam").attr("disabled", "disabled");
+        $("#createTeam").addClass("disabled");
+        $("#createTeam").attr("value", "Creating..");
     }
 </g:javascript>
 </body>

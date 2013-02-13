@@ -3,6 +3,7 @@
     <meta name="layout" content="main"/>
     <title>Reflection workshop</title>
     <r:require modules="bootstrap"/>
+    <r:require modules="bootstrap-transition"/>
 </head>
 <body>
 <div class="row-fluid">
@@ -17,7 +18,7 @@
     <div class="span9">
         <h1>Workshop</h1>
         <div id="target">
-            <g:formatWorkshopQuestions questions="${questions}" />
+            <g:formatWorkshopQuestions questions="${questions}" tags="${tags}" />
         </div>
     </div><!--/span-->
 </div><!--/row-->
@@ -27,8 +28,23 @@
                 url: "${createLink(controller: 'workshop', action: 'ajaxGetQuestions', params: params)}",
                 success: function(msg){
                     document.getElementById('target').innerHTML = msg;
+                    $("#collapseOne").collapse('hide');
+                    $("#collapseTwo").collapse('show');
                 }
             });
+
+        }
+
+    function reloadList2() {
+            $.ajax({type: "POST",
+                url: "${createLink(controller: 'workshop', action: 'ajaxGetQuestions', params: params)}",
+                success: function(msg){
+                    document.getElementById('target').innerHTML = msg;
+                    $("#collapseOne").collapse('hide');
+                    $("#collapseThree").collapse('show');
+                }
+            });
+
         }
 </g:javascript>
 </body>

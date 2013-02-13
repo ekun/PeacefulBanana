@@ -7,6 +7,7 @@ class Workshop {
     Date dateCreated // should be set by GORM
     Date dateStart
     String duration
+    Date durationStart
     Team team
 
     static constraints = {
@@ -14,6 +15,6 @@ class Workshop {
     }
 
     def getQuestions() {
-        return WorkshopQuestion.findAllByWorkshop(this)
+        return WorkshopQuestion.findAllByWorkshop(this, [sort: 'id', order: 'asc'])
     }
 }

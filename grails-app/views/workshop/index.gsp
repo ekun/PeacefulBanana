@@ -1,3 +1,4 @@
+<%@ page import="org.joda.time.DateTime" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -17,7 +18,10 @@
     <div class="span9">
         <h1>Workshop <a href="${createLink(action: 'create')}" alt="Create workshop" title="Create workshop"><i class="mega-icon mega-icon-add"></i></a></h1>
         <g:each in="${workshops}">
-            <a href="${createLink(action: 'inspect', id: it.id)}">${it.dateStart}</a> ${it.duration}<br>
+            <a href="${createLink(action: 'inspect', id: it.id)}">${it.duration} from
+                <joda:time value="${new DateTime(it.dateCreated)}">
+                    <joda:format value="${it}" pattern="d. MMMM yyyy"/>
+                </joda:time></a> <br>
         </g:each>
     </div><!--/span-->
 </div><!--/row-->

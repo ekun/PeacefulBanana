@@ -1,8 +1,7 @@
 package org.peaceful.banana.reflection
 
-import org.apache.commons.lang.time.DurationFormatUtils
 import org.joda.time.Duration
-import org.joda.time.format.PeriodFormat
+import org.joda.time.Period
 import org.joda.time.format.PeriodFormatter
 import org.joda.time.format.PeriodFormatterBuilder
 import org.peaceful.banana.TeamRole
@@ -47,7 +46,19 @@ class WorkshopController {
         // Check if the user is a manager / owner of his active team
         if (workshop.team == user.activeTeam() &&
                 (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
-            [questions: workshop.questions, user: user]
+
+            // Generate questions based on hashtags
+            def commits = Commit.findAllByRepositoryAndCreatedAtBetween(
+                    Repository.findByGithubId(user.activeTeam().repository),
+                    workshop.durationStart, workshop.dateCreated)
+
+            def commitTags = generateTagMap(commits)
+
+            workshop.questions.each {
+                commitTags.remove(it.commitTag)
+            }
+
+            [questions: workshop.questions, user: user, tags: commitTags]
         } else {
             redirect(controller: 'workshop', action: '')
         }
@@ -74,51 +85,39 @@ class WorkshopController {
             def newWorkshop = new Workshop(
                     team: user.activeTeam(),
                     dateStart: new Date(),
-                    duration: monthWeekDays.print(new Duration(
-                            ((Date)params.dateReflectionPeriode).time,
-                            new Date().time).toPeriod())
-            ).save(flush: true)
+                    durationStart: (Date)params.dateReflectionPeriode,
+                    duration: monthWeekDays.print(new Duration(System.currentTimeMillis() - ((Date)params.dateReflectionPeriode).getTime()).toPeriod().normalizedStandard())
+            ).save(flush: true, failOnError: true)
 
             // Generate questions based on hashtags
             def commits = Commit.findAllByRepositoryAndCreatedAtBetween(
                     Repository.findByGithubId(user.activeTeam().repository),
                     (Date)params.dateReflectionPeriode, new Date())
 
-            def commitTags = new HashMap<String, Integer>()
-
-            // Gather hashtags from commit-messages
-            // From a 2-3 week periode
-            commits.each {
-                it.message.split(" ").each {
-                    if(it.startsWith("#")) {
-                        while(it.contains(".") || it.contains(",") || it.contains("!"))
-                            it = it - "." - "!" - ","
-                        if(commitTags.get(it.toLowerCase())){
-                            commitTags.putAt(it.toLowerCase(), commitTags.get(it.toLowerCase()).intValue()+1)
-                        } else {
-                            commitTags.put(it.toLowerCase(),1)
-                        }
-                    }
-                }
-            }
+            def commitTags = generateTagMap(commits)
 
             // sort after value
             def maxTagCount = commitTags.values().max()
 
             new WorkshopQuestion(questionText: "What were your initial expectations to this iteration? Did these expectations change during the iteration? How? Why?",
+                    commitTag: "MANDATORY",
                     workshop: newWorkshop).save()
-            new WorkshopQuestion(questionText: "What could be done to improve team collaboration?",
+            new WorkshopQuestion(questionText: "What could be done to improve team collaboration?", commitTag: "MANDATORY",
                     workshop: newWorkshop).save()
             new WorkshopQuestion(questionText: "What did you do that seemed to be effective or ineffective in the team?",
+                    commitTag: "MANDATORY",
                     workshop: newWorkshop).save()
             new WorkshopQuestion(questionText: "What are the most difficult or satisfying parts of your work? Why?",
+                    commitTag: "MANDATORY",
                     workshop: newWorkshop).save()
             new WorkshopQuestion(questionText: "Talk about any disappointments or successes of your project. What did you learn from it?",
+                    commitTag: "MANDATORY",
                     workshop: newWorkshop).save()
 
             commitTags.each {
                 if (!(it.value < (maxTagCount/3)))
-                    new WorkshopQuestion(questionText: generateQuestion(it.key, it.value, maxTagCount), workshop: newWorkshop).save()
+                    new WorkshopQuestion(questionText: generateQuestion(it.key, it.value, maxTagCount),
+                            commitTag: it.key, workshop: newWorkshop).save()
             }
             render "<div class='alert alert-success'>Workshop created..</div>"
         } else {
@@ -148,26 +147,79 @@ class WorkshopController {
         // Check if the user is a manager / owner of his active team
         if (workshop.team == user.activeTeam() &&
                 (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
-            render(template: "listQuestions", model: [questions: workshop.questions])
+
+            // Generate questions based on hashtags
+            def commits = Commit.findAllByRepositoryAndCreatedAtBetween(
+                    Repository.findByGithubId(user.activeTeam().repository),
+                    workshop.durationStart, workshop.dateCreated)
+
+            def commitTags = generateTagMap(commits)
+
+            workshop.questions.each {
+                commitTags.remove(it.commitTag)
+            }
+
+            render(template: "listQuestions", model: [questions: workshop.questions, tags: commitTags])
+        } else {
+            render("FAIL!")
+        }
+    }
+
+    def ajaxAddQuestion() {
+        def user = User.get(springSecurityService.principal.id)
+        def workshop = Workshop.findById(params.getLong("id"))
+
+        if (workshop.team == user.activeTeam() &&
+                (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
+
+            Random randy = new Random(System.currentTimeMillis())
+
+            new WorkshopQuestion(questionText: generateQuestion(params.get("tag"), randy.nextInt(3), 4),
+                    commitTag: params.get("tag"), workshop: workshop).save()
+            render("SUCCESS")
         } else {
             render("FAIL!")
         }
     }
 
     private String generateQuestion(String tag, int count, int maxCount) {
-        tag = tag.substring(1)
-        if (tag.integer)
-            tag = "issue "+tag+" - "+Issue.findByNumber(tag.toInteger()).title
-        else
-            tag = "tag '"+tag+"'"
+        if (!tag.startsWith("the "))
+            tag = "the tag " + tag
 
         if (count > ((maxCount*2)/3)) {
-            return "You have had a high activity working with the "+tag+". Did you experience any particular problems? Why or why not?"
+            return "You have had a high activity working with "+tag+". Did you experience any particular problems? Why or why not?"
         } else if (count < ((maxCount*2)/3) && count > (maxCount/3)) {
-            return "Could there be any improvements on how you worked with the "+tag+"?"
+            return "Could there be any improvements on how you worked with "+tag+"?"
         } else {
-            return "What did you learn from working with the "+tag+"?"
+            return "What did you learn from working with "+tag+"?"
         }
+    }
+
+    private HashMap<String, Integer> generateTagMap(commits) {
+        def commitTags = new HashMap<String, Integer>()
+
+        // Gather hashtags from commit-messages
+        // From a 2-3 week periode
+        commits.each {
+            it.message.split(" ").each {
+                if(it.startsWith("#")) {
+                    while(it.contains(".") || it.contains(",") || it.contains("!"))
+                        it = it - "." - "!" - ","
+
+                    def tag = it.substring(1)
+                    if (tag.integer) {
+                        tag = "The issue '"+Issue.findByNumber(tag.toInteger()).title+"' (#"+tag+")"
+                        it = tag
+                    }
+                    if(commitTags.get(it.toLowerCase())){
+                        commitTags.putAt(it.toLowerCase(), commitTags.get(it.toLowerCase()).intValue()+1)
+                    } else {
+                        commitTags.put(it.toLowerCase(),1)
+                    }
+                }
+            }
+        }
+        return commitTags
     }
 
 }
