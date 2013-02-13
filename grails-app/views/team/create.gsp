@@ -41,7 +41,7 @@
             <div class="form-actions">
                 <g:submitToRemote class="btn btn-primary"  action="ajaxCreateTeam" id="createTeam"
                                   update="[success: 'response', failure: 'response']" value="Create" onSuccess="success()"
-                                  onFailure="failure()" onclick="loading()"/>
+                                  onFailure="failure()" onLoading="loading()"/>
             </div>
         </form>
         <!-- END Form -->
@@ -64,6 +64,8 @@
         $("#createTeam").attr("disabled", "disabled");
         $("#createTeam").addClass("disabled");
         $("#createTeam").attr("value", "Creating..");
+        $("#createTeam").attr("disabled", "disabled");
+        $("#createTeam").addClass("disabled");
     }
 </g:javascript>
 </body>
