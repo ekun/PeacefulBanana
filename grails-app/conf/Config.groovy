@@ -138,6 +138,7 @@ grails.plugins.springsecurity.userLookup.authorityJoinClassName = "org.peaceful.
 grails.plugins.springsecurity.authority.className = "org.peaceful.banana.Role"
 
 // Registration
+grails.plugins.springsecurity.ui.encodePassword = false
 grails.plugins.springsecurity.ui.register.postRegisterUrl = '/team'
 grails.plugins.springsecurity.ui.register.emailFrom = 'fredfullbanan@gmail.com'
 grails.plugins.springsecurity.ui.register.emailSubject = 'Peaceful Banana - Registration'
