@@ -171,6 +171,21 @@ class GitSyncer {
                 // This will get all commits done AFTER the last one, not including the last one second time.
                 lastUpdate = domainRepo.updated + 1.seconds
             }
+        } else {
+            // When first syncing with github, set the users name.
+            // Set the users name
+            def nameUser = gitHubService.authenticatedUser.name.split(" ")
+            user.firstName = ""
+
+            for (int i = 0; i < nameUser.length -2; i ++) {
+                user.firstName += nameUser[i].capitalize() + " "
+            }
+            user.firstName = user.firstName.substring(0, user.firstName.length() - 1);
+
+            user.lastName = nameUser[nameUser.length-1] // Lastname
+            user.lastName.capitalize()
+
+            user.save()
         }
 
         gitHubService.getCommitsSince(repository, lastUpdate).each {
