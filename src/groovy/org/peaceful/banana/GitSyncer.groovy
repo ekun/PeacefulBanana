@@ -188,7 +188,7 @@ class GitSyncer {
             user.save()
         }
 
-        gitHubService.getCommitsSince(repository, lastUpdate).each {
+        gitHubService.getCommitsSince(repository, domainRepo.lastCommit()).each {
             new Commit(login: it.user,
                     message: it.message,
                     additions: it.added,
