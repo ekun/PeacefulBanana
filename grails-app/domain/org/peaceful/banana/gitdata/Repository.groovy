@@ -36,6 +36,7 @@ class Repository {
         def last = Commit.findByRepository(this, [sort: 'createdAt', order: 'desc', max: 1])
         if (!last)
             return new Date(0) // should return 1-1-1970 00:00:00.
+
         use ( TimeCategory ) {
             // This will get all commits done AFTER the last one, not including the last one second time.
             last.createdAt + 1.seconds
