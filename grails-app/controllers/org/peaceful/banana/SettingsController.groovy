@@ -63,4 +63,8 @@ class SettingsController {
 
         render("Completed syncing data from github.")
     }
+
+    def changePassword() {
+        render "Not implemented yet.    "
+    }
 }

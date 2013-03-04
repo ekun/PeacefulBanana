@@ -50,7 +50,7 @@ class WorkshopController {
             // Generate questions based on hashtags
             def commits = Commit.findAllByRepositoryAndCreatedAtBetween(
                     Repository.findByGithubId(user.activeTeam().repository),
-                    workshop.durationStart, workshop.dateCreated)
+                    workshop.dateStart, workshop.dateEnd)
 
             def commitTags = generateTagMap(commits)
 
@@ -73,14 +73,14 @@ class WorkshopController {
 
             def newWorkshop = new Workshop(
                     team: user.activeTeam(),
-                    dateStart: new Date(),
-                    dateEnd: (Date)params.dateReflectionPeriode
+                    dateStart: (Date)params.dateReflectionPeriodeStart,
+                    dateEnd: (Date)params.dateReflectionPeriodeEnd
             ).save(flush: true, failOnError: true)
 
             // Generate questions based on hashtags
             def commits = Commit.findAllByRepositoryAndCreatedAtBetween(
                     Repository.findByGithubId(user.activeTeam().repository),
-                    (Date)params.dateReflectionPeriode, new Date())
+                    (Date)params.dateReflectionPeriodeStart, (Date)params.dateReflectionPeriodeEnd)
 
             def commitTags = generateTagMap(commits)
 
