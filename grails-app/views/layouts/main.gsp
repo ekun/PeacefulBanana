@@ -162,7 +162,7 @@
                                         Team
                                     </a>
                                 </li>
-                                <g:if test="${User.findByUsername(sec.loggedInUserInfo(field:'username')).teamRole() == TeamRole.MANAGER}">
+                                <g:if test="${User.findByUsername(sec.loggedInUserInfo(field:'username')).teamRole() == TeamRole.MANAGER || User.findByUsername(sec.loggedInUserInfo(field:'username')).activeTeam().owner == User.findByUsername(sec.loggedInUserInfo(field:'username'))}">
                                     <li class="divider-vertical"></li>
                                     <li ${controllerName.equals('workshop') ? 'class="active"' : ''}>
                                         <a href="${createLink(controller: 'workshop')}" title="Manager status required" alt="Manager status required">

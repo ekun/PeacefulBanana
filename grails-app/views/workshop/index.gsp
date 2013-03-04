@@ -18,15 +18,20 @@
     <div class="span9">
         <h1>Workshop <a href="${createLink(action: 'create')}" alt="Create workshop" title="Create workshop"><i class="mega-icon mega-icon-add"></i></a></h1>
         <g:each in="${workshops}">
-            <a href="${createLink(action: 'inspect', id: it.id)}">${it.duration} from
-                <joda:time value="${new DateTime(it.durationStart)}">
+            <a href="${createLink(action: 'inspect', id: it.id)}">${it.getDuration()} from
+                <joda:time value="${new DateTime(it.dateStart)}">
                     <joda:format value="${it}" pattern="d. MMMM yyyy"/>
-                </joda:time></a>
-            <joda:time value="${new DateTime(it.durationStart)}">
+                </joda:time>
+                to
+                <joda:time value="${new DateTime(it.dateEnd)}">
+                    <joda:format value="${it}" pattern="d. MMMM yyyy"/>
+                </joda:time>
+            </a>
+            <joda:time value="${new DateTime(it.dateStart)}">
                 <joda:format value="${it}" pattern="d. MMMM yyyy"/>
             </joda:time>
             -->
-            <joda:time value="${new DateTime(it.dateCreated)}">
+            <joda:time value="${new DateTime(it.dateEnd)}">
                 <joda:format value="${it}" pattern="d. MMMM yyyy"/>
             </joda:time>
             <br>

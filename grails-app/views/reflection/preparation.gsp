@@ -18,7 +18,11 @@
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h1 style="margin-bottom: 30px;">Preperation</h1>
+        <h1 style="margin-bottom: 30px;">Preparation</h1>
+        <p>Under can you see your notes created for the periode</p>
+        <select>
+
+        </select>
         <hr>
         <div class="row">
             <div class="span5" style="margin-left: 30px;">

@@ -38,15 +38,15 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="oldPassword">Old Password</label>
+                    <label class="control-label" for="oldPassword">New Password</label>
                     <div class="controls">
                         <g:field type="password" required="true" name="password" placeholder="New password" />
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="oldPassword">Old Password</label>
+                    <label class="control-label" for="oldPassword">Confirm new Password</label>
                     <div class="controls">
-                        <g:field type="password" required="true" name="confirmPassword" placeholder="Confirm password" />
+                        <g:field type="password" required="true" name="confirmPassword" placeholder="Confirm new password" />
                     </div>
                 </div>
                 <div class="control-group">

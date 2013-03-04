@@ -46,12 +46,12 @@ class User {
         Notification.findAllByUserAndCleared(this, false) as List
     }
 
-    Notification getLatestReflectionNotification() {
-        Notification.findByUserAndClearedAndNotificationType(this, false, NotificationType.REFLECTION, [sort: "dateCreated", order:'desc', max: '1'])
+    Note getLatestReflectionNote() {
+        Note.findByUser(this, [sort: "dateCreated", order:'desc', max: '1'])
     }
 
     List<Note> getNotes() {
-        Note.findAllByUser(this) as List
+        Note.findAllByUserAndTeam(this, activeTeam()) as List
     }
 
     Team activeTeam() {

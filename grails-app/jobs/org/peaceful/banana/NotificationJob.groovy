@@ -7,12 +7,12 @@ class NotificationJob {
 
     def execute() {
         TeamUser.findAllByActive(true).each {
-            if(!it.user?.getLatestReflectionNotification()?.dateCreated?.after(new Date().clearTime())) {
+            if(!it.user?.getLatestReflectionNote()?.dateCreated?.after(new Date().clearTime())) {
                 new Notification(
                         user: it.user,
                         title: "Reminder: Daily reflection",
                         body: "You have not completed your daily reflection! Click here to do this now",
-                        notificationType: NotificationType.REFLECTION).save(flush:  true)
+                        notificationType: NotificationType.REFLECTION).save()
             }
         }
     }

@@ -19,9 +19,15 @@
         <div id="target"></div>
         <g:form class="form-horizontal">
             <div class="control-group">
-                <label class="control-label" for="dateReflectionPeriode">From date</label>
+                <label class="control-label" for="dateReflectionPeriodeStart">From date</label>
                 <div class="controls">
-                    <g:datePicker name="dateReflectionPeriode" precision="day" />
+                    <g:datePicker name="dateReflectionPeriodeStart" precision="day" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="dateReflectionPeriodeEnd">To date</label>
+                <div class="controls">
+                    <g:datePicker name="dateReflectionPeriodeEnd" precision="day" />
                 </div>
             </div>
             <div class="control-group">

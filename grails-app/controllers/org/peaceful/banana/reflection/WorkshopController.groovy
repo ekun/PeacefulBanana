@@ -54,10 +54,7 @@ class WorkshopController {
 
             def commitTags = generateTagMap(commits)
 
-            int i = 0
-
             workshop.questions.each {
-                log.error "["+ i++ +"]" + it.commitTag
                 commitTags.remove(it.commitTag)
             }
 
@@ -74,22 +71,10 @@ class WorkshopController {
         // Check if the user is a manager / owner of his active team
         if (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user) {
 
-            PeriodFormatter monthWeekDays = new PeriodFormatterBuilder()
-                    .appendMonths()
-                    .appendSuffix(" month", " months")
-                    .appendSeparator(" and ")
-                    .appendWeeks()
-                    .appendSuffix(" week", " weeks")
-                    .appendSeparator(" and ")
-                    .appendDays()
-                    .appendSuffix(" day", " days")
-                    .toFormatter();
-
             def newWorkshop = new Workshop(
                     team: user.activeTeam(),
                     dateStart: new Date(),
-                    durationStart: (Date)params.dateReflectionPeriode,
-                    duration: monthWeekDays.print(new Duration(System.currentTimeMillis() - ((Date)params.dateReflectionPeriode).getTime()).toPeriod().normalizedStandard())
+                    dateEnd: (Date)params.dateReflectionPeriode
             ).save(flush: true, failOnError: true)
 
             // Generate questions based on hashtags
@@ -154,7 +139,7 @@ class WorkshopController {
             // Generate questions based on hashtags
             def commits = Commit.findAllByRepositoryAndCreatedAtBetween(
                     Repository.findByGithubId(user.activeTeam().repository),
-                    workshop.durationStart, workshop.dateCreated)
+                    workshop.dateStart, workshop.dateEnd)
 
             def commitTags = generateTagMap(commits)
 
