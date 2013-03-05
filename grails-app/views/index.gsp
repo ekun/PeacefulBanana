@@ -1,3 +1,4 @@
+<%@ page import="org.peaceful.banana.User" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -11,7 +12,14 @@
 	    <div class="span9">
     		<h1> Home </h1>
             <sec:ifLoggedIn>
-                <p>Welcome to PeacefulBanana, <b><sec:username/></b>! <br>Happy reflecting!</p>
+                <p>Welcome to PeacefulBanana, <b><sec:username/></b>!
+                    <br>Happy reflecting!
+                </p>
+                <p>
+                <g:if test="${!User.findByUsername(sec.loggedInUserInfo(field:'username')).activeTeam()}">
+                    I see you haven't selected a team yet, click <a href="${createLink(controller: 'team')}">here</a> to create or select your first team.
+                </g:if>
+                </p>
             </sec:ifLoggedIn>
             <sec:ifNotLoggedIn>
                 <p>Welcome to PeacefulBanana!</p>
