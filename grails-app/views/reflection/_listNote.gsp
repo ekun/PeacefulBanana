@@ -2,7 +2,7 @@
 <g:each in="${notes}">
     <tr>
         <td>
-            <a href="${createLink(action: 'index', id: it?.id)}">${it?.id}</a>
+            <a href="${createLink(action: 'inspect', id: it?.id)}">${it?.id}</a>
         </td>
         <td>
             <joda:time value="${new DateTime(it.dateCreated)}">

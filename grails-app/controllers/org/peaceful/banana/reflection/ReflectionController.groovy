@@ -25,6 +25,18 @@ class ReflectionController {
         [notes: notes, notesCount: Note.countByUser(user)]
     }
 
+    def inspect() {
+        def user = User.get(springSecurityService.principal.id)
+
+        def note = Note.findById(params.id)
+
+        if (note.user == user) {
+            [note: note]
+        } else {
+            [note: null]
+        }
+    }
+
     def summary() {
         def user = User.get(springSecurityService.principal.id)
         def note

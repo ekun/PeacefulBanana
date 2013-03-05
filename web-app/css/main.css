@@ -867,3 +867,13 @@
 .container-fluid {
     z-index: 1;
 }
+
+.number {
+    line-height: 0.7;
+    font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+    font-weight: bold;
+    font-stretch: condensed;
+    -webkit-font-smoothing: antialiased;
+    font-size: 122px;
+    color: #333;
+}

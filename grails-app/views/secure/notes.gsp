@@ -13,6 +13,10 @@
                 <li><a href="${createLink(action: 'index')}">Dashboard</a></li>
                 <li ><a href="${createLink(action: 'users')}">Users</a></li>
                 <li class="active"><a href="${createLink(action: 'notes')}">Notes</a></li>
+                <ul>
+                    <li><a href="${createLink(action: 'notes', id: 'stats')}">Statistics</a></li>
+                    <li><a href="${createLink(action: 'notes', id: 'mood')}">Mood</a></li>
+                </ul>
                 <li><a href="${createLink(action: 'github')}">Github</a></li>
             </ul>
         </div><!--/.well -->
