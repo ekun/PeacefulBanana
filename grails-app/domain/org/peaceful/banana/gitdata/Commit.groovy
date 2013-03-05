@@ -14,6 +14,10 @@ class Commit {
 
     static belongsTo = [repository: Repository]
 
+    static mapping = {
+        message type: "text"
+    }
+
     static constraints = {
     }
 

@@ -10,8 +10,8 @@ class User {
 	String password
 	boolean enabled
     String email
-    String firstName = "TEST"
-    String lastName = "TESTESEN"
+    String firstName = ""
+    String lastName = ""
     long selectedRepo
 	boolean accountExpired
 	boolean accountLocked

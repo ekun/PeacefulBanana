@@ -115,7 +115,7 @@
                                     </a>
                                     <ul class="dropdown-menu" style="width: 300px; margin-top: 3px;">
                                         <!-- Notifications -->
-                                        <g:formatNotification notification="${User.findByUsername(sec.loggedInUserInfo(field:'username')).notifications}" />
+                                        <g:formatNotification notification="${User.findByUsername(sec.loggedInUserInfo(field:'username')).getNotifications()}" />
                                         <!-- END Notifications -->
                                         <li class="divider"></li>
                                         <li>
@@ -162,7 +162,8 @@
                                         Team
                                     </a>
                                 </li>
-                                <g:if test="${User.findByUsername(sec.loggedInUserInfo(field:'username')).teamRole() == TeamRole.MANAGER || User.findByUsername(sec.loggedInUserInfo(field:'username')).activeTeam().owner == User.findByUsername(sec.loggedInUserInfo(field:'username'))}">
+                                <g:if test="${User.findByUsername(sec.loggedInUserInfo(field:'username')).teamRole() == TeamRole.MANAGER ||
+                                        User.findByUsername(sec.loggedInUserInfo(field:'username'))?.activeTeam()?.owner == User.findByUsername(sec.loggedInUserInfo(field:'username'))}">
                                     <li class="divider-vertical"></li>
                                     <li ${controllerName.equals('workshop') ? 'class="active"' : ''}>
                                         <a href="${createLink(controller: 'workshop')}" title="Manager status required" alt="Manager status required">

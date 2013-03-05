@@ -1,4 +1,4 @@
-<%@ page import="org.joda.time.DateTime" %>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils; org.joda.time.DateTime" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -39,7 +39,7 @@
                                         </joda:time>
                                     </span>
                                 </div>
-                                <div class="commit-content">${it.contributions}</div>
+                                <div class="commit-content">${StringEscapeUtils.unescapeHtml(it.contributions)}</div>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                                         </joda:time>
                                     </span>
                                 </div>
-                                <div class="commit-content">${it.improvements}</div>
+                                <div class="commit-content">${StringEscapeUtils.unescapeHtml(it.improvements)}</div>
                             </div>
                         </div>
                     </div>
