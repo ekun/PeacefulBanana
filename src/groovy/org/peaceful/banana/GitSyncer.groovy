@@ -165,13 +165,7 @@ class GitSyncer {
             }
         }
 
-        Date lastUpdate = null
-        if(!firstSave) {
-            use ( TimeCategory ) {
-                // This will get all commits done AFTER the last one, not including the last one second time.
-                lastUpdate = domainRepo.updated + 1.seconds
-            }
-        } else {
+        if(firstSave) {
             // When first syncing with github, set the users name.
             // Set the users name
             def nameUser = gitHubService.authenticatedUser.name.split(" ")
@@ -188,6 +182,7 @@ class GitSyncer {
             user.save()
         }
 
+        // So that we only get the latest
         gitHubService.getCommitsSince(repository, domainRepo.lastCommit()).each {
             new Commit(login: it.user,
                     message: it.message,
@@ -195,11 +190,9 @@ class GitSyncer {
                     deletions: it.deleted,
                     total: it.impact,
                     createdAt: it.created,
-                    repository: domainRepo).save(flush: true)
+                    repository: domainRepo).save()
         }
 
-        // So that we get the latest commits.
-        domainRepo.updated = repository.updatedAt
         domainRepo.save(flush: true)
     }
 }

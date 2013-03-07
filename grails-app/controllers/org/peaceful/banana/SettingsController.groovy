@@ -1,5 +1,9 @@
 package org.peaceful.banana
 
+import grails.converters.JSON
+import groovy.text.SimpleTemplateEngine
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+import org.codehaus.groovy.grails.plugins.springsecurity.ui.RegistrationCode
 import org.peaceful.banana.git.GitHubService
 import org.peaceful.banana.git.GithubSyncController
 import org.scribe.model.Token
@@ -10,6 +14,7 @@ class SettingsController {
     static allowedMethods = [changeSelectedRepo: 'POST']
 
     def springSecurityService
+    def mailService
     GitHubService gitHubService
     OauthService oauthService
 
@@ -64,7 +69,36 @@ class SettingsController {
         render("Completed syncing data from github.")
     }
 
-    def changePassword() {
-        render "Not implemented yet.    "
+    def ajaxChangePassword() {
+        def user = User.get(springSecurityService.principal.id)
+
+        def registrationCode = new RegistrationCode(username: user.username)
+        registrationCode.save(flush: true)
+
+        String url = generateLink('resetPassword', [t: registrationCode.token])
+
+        def conf = SpringSecurityUtils.securityConfig
+        def body = conf.ui.forgotPassword.emailBody
+        if (body.contains('$')) {
+            body = evaluate(body, [user: user, url: url])
+        }
+        mailService.sendMail {
+            to user.email
+            from conf.ui.forgotPassword.emailFrom
+            subject conf.ui.forgotPassword.emailSubject
+            html body.toString()
+        }
+
+        render "<div class='alert alert-success'>An email has been sent.</div>"
+    }
+
+    protected String generateLink(String action, linkParams) {
+        createLink(base: "$request.scheme://$request.serverName:$request.serverPort$request.contextPath",
+                controller: 'register', action: action,
+                params: linkParams)
+    }
+
+    protected String evaluate(s, binding) {
+        new SimpleTemplateEngine().createTemplate(s).make(binding)
     }
 }

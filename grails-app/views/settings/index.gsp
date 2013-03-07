@@ -30,32 +30,17 @@
         <div class="span9">
             <hr>
             <h2> Change password </h2>
-            <g:form class="form-horizontal" action='' name='changePasswordForm' method='POST' autocomplete='off'>
-                <div class="control-group">
-                    <label class="control-label" for="oldPassword">Old Password</label>
-                    <div class="controls">
-                        <g:field type="password" required="true" name="oldPassword" placeholder="Old password" />
+            <div id="target">
+                <g:form class="form-horizontal" name='changePasswordForm' method='POST' autocomplete='off'>
+                    <p>This will send an email with instructions on how to set a new password.</p>
+                    <div class="control-group">
+                        <label class="control-label" for="submit"></label>
+                        <div class="controls">
+                            <g:submitToRemote class="btn btn-danger btn-large" action="ajaxChangePassword" update="target" name="submit" value="Reset password" />
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="oldPassword">New Password</label>
-                    <div class="controls">
-                        <g:field type="password" required="true" name="password" placeholder="New password" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="oldPassword">Confirm new Password</label>
-                    <div class="controls">
-                        <g:field type="password" required="true" name="confirmPassword" placeholder="Confirm new password" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="submit"></label>
-                    <div class="controls">
-                        <g:submitToRemote class="btn btn-danger btn-large" name="submit" value="Change password" />
-                    </div>
-                </div>
-            </g:form>
+                </g:form>
+            </div>
         </div>
     </div><!--/row-->
 </body>
