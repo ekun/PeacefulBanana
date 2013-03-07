@@ -47,7 +47,7 @@ class ReflectionController {
             note.save() // Validating
         }
 
-        def teamTags = new HashMap<String, Integer>()        //
+        def teamTags = new HashMap<String, Integer>()
 
         // generate summary
         def commits = Commit.findAllByLoginAndCreatedAtGreaterThanEquals(user.gitLogin, new Date(System.currentTimeMillis()-86400000))
@@ -84,9 +84,16 @@ class ReflectionController {
         def user = User.get(springSecurityService.principal.id)
 
         // get the notes he have created and list them
-        def loggedInUserNotes = user.getNotes()
+        def loggedInUserNotes
 
-        [notes: loggedInUserNotes]
+        if (params.getLong("workshop") != null) {
+            def work = Workshop.findById(params.getLong("workshop"))
+            loggedInUserNotes = Note.findByUserAndTeamAndDateCreatedBetween(user, work.team, work.dateStart, work.dateEnd)
+        } else {
+            loggedInUserNotes = user.getNotes()
+        }
+
+        [notes: loggedInUserNotes, user: user, workshops: Workshop.findAllByTeam(user.activeTeam())]
     }
 
     def ajaxShareNote() {

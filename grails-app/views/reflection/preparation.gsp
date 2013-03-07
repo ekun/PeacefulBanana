@@ -20,8 +20,10 @@
     <div class="span9">
         <h1 style="margin-bottom: 30px;">Preparation</h1>
         <p>Under can you see your notes created for the periode</p>
-        <g:form>
-            <g:select name="" from=""
+        <g:form class="input-append" action="preparation" method="POST">
+            <g:select class="input-xxlarge" name="workshop" from="${workshops}" optionKey="id" value="${params.getLong("workshop")}"
+                      optionValue="${{it.dateStart.toString() + " -> " + it.dateEnd.toString()}}" noSelection="[null:'All time']" />
+            <button type="submit" class="btn btn-primary">Reload</button>
         </g:form>
         <hr>
         <div class="row">

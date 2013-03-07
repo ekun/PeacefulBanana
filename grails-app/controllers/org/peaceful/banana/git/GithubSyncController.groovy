@@ -27,6 +27,7 @@ class GithubSyncController {
                 session["lastCheck"] = System.currentTimeMillis()
 
                 GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
+
                 def table = [update: gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)]
 
                 render table  as JSON

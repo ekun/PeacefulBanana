@@ -33,7 +33,7 @@
             <div class="control-group">
                 <label class="control-label" for="inputRepo">Repository</label>
                 <div class="controls">
-                    <g:select class="input-xlarge" name="inputRepo"
+                    <g:select name="inputRepo"
                               from="${repositories}"
                               optionKey="id" optionValue="${{it.owner.login + '/' + it.name}}"/>
                 </div>

@@ -1,7 +1,6 @@
 package org.peaceful.banana
 
 import grails.validation.ValidationException
-import groovy.time.TimeCategory
 import org.eclipse.egit.github.core.event.IssueCommentPayload
 import org.eclipse.egit.github.core.event.IssuesPayload
 import org.peaceful.banana.git.GitHubService
@@ -183,7 +182,7 @@ class GitSyncer {
         }
 
         // So that we only get the latest
-        gitHubService.getCommitsSince(repository, domainRepo.lastCommit()).each {
+        gitHubService.getCommitsSince(repository, domainRepo.updated).each {
             new Commit(login: it.user,
                     message: it.message,
                     additions: it.added,
@@ -192,6 +191,9 @@ class GitSyncer {
                     createdAt: it.created,
                     repository: domainRepo).save()
         }
+
+        // Updating the timestamp where the
+        domainRepo.updated = repository.updatedAt
 
         domainRepo.save(flush: true)
     }

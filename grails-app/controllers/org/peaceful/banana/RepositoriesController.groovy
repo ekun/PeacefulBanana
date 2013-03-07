@@ -114,6 +114,12 @@ class RepositoriesController {
         }
     }
 
+    def commits() {
+        def user = User.get(springSecurityService.principal.id)
+
+        [selectedRepo: Repository.findByGithubId(user.selectedRepo), commits: Commit.findAllByRepository(Repository.findByGithubId(user.selectedRepo), [sort: 'createdAt', order: 'desc'])]
+    }
+
     def tagcloud() {
         def user = User.get(springSecurityService.principal.id)
 
