@@ -21,8 +21,7 @@
             <thead>
             <tr>
                 <g:sortableColumn property="lastName" title="Name" />
-                <th>Role</th>
-                <th></th>
+                <th><div class="pull-right">Role</div></th>
             </tr>
             </thead>
             <tbody id="target">
