@@ -28,7 +28,7 @@
             padding: 9px 0;
         }
         </style>
-        <link href="${createLinkTo(dir:'css')}/main.css" rel="stylesheet" type="text/css">
+        <link type="text/css" href="${resource(dir: 'css', file: 'main.css')}" rel="stylesheet" />
         <g:javascript library="application" />
         <gvisualization:apiImport/>
         <g:layoutHead/>
