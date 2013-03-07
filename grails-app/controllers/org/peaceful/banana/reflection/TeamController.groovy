@@ -70,8 +70,6 @@ class TeamController {
         def user = User.get(springSecurityService.principal.id)
         def team = Team.get(params.getInt("id"))// By params.id
 
-        log.error user.teamRole()
-
         // Retrieve all users in the team
         // Check if all of the users have set the correct repo
         [team: team, teamMembers: TeamUser.findAllByTeam(team, params), user: user]
@@ -98,13 +96,33 @@ class TeamController {
 
     def ajaxChangeUserTeamRole() {
         def user = User.get(springSecurityService.principal.id)
+        def team = Team.findById(params.getLong("teamId"))
+        def teamRole = TeamUser.findByUserAndTeam(user, team)
+        def userToBeChanged = User.findById(params.getLong("userId"))
+        def roleNameField = params.get("teamRole").toString()
+        def success = false
 
         // Fetch team-id, team-role and user-id
-        if (true) { //TODO: FIX!
-            render "<div class='alert alert-success'>Team has been switched.</div>"
-        } else {
+        if (teamRole.role == TeamRole.MANAGER || team.owner == user) {
+
+            if ((teamRole.role != TeamRole.MANAGER && team.owner != userToBeChanged) ||
+                    team.owner == user) {
+
+                def temp = TeamUser.findByTeamAndUser(team, userToBeChanged)
+
+                temp.role = TeamRole."$roleNameField"
+
+                temp.save()
+
+                success = true
+            }
+        }
+
+        if (success)
+            render "<div class='alert alert-success'>The role of "+userToBeChanged.username+" has been changed to "+roleNameField+".</div>"
+        else {
             response.status = 500
-            render "<div class='alert alert-error'>Failed to switch team.</div>"
+            render "<div class='alert alert-error'>You do not have the rights to change this users team role.</div>"
         }
     }
 
@@ -174,6 +192,13 @@ class TeamController {
                     repos.collect {it.id}.toList(), params)
         }
         render(template: "listAvailTeam", model: [teams: availibleTeamBasedOnRepos, user: user])
+    }
+
+    def ajaxGetTeamMemberList() {
+        def team = Team.findById(params.getInt("id"))
+        def user = User.get(springSecurityService.principal.id)
+
+        render(template: "listMember", model: [users: TeamUser.findAllByTeam(team, params), user: user])
     }
 
     def ajaxJoinTeam() {

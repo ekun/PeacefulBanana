@@ -16,6 +16,7 @@
     </div><!--/span-->
     <div class="span9">
         <h3>${team.name}</h3>
+        <div id="feedback"></div>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -29,8 +30,17 @@
             </tbody>
         </table>
         <center><g:paginate controller="team" maxsteps="5" action="inspect" total="${team.getMembers().size()}"/></center>
-
     </div><!--/span-->
 </div><!--/row-->
+<g:javascript>
+    function reloadList() {
+            $.ajax({type: "POST",
+                url: "${createLink(controller: 'team', action: 'ajaxGetTeamMemberList', params: params)}",
+                success: function(msg){
+                    document.getElementById('target').innerHTML = msg;
+                }
+            });
+        }
+</g:javascript>
 </body>
 </html>
