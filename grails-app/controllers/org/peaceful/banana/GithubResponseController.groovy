@@ -11,10 +11,7 @@ class GithubResponseController {
         if (session.getAttribute("redirect")) {
             def url = ((String)session.getAttribute("redirect")).split("/")
 
-            if (url.length < 4)
-                url << ""
-
-            redirect(controller: url[2], action: url[3], params: params)
+            redirect(controller: url[1], action: url[2], params: params)
         } else {
             redirect(controller: '', params: params)
         }
