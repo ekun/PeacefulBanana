@@ -11,7 +11,8 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
-grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
+grails.project.groupId = "org.peacefull.banana" // change this to alter the default package name and Maven publishing destination
+grails.app.context = "/"
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
 grails.mime.types = [
@@ -68,10 +69,11 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.dbconsole.urlRoot = '/secure/dbconsole'
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
+
+grails.dbconsole.urlRoot = '/admin/dbconsole'
 
 // log4j configuration
 log4j = {
@@ -103,6 +105,7 @@ grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
 
 grails.plugins.springsecurity.interceptUrlMap = [
         '/secure/**':           ['ROLE_ADMIN'],
+        '/admin/**':           ['ROLE_ADMIN'],
         '/repositories/**':     ['ROLE_ADMIN', 'ROLE_USER'],
         '/notification/**':     ['ROLE_ADMIN', 'ROLE_USER'],
         '/reflection/**':       ['ROLE_ADMIN', 'ROLE_USER'],
@@ -137,8 +140,8 @@ environments {
                     // For deploy
                     key = '7261cb7dcc394d1addb0'
                     secret = '08c76b315f8bde88e2abe84ea63b2c6b337dc9a9'
-                    callback = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/oauth/github/callback"
-                    successUri = "http://vm-6121.idi.ntnu.no:8080/PeacefulBanana/githubResponse"
+                    callback = "http://vm-6121.idi.ntnu.no:8080/oauth/github/callback"
+                    successUri = "http://vm-6121.idi.ntnu.no:8080/githubResponse"
                 }
             }
             debug = true

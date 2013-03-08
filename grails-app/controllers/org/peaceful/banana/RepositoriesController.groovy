@@ -128,7 +128,7 @@ class RepositoriesController {
      * This function is a hard reset for the repository.
      *
      * <b>Magic url, please be aware!</b>
-     *
+     *“
      * Will load everything stored about the repository freshed.
      */
     def reset() {
@@ -166,7 +166,10 @@ class RepositoriesController {
 
                 repo.save(flush: true)
 
-                new GithubSyncController().sync()
+                def gitSync = new GitSyncer()
+                gitSync.sync(user, githubAccessToken)
+
+                render "Wipe completed, currently syncing."
             }
         }
     }

@@ -179,6 +179,9 @@ class GitSyncer {
             user.lastName.capitalize()
 
             user.save()
+
+            // Set the correct date.
+            domainRepo.updated = new Date(0) // 1-1-1970 00:00:00.0
         }
 
         // So that we only get the latest
