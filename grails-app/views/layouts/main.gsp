@@ -90,6 +90,15 @@
                                         <li>
                                             <a href="${createLink(controller: 'reflection')}"><i class="icon-book"></i> Notes</a>
                                         </li>
+                                        <sec:ifAnyGranted roles="ROLE_ADMIN">
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="${createLink(controller: 'secure')}" title="Admin status required" alt="Admin status required">
+                                                    <i class="icon-lock"></i>
+                                                    <font color=#8b0000> Admin</font>
+                                                </a>
+                                            </li>
+                                        </sec:ifAnyGranted>
                                         <li class="divider"></li>
                                         <li>
                                             <a href="${createLinkTo(dir:'settings')}">
@@ -172,15 +181,6 @@
                                         </a>
                                     </li>
                                 </g:if>
-                                <sec:ifAnyGranted roles="ROLE_ADMIN">
-                                    <li class="divider-vertical"></li>
-                                    <li ${controllerName.equals('secure') ? 'class="active"' : ''}>
-                                        <a href="${createLink(controller: 'secure')}" title="Admin status required" alt="Admin status required">
-                                            <i class="icon-lock"></i>
-                                            <font color=orange> Admin</font>
-                                        </a>
-                                    </li>
-                                </sec:ifAnyGranted>
                             </sec:ifLoggedIn>
                         </ul>
                     </div><!--/.nav-collapse -->

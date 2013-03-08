@@ -1,6 +1,10 @@
 package org.peaceful.banana
 
+import org.peaceful.banana.git.GithubSyncController
 import org.peaceful.banana.gitdata.Issue
+import org.peaceful.banana.gitdata.IssueComment
+import org.peaceful.banana.gitdata.IssueEvent
+import org.peaceful.banana.gitdata.Milestone
 import org.peaceful.banana.gitdata.Repository
 import org.peaceful.banana.gitdata.Commit
 import org.scribe.model.Token
@@ -123,13 +127,48 @@ class RepositoriesController {
     /**
      * This function is a hard reset for the repository.
      *
+     * <b>Magic url, please be aware!</b>
+     *
      * Will load everything stored about the repository freshed.
      */
     def reset() {
         def user = User.get(springSecurityService.principal.id)
+        def team = user.activeTeam()
 
-        // check if the user is owner / manager of the team.
-        
+        // if user.access-token for github is not set redirect to /settings/github
+        Token githubAccessToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
+        if (!githubAccessToken) {
+            log.debug("Ingen accesstoken satt, redirecter.")
+            session.setAttribute("redirect", createLink(controller: 'repositories', action: 'reset'))
+            redirect(controller: 'oauth', action: 'github', id: 'authenticate')
+        } else {
+            // check if the user is owner / manager of the team.
+            if (team.owner == user || user.teamRole() == TeamRole.MANAGER) {
+                def repo = Repository.findByGithubId(user.selectedRepo)
+
+                Issue.findAllByRepository(repo).each {
+                    IssueEvent.findAllByIssue(it).each {
+                        it.delete()
+                    }
+                    IssueComment.findAllByIssue(it).each {
+                        it.delete()
+                    }
+                    it.delete()
+                }
+
+                Milestone.findAllByRepository(repo).each {
+                    it.delete()
+                }
+
+                Commit.deleteAll(Commit.findAllByRepository(repo))
+
+                repo.updated = new Date(0)
+
+                repo.save(flush: true)
+
+                new GithubSyncController().sync()
+            }
+        }
     }
 
     def tagcloud() {
