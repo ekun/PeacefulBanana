@@ -8,7 +8,7 @@
 <html>
     <head>
         <title>Peaceful Banana - <g:layoutTitle default="Home"/></title>
-        <meta name="viewport" content="initial-scale = 1.0">
+        <meta name="viewport" content="initial-scale = 0.9">
 
         <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
         <!--[if lt IE 9]>
@@ -172,6 +172,15 @@
                                         </a>
                                     </li>
                                 </g:if>
+                                <sec:ifAnyGranted roles="ROLE_ADMIN">
+                                    <li class="divider-vertical"></li>
+                                    <li ${controllerName.equals('secure') ? 'class="active"' : ''}>
+                                        <a href="${createLink(controller: 'secure')}" title="Admin status required" alt="Admin status required">
+                                            <i class="icon-lock"></i>
+                                            <font color=orange> Admin</font>
+                                        </a>
+                                    </li>
+                                </sec:ifAnyGranted>
                             </sec:ifLoggedIn>
                         </ul>
                     </div><!--/.nav-collapse -->

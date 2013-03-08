@@ -120,6 +120,18 @@ class RepositoriesController {
         [selectedRepo: Repository.findByGithubId(user.selectedRepo), commits: Commit.findAllByRepository(Repository.findByGithubId(user.selectedRepo), [sort: 'createdAt', order: 'desc'])]
     }
 
+    /**
+     * This function is a hard reset for the repository.
+     *
+     * Will load everything stored about the repository freshed.
+     */
+    def reset() {
+        def user = User.get(springSecurityService.principal.id)
+
+        // check if the user is owner / manager of the team.
+        
+    }
+
     def tagcloud() {
         def user = User.get(springSecurityService.principal.id)
 
