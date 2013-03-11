@@ -28,14 +28,13 @@ class GithubSyncController {
 
                 GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
 
-                def table = [update: gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)]
+                session["syncAvail"] = gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)
+
+                def table = [update: session["syncAvail"]]
 
                 render table  as JSON
             } else {
-                if (!session[oauthService.findSessionKeyForAccessToken('github')]){
-                    response.status = 500
-                }
-                def table = [update: false]
+                def table = [update: session["syncAvail"]]
                 render(table) as JSON
             }
         } else {
@@ -52,6 +51,8 @@ class GithubSyncController {
 
         def gitSync = new GitSyncer()
         gitSync.sync(user, (Token)session[oauthService.findSessionKeyForAccessToken('github')])
+
+        session["syncAvail"] = false
 
         def table = [update: true]
         render table  as JSON
