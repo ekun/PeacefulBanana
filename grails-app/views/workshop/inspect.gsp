@@ -16,7 +16,9 @@
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h1>Workshop</h1>
+        <h1>Workshop <a href="${createLink(controller: 'workshop', action: 'export', id: params.id)}" download class="pull-right">
+            <img src="${resource(dir: 'images', file: 'pdf.gif')}" width="30px" alt="Download pdf">
+        </a></h1>
         <div id="target">
             <g:formatWorkshopQuestions questions="${questions}" tags="${tags}" />
         </div>
