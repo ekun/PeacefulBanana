@@ -10,14 +10,14 @@
 	        <div class="well sidebar-nav">
 	            <ul class="nav nav-list">
 	                <li class="nav-header">Menu</li>
-	                <li class="active"><a href="${createLinkTo(dir:'settings')}"><i class="mini-icon mini-icon-account-settings"></i> <sec:username/></a></li>
-	                <li><a href="${createLinkTo(dir:'settings')}/github"><i class="mini-icon mini-icon-blacktocat"></i> Github</a></li>
-	                <!-- <li ${actionName.equals('settings') ? 'class="active"' : ''}><a href="#"><i class="icon-wrench"></i> Settings</a></li> -->
+	                <li class="active"><a href="${createLink(controller: 'settings')}"><i class="mini-icon mini-icon-account-settings"></i> <sec:username/></a></li>
+	                <li><a href="${createLink(controller: 'settings', action: 'github')}"><i class="mini-icon mini-icon-blacktocat"></i> Github</a></li>
 	            </ul>
 	        </div><!--/.well -->
 	    </div><!--/span-->
 	 	<div class="span9">
   			<h2> Status </h2>
+            <p>User data is pulled from <i class="mini-icon mini-icon-blacktocat"></i> Github.com.</p>
             <div class="span2">
                 <p>Github integration</p>
                 <p>Select a repository</p>

@@ -86,7 +86,8 @@
                 var data = new google.visualization.DataTable(jsonData);
 
                 var options = {
-                    title: 'Mood Graph '
+                    title: 'Mood Graph',
+                    vAxis: {maxValue: 100, minValue: 0}
                 };
 
                 // Instantiate and draw our chart, passing in some options.

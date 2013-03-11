@@ -2,8 +2,6 @@
 import org.peaceful.banana.Role
 import org.peaceful.banana.User
 import org.peaceful.banana.UserRole
-import org.peaceful.banana.Team
-import org.peaceful.banana.TeamUser
 
 class BootStrap {
 

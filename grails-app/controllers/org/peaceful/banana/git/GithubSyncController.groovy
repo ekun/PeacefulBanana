@@ -28,7 +28,25 @@ class GithubSyncController {
 
                 GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
 
-                // Indicating that a sync is availible
+                // update the users data.
+                def gitUser = gitHubService.getAuthenticatedUser()
+                def nameUser = gitUser.name.split(" ")
+                user.firstName = ""
+
+                for (int i = 0; i < nameUser.length -1; i ++) {
+                    user.firstName += nameUser[i].capitalize() + " "
+                }
+                user.firstName = user.firstName.substring(0, user.firstName.length() - 1);
+
+                user.lastName = nameUser[nameUser.length-1] // Lastname
+                user.lastName.capitalize()
+
+                if (!user.gitLogin)
+                    user.gitLogin = gitUser.login
+
+                user.save()
+
+                // Check and indicate that a new commit has occurred.
                 session["syncAvail"] = gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)
 
                 def table = [update: session["syncAvail"]]

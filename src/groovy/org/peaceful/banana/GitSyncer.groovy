@@ -165,22 +165,7 @@ class GitSyncer {
         }
 
         if(firstSave) {
-            // When first syncing with github, set the users name.
-            // Set the users name
-            def nameUser = gitHubService.authenticatedUser.name.split(" ")
-            user.firstName = ""
-
-            for (int i = 0; i < nameUser.length -2; i ++) {
-                user.firstName += nameUser[i].capitalize() + " "
-            }
-            user.firstName = user.firstName.substring(0, user.firstName.length() - 1);
-
-            user.lastName = nameUser[nameUser.length-1] // Lastname
-            user.lastName.capitalize()
-
-            user.save()
-
-            // Set the correct date.
+            // Set the date to first available date. This will retrieve every commit.
             domainRepo.updated = new Date(0) // 1-1-1970 00:00:00.0
         }
 
