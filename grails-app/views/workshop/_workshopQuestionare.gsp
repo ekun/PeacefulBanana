@@ -3,7 +3,11 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-
+    <style type="text/css">
+        body {
+            font-family: Verdana;
+        }
+    </style>
 </head>
 <body>
     <h1>Workshop Questionare</h1>

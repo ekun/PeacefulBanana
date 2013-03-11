@@ -877,7 +877,3 @@
     font-size: 122px;
     color: #333;
 }
-
-select[name*='_day'], select[name*='_hour'], select[name*='_minute']  {
-    width: 55px;
-}
