@@ -19,7 +19,11 @@
     </div><!--/span-->
     <div class="span9">
         <h3>Dashboard</h3>
+        <p>
+            Administration dashboard.
 
+            What do we want to show here?
+        </p>
     </div><!--/span-->
 </div><!--/row-->
 </body>

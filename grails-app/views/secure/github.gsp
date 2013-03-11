@@ -39,21 +39,42 @@
             </tr>
             <tr>
                 <td>Milestone</td>
-                <td>${Milestone.count()}</td>
-                <td>${(Milestone.count() / Repository.count())}</td>
+                <td>
+                    ${Milestone.count()}
+                </td>
+                <td>
+                    <g:formatNumber number="${(Milestone.count() / Repository.count())}" type="number"
+                                    maxFractionDigits="2" roundingMode="HALF_DOWN" />
+                </td>
                 <td></td>
             </tr>
             <tr>
                 <td>Issue</td>
-                <td>${Issue.count()}</td>
-                <td>${(Issue.count() / Repository.count())}</td>
-                <td>${(Issue.countByMilestoneNumberIsNotNull() / Milestone.count())}</td>
+                <td>
+                    ${Issue.count()}
+                </td>
+                <td>
+                    <g:formatNumber number="${(Issue.count() / Repository.count())}" type="number"
+                                    maxFractionDigits="2" roundingMode="HALF_DOWN" />
+                </td>
+                <td>
+                    <g:formatNumber number="${(Issue.countByMilestoneNumberIsNotNull() / Milestone.count())}" type="number"
+                                    maxFractionDigits="2" roundingMode="HALF_DOWN" />
+                </td>
             </tr>
             <tr>
                 <td>Commit</td>
-                <td>${Commit.count()}</td>
-                <td>${(Commit.count() / Repository.count())}</td>
-                <td></td>
+                <td>
+                    ${Commit.count()}
+                </td>
+                <td>
+                    <g:formatNumber number="${(Commit.count() / Repository.count())}" type="number"
+                                maxFractionDigits="2" roundingMode="HALF_DOWN" />
+                </td>
+                <td>
+                    <g:formatNumber number="${(Commit.count() / Milestone.count())}" type="number"
+                                    maxFractionDigits="2" roundingMode="HALF_DOWN" />
+                </td>
             </tr>
             </tbody>
         </table>

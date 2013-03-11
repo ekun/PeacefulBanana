@@ -60,6 +60,18 @@ class WorkshopController {
         }
     }
 
+    def export() {
+        def user = User.get(springSecurityService.principal.id)
+        def workshop = Workshop.findById(params.getLong("id"))
+
+        if (workshop.team == user.activeTeam() &&
+                (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
+            renderPdf(template: "workshopQuestionare", model:[workshop: workshop, questions: workshop.questions], controller: 'workshop')
+        } else {
+            redirect(controller: 'workshop', action: '')
+        }
+    }
+
     def ajaxCreateWorkshop() {
         // get the logged in user
         def user = User.get(springSecurityService.principal.id)

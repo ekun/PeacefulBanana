@@ -1,3 +1,4 @@
+<%@ page import="org.joda.time.DateTime; org.peaceful.banana.User; org.peaceful.banana.Team; org.peaceful.banana.reflection.Note" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -25,39 +26,41 @@
     <div class="span9">
         <g:if test="${params.get("id") == "stats"}">
             <h3>Statistics</h3>
+            <p>Some statistics about the data in every note created</p>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <g:sortableColumn property="id" title="#" />
-                    <g:sortableColumn property="dateCreated" title="Created" />
-                    <g:sortableColumn property="user" title="User" />
-                    <g:sortableColumn property="team" title="Team" />
-                    <g:sortableColumn property="shared" title="Team" />
+                    <th>Total</th>
+                    <th>per team</th>
+                    <th>per user</th>
+                    <th>average mood</th>
+                    <th>shared ratio</th>
                 </tr>
                 </thead>
                 <tbody>
-                <g:each in="${notes}">
                     <tr>
                         <td>
-                            ${it.id}
+                            ${Note.count}
                         </td>
                         <td>
-                            ${it.dateCreated}
+                            <g:formatNumber number="${(Note.count / Team.count)}" type="number"
+                                            maxFractionDigits="2" roundingMode="HALF_DOWN" />
                         </td>
                         <td>
-                            ${it.user.toString()}
+                            <g:formatNumber number="${(Note.count / User.count)}" type="number"
+                                            maxFractionDigits="2" roundingMode="HALF_DOWN" />
                         </td>
                         <td>
-                            ${it.team.name}
+                            <g:formatNumber number="${(Note.findAll().mood.sum() / Note.count)}" type="number"
+                                            maxFractionDigits="2" roundingMode="HALF_DOWN" />
                         </td>
                         <td>
-                            ${!it.shared ? 'Shared' : 'Private'}
+                            <g:formatNumber number="${((Note.countByShared(true) / Note.count) * 100)}" type="percent"
+                                            maxFractionDigits="2" roundingMode="HALF_DOWN" />
                         </td>
                     </tr>
-                </g:each>
                 </tbody>
             </table>
-            <center><g:paginate controller="secure" maxsteps="5" action="notes" total="${allNotes}"/></center>
         </g:if>
         <g:elseif test="${params.get("id") == "mood"}">
             <h3>Mood</h3>
@@ -82,7 +85,9 @@
                             ${it.id}
                         </td>
                         <td>
-                            ${it.dateCreated}
+                            <joda:time value="${new DateTime(it.dateCreated)}">
+                                <joda:format value="${it}" pattern="yyyy-MM-dd HH:mm:ss" />
+                            </joda:time>
                         </td>
                         <td>
                             ${it.user.toString()}

@@ -36,11 +36,11 @@ class GithubSyncController {
                 render table  as JSON
             } else {
                 def table = [update: session["syncAvail"]]
-                render(table) as JSON
+                render table as JSON
             }
         } else {
             def table = [update: false]
-            render(table) as JSON
+            render table as JSON
         }
     }
 
@@ -56,6 +56,6 @@ class GithubSyncController {
         session["syncAvail"] = false
 
         def table = [update: true]
-        render table  as JSON
+        render table as JSON
     }
 }

@@ -30,7 +30,7 @@
             </thead>
             <tbody id="target">
                 <g:each in="${users}">
-                    <tr ${!it.enabled ? 'class="error"' : ''}>
+                    <tr ${!it.activeTeam() ? 'class="error"' : ''}>
                         <td>
                             ${it.id}
                         </td>
@@ -47,8 +47,7 @@
                 </g:each>
             </tbody>
         </table>
-        <center><g:paginate controller="secure" maxsteps="5" action="users" total="${allUsers}"/></center>
-
+        <center><g:paginate controller="secure" max="25" action="users" total="${allUsers}"/></center>
     </div><!--/span-->
 </div><!--/row-->
 </body>

@@ -19,6 +19,7 @@
     <div class="span9">
         <h1>Mood</h1>
         <p>Here you will be presented with a mood-graph.</p>
+        <p>The values range from very happy(100) to very sad(0).</p>
         <div id='chart_div' style='width: 700px; height: 480px;'></div>
     </div><!--/span-->
 </div><!--/row-->
@@ -35,7 +36,8 @@
                 var data = new google.visualization.DataTable(jsonData);
 
                 var options = {
-                    title: 'Mood Graph '
+                    title: 'Mood Graph',
+                    vAxis: {maxValue: 100, minValue: 0}
                 };
 
                 // Instantiate and draw our chart, passing in some options.
