@@ -1,5 +1,7 @@
 package org.peaceful.banana
 
+import org.peaceful.banana.reflection.Note
+
 class SecureController {
 
     def springSecurityService
@@ -10,11 +12,12 @@ class SecureController {
 
     def notes() {
         // Show mooddata or something.
+        [notes: Note.findAll(params), allNotes: Note.count()]
     }
 
     def users() {
         // List the users and their active team.
-        [users: User.findAll(params)]
+        [users: User.findAll(params), allUsers: User.count()]
     }
 
     def github() {

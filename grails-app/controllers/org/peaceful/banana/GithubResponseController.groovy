@@ -9,6 +9,9 @@ class GithubResponseController {
         // Get redirect location
         log.error session.getAttribute("redirect")
         if (session.getAttribute("redirect")) {
+
+            log.error session.getAttribute("redirect")
+
             def url = ((String)session.getAttribute("redirect")).split("/")
 
             redirect(controller: url[(url.length-2)], action: url[(url.length-1)], params: params)

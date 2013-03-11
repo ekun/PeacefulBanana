@@ -47,7 +47,7 @@
                 </g:each>
             </tbody>
         </table>
-        <center><g:paginate controller="secure" maxsteps="5" action="users" total="${users.size()}"/></center>
+        <center><g:paginate controller="secure" maxsteps="5" action="users" total="${allUsers}"/></center>
 
     </div><!--/span-->
 </div><!--/row-->

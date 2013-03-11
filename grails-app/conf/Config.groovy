@@ -123,8 +123,8 @@ environments {
                    // For testing localy
                     key = '8ee7aa535906d0157db2'
                     secret = 'b09ebba58897895fa81c8879d5269d54cee6efaa'
-                    callback = "http://localhost:8080/PeacefulBanana/oauth/github/callback"
-                    successUri = "http://localhost:8080/PeacefulBanana/githubResponse"
+                    callback = "http://localhost:8080/oauth/github/callback"
+                    successUri = "http://localhost:8080/githubResponse"
                 }
             }
             debug = true

@@ -28,6 +28,7 @@ class GithubSyncController {
 
                 GitHubService gitHubService = new GitHubService((Token)session[oauthService.findSessionKeyForAccessToken('github')])
 
+                // Indicating that a sync is availible
                 session["syncAvail"] = gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)
 
                 def table = [update: session["syncAvail"]]
@@ -45,13 +46,13 @@ class GithubSyncController {
 
     def sync() {
         def user = User.get(springSecurityService.principal.id)
-        // runAsync or callAsync?
 
         session["lastCheck"] = System.currentTimeMillis()
 
         def gitSync = new GitSyncer()
         gitSync.sync(user, (Token)session[oauthService.findSessionKeyForAccessToken('github')])
 
+        // Sync is now complete and indicator is switched.
         session["syncAvail"] = false
 
         def table = [update: true]
