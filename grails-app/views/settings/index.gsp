@@ -30,17 +30,47 @@
         <div class="span9">
             <hr>
             <h2> Change password </h2>
-            <div id="target">
-                <g:form class="form-horizontal" name='changePasswordForm' method='POST' autocomplete='off'>
-                    <p>This will send an email with instructions on how to set a new password.</p>
-                    <div class="control-group">
-                        <label class="control-label" for="submit"></label>
-                        <div class="controls">
-                            <g:submitToRemote class="btn btn-danger btn-large" action="ajaxChangePassword" update="target" name="submit" value="Reset password" />
-                        </div>
+            <g:if test="${updated}">
+                <div class='alert alert-success'>Your password has been updated.</div>
+            </g:if>
+            <g:form class="form-horizontal" action="index" name='changePasswordForm' method='POST' autocomplete='off'>
+                <div class='control-group${error[0]?.error ? ' error': ''}'>
+                    <label class="control-label" for="oldPassword">Old Password</label>
+                    <div class="controls">
+                        <g:field type="password" required="true" name="oldPassword" placeholder="Current password"
+                                 value="${error[0]?.value}"/>
+                        <span class="help-inline">
+                            ${error[0]?.error ? error[0]?.message : ''}
+                        </span>
                     </div>
-                </g:form>
-            </div>
+                </div>
+                <div class='control-group${error[1]?.error ? ' error': ''}'>
+                    <label class="control-label" for="password">New Password</label>
+                    <div class="controls">
+                        <g:field type="password" required="true" name="password" placeholder="New password"
+                                 value="${error[1]?.value}" />
+                        <span class="help-inline">
+                            ${error[1]?.error ? error[1]?.message : ''}
+                        </span>
+                    </div>
+                </div>
+                <div class='control-group${error[2]?.error ? ' error': ''}'>
+                    <label class="control-label" for="confirmPassword">Confirm new password</label>
+                    <div class="controls">
+                        <g:field type="password" required="true" name="confirmPassword" placeholder="Confirm new password"
+                                 value="${error[2]?.value}"/>
+                        <span class="help-inline">
+                            ${error[2]?.error ? error[2]?.message : ''}
+                        </span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="submit"></label>
+                    <div class="controls">
+                        <g:submitButton class="btn btn-danger btn-large" name="submit" value="Change password" />
+                    </div>
+                </div>
+            </g:form>
         </div>
     </div><!--/row-->
 </body>

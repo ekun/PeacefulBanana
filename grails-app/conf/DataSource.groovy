@@ -34,6 +34,16 @@ environments {
             url = "jdbc:mysql://127.0.0.1/fredfull?useUnicode=yes&characterEncoding=UTF-8"
             username = "fredfull"
             password = "Teech6ha"
+            properties {
+                maxActive = 50
+                maxIdle = 25
+                minIdle = 5
+                initialSize = 5
+                minEvictableIdleTimeMillis = 60000
+                timeBetweenEvictionRunsMillis = 60000
+                maxWait = 10000
+                validationQuery = "SELECT 1"
+            }
         }
     }
 }

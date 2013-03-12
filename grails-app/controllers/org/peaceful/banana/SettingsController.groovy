@@ -1,6 +1,6 @@
 package org.peaceful.banana
 
-import grails.converters.JSON
+import grails.plugins.springsecurity.ui.RegisterCommand
 import groovy.text.SimpleTemplateEngine
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.plugins.springsecurity.ui.RegistrationCode
@@ -22,11 +22,41 @@ class SettingsController {
         Token gitToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
 
         def user = User.get(springSecurityService.principal.id)
+        def errors = []
+        def updated = false
 
         if (gitToken != null) {
             gitHubService = new GitHubService(gitToken)
 
-            [user: user, gitUser: gitHubService.getAuthenticatedUser()]
+            if (params.oldPassword && params.password && params.confirmPassword) {
+                errors << [error: (user.password != springSecurityService.encodePassword(params.oldPassword)),
+                        message: 'Incorrect password',
+                        value: params.oldPassword]
+                errors << [error: passwordValidator(params.password,new RegisterCommand()),
+                        message: g.message(code: passwordValidator(params.password,new RegisterCommand())),
+                        value: params.password]
+                errors << [error: params.password != params.confirmPassword,
+                        message: g.message(code: password2Validator(params.confirmPassword,new RegisterCommand())),
+                        value: params.confirmPassword]
+
+                if (!(errors[0].error && errors[1].error && errors[2].error)) {
+                    user.password = params.password
+
+                    user.save()
+
+                    errors.each {
+                        it.value = ""
+                    }
+
+                    updated = true
+                }
+            } else {
+                errors << [error: false, message: "", value: ""]
+                errors << [error: false, message: "", value: ""]
+                errors << [error: false, message: "", value: ""]
+            }
+
+            [user: user, gitUser: gitHubService.getAuthenticatedUser(), error: errors, updated: updated]
         }
     }
 
@@ -46,24 +76,6 @@ class SettingsController {
     }
 
     def changeSelectedRepo() {
-/*        def user = User.get(springSecurityService.principal.id)
-        def today = new Date().clearTime() //Today from 00:00:00
-        if(user?.selectedRepo == 0){
-            new Notification(user: user, title: "Congratulations", body: "You have selected your first project!", notificationType: NotificationType.OTHER).save(flush: true)
-            new Notification(user: user, title: "Reminder: Daily Reflection", body: "You have not completed your daily reflection! Click here to do this now", notificationType: NotificationType.REFLECTION).save(flush: true)
-        }
-        else {
-            def latestNotification = user?.getLatestReflectionNotification()?.dateCreated
-
-            // Create a new reflection notification if one haven't been made today.
-            if(latestNotification != null && latestNotification.before(today))  {
-                new Notification(user: user, title: "Reminder: Daily reflection", body: "You have not completed your daily reflection! Click here to do this now", notificationType: NotificationType.REFLECTION).save(flush: true)
-                //Clicking notification should lead to summary form
-            }
-        }
-        user?.selectedRepo = params.getLong("repoSelection")
-        user.save()
-*/
         new GithubSyncController().sync()
 
         render("Completed syncing data from github.")
@@ -100,5 +112,44 @@ class SettingsController {
 
     protected String evaluate(s, binding) {
         new SimpleTemplateEngine().createTemplate(s).make(binding)
+    }
+
+    static final passwordValidator = { String password, command ->
+        if (!checkPasswordMinLength(password) ||
+                !checkPasswordMaxLength(password) ||
+                !checkPasswordRegex(password)) {
+            return 'command.password.error.strength'
+        }
+    }
+
+    static boolean checkPasswordMinLength(String password) {
+        def conf = SpringSecurityUtils.securityConfig
+
+        int minLength = conf.ui.password.minLength instanceof Number ? conf.ui.password.minLength : 8
+
+        password && password.length() >= minLength
+    }
+
+    static boolean checkPasswordMaxLength(String password) {
+        def conf = SpringSecurityUtils.securityConfig
+
+        int maxLength = conf.ui.password.maxLength instanceof Number ? conf.ui.password.maxLength : 64
+
+        password && password.length() <= maxLength
+    }
+
+    static boolean checkPasswordRegex(String password) {
+        def conf = SpringSecurityUtils.securityConfig
+
+        String passValidationRegex = conf.ui.password.validationRegex ?:
+            '^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$'
+
+        password && password.matches(passValidationRegex)
+    }
+
+    static final password2Validator = { value, command ->
+        if (command.password != command.password2) {
+            return 'command.password2.error.mismatch'
+        }
     }
 }

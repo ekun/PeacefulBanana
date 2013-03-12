@@ -19,7 +19,7 @@ class SecurityUiTagLib extends grails.plugins.springsecurity.ui.SecurityUiTagLib
                 </label>
                 <span class="help-inline">
                     ${fieldErrors(bean: bean, field: name)}
-			    <span>
+			    </span>
             </div>
 		</div>
 		"""
@@ -40,7 +40,7 @@ class SecurityUiTagLib extends grails.plugins.springsecurity.ui.SecurityUiTagLib
                 ${textField(fieldAttributes)}
                 <span class="help-inline">
                     ${fieldErrors(bean: bean, field: name)}
-			    <span>
+			    </span>
             </div>
 		</div>
 		"""
@@ -61,7 +61,7 @@ class SecurityUiTagLib extends grails.plugins.springsecurity.ui.SecurityUiTagLib
                 ${passwordField(fieldAttributes)}
                 <span class="help-inline">
                     ${fieldErrors(bean: bean, field: name)}
-			    <span>
+			    </span>
             </div>
 		</div>
 		"""
@@ -84,7 +84,7 @@ class SecurityUiTagLib extends grails.plugins.springsecurity.ui.SecurityUiTagLib
                 ${textField(fieldAttributes)}
                 <span class="help-inline">
                     ${fieldErrors(bean: bean, field: name)}
-			    <span>
+			    </span>
             </div>
 		</div>
 		"""
