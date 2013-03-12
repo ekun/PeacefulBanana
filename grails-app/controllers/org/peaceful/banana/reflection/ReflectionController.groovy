@@ -2,6 +2,7 @@ package org.peaceful.banana.reflection
 
 import org.peaceful.banana.User
 import org.peaceful.banana.gitdata.Commit
+import org.peaceful.banana.gitdata.Repository
 import org.peaceful.banana.reflection.Note
 
 class ReflectionController {
@@ -50,7 +51,8 @@ class ReflectionController {
         def teamTags = new HashMap<String, Integer>()
 
         // generate summary
-        def commits = Commit.findAllByLoginAndCreatedAtGreaterThanEquals(user.gitLogin, new Date(System.currentTimeMillis()-86400000))
+        def commits = Commit.findAllByLoginAndRepositoryAndCreatedAtGreaterThanEquals(user.gitLogin,
+                Repository.findByGithubId(user.selectedRepo), new Date(System.currentTimeMillis()-86400000))
         if(commits.size() > 0) {
             commits.each {
                 it.message.split(" ").each {
