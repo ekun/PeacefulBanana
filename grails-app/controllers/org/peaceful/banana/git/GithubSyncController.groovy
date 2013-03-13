@@ -48,6 +48,7 @@ class GithubSyncController {
 
                 // Check and indicate that a new commit has occurred.
                 session["syncAvail"] = gitHubService.getRepository(user.selectedRepo).updatedAt.after(Repository.findByGithubId(user.selectedRepo).updated)
+                session["syncAvailTimestamp"] = Repository.findByGithubId(user.selectedRepo).updated
 
                 def table = [update: session["syncAvail"]]
 
@@ -65,13 +66,18 @@ class GithubSyncController {
     def sync() {
         def user = User.get(springSecurityService.principal.id)
 
+        def repo = Repository.findByGithubId(user.selectedRepo)
+
         session["lastCheck"] = System.currentTimeMillis()
 
-        def gitSync = new GitSyncer()
-        gitSync.sync(user, (Token)session[oauthService.findSessionKeyForAccessToken('github')])
+        if (repo.updated == session["syncAvailTimestamp"]) {
+            def gitSync = new GitSyncer()
+            gitSync.sync(user, (Token)session[oauthService.findSessionKeyForAccessToken('github')])
+        }
 
         // Sync is now complete and indicator is switched.
         session["syncAvail"] = false
+        session["syncAvailTimestamp"] = null
 
         def table = [update: true]
         render table as JSON

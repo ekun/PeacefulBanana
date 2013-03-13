@@ -60,13 +60,18 @@ class WorkshopController {
         }
     }
 
+    /**
+     * This will render the questionare in a PDF.
+     * @return pdf file containing questions.
+     */
     def export() {
         def user = User.get(springSecurityService.principal.id)
         def workshop = Workshop.findById(params.getLong("id"))
 
         if (workshop.team == user.activeTeam() &&
                 (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user)) {
-            renderPdf(template: "workshopQuestionare", model:[workshop: workshop, questions: workshop.questions], controller: 'workshop')
+            renderPdf(template: "workshopQuestionare", model:[workshop: workshop, questions: workshop.questions],
+                    controller: 'workshop', filename: 'WorkshopQuestionare')
         } else {
             redirect(controller: 'workshop', action: '')
         }
