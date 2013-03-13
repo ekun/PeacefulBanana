@@ -196,9 +196,15 @@
             </div>
         </div>
     <div class="container-fluid">
-        <g:if test="${params.get('error')}">
+        <g:if test="${params.get('error') || flash.error}">
             <div class="alert alert-error">
-                ${params.get('error')}
+                <g:message code="${flash.error}"/>
+            </div>
+        </g:if>
+        <g:if test="${flash.message}">
+            <div class="alert alert-error">
+                <g:message code="${flash.message}" args="${flash.args}"
+                       default="${flash.default}"/>
             </div>
         </g:if>
         <g:layoutBody/>
