@@ -57,6 +57,9 @@ class SettingsController {
             }
 
             [user: user, gitUser: gitHubService.getAuthenticatedUser(), error: errors, updated: updated]
+        } else {
+            session.setAttribute("redirect", createLink(controller: 'settings', action: 'index'))
+            redirect(controller: 'oauth', action: 'github', id: 'authenticate')
         }
     }
 

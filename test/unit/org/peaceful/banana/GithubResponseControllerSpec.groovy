@@ -1,4 +1,4 @@
-package peacefulbanana
+package org.peaceful.banana
 
 import static org.junit.Assert.*
 

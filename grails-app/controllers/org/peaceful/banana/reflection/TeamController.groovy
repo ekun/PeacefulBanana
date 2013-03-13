@@ -41,7 +41,7 @@ class TeamController {
                     repos.collect {it.id}.toList())
             availibleTeamBasedOnReposCount = Team.countByRepositoryInList(repos.collect {it.id}.toList())
         } else {
-            session.setAttribute("redirect", createLink(controller: 'team'))
+            session.setAttribute("redirect", createLink(controller: 'team', action: 'index'))
             redirect(controller: 'oauth', action: 'github', id: 'authenticate')
         }
 

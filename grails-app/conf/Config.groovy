@@ -11,7 +11,7 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
-grails.project.groupId = "org.peacefull.banana" // change this to alter the default package name and Maven publishing destination
+grails.project.groupId = "org.peaceful.banana" // change this to alter the default package name and Maven publishing destination
 grails.app.context = "/"
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false

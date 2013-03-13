@@ -1,4 +1,4 @@
-package peacefulbanana
+package org.peaceful.banana
 
 import static org.junit.Assert.*
 
@@ -9,7 +9,7 @@ import grails.test.mixin.support.*
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
 @TestMixin(GrailsUnitTestMixin)
-class WorkshopTagLibSpec {
+class ReflectionControllerSpec {
 
     void setUp() {
         // Setup logic here

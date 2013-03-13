@@ -1,6 +1,5 @@
 package org.peaceful.banana
 
-import org.peaceful.banana.git.GithubSyncController
 import org.peaceful.banana.gitdata.Issue
 import org.peaceful.banana.gitdata.IssueComment
 import org.peaceful.banana.gitdata.IssueEvent
@@ -10,7 +9,6 @@ import org.peaceful.banana.gitdata.Commit
 import org.scribe.model.Token
 import uk.co.desirableobjects.oauth.scribe.OauthService
 import org.peaceful.banana.git.GitHubService
-import org.peaceful.banana.git.util.WordProcessor
 
 class RepositoriesController {
     OauthService oauthService
@@ -23,7 +21,7 @@ class RepositoriesController {
         Token githubAccessToken = (Token)session[oauthService.findSessionKeyForAccessToken('github')]
         if (!githubAccessToken) {
             log.debug("Ingen accesstoken satt, redirecter.")
-            session.setAttribute("redirect", createLink(controller: 'repositories'))
+            session.setAttribute("redirect", createLink(controller: 'repositories', action: 'index'))
             redirect(controller: 'oauth', action: 'github', id: 'authenticate')
         } else {
             if (!user.activeTeam())
