@@ -70,7 +70,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="${createLinkTo(dir:'')}"><img src="${createLinkTo(dir:'images')}/banana-logo.png" width="18px"> Peaceful Banana</a>
+                    <a class="brand" href="/"><img src="${resource(dir:'images', file: 'banana-logo.png')}" width="18px"> Peaceful Banana</a>
                     <div class="nav-collapse collapse">
                         <sec:ifLoggedIn>
                             <ul class="nav nav-pills pull-right">
@@ -101,7 +101,7 @@
                                         </sec:ifAnyGranted>
                                         <li class="divider"></li>
                                         <li>
-                                            <a href="${createLinkTo(dir:'settings')}">
+                                            <a href="${createLink(controller: 'settings')}">
                                                 <i class="icon-wrench"></i>
                                                 Settings
                                             </a>
@@ -151,7 +151,7 @@
                             <img src="${resource(dir: 'images', file: 'spinner.gif')}" alt="Spinner"/>
                         </div>
                         <ul class="nav">
-                            <li ${controllerName == null ? 'class="active"' : ''}><a href="${createLinkTo(dir:'')}"><i class="icon-home"></i> Home</a></li>
+                            <li ${controllerName == null ? 'class="active"' : ''}><a href="/"><i class="icon-home"></i> Home</a></li>
                             <sec:ifLoggedIn>
                                 <li ${controllerName.equals('repositories') ? 'class="active"' : ''}>
                                     <a href="${createLink(controller: 'repositories')}">
@@ -182,6 +182,14 @@
                                     </li>
                                 </g:if>
                             </sec:ifLoggedIn>
+                            <sec:ifNotLoggedIn>
+                                <li ${controllerName.equals('about') ? 'class="active"' : ''}>
+                                    <a href="${createLink(controller:'about')}">
+                                        <i class="icon-globe"></i>
+                                        About
+                                    </a>
+                                </li>
+                            </sec:ifNotLoggedIn>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>

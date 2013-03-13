@@ -66,14 +66,13 @@ grails.hibernate.cache.queries = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+        grails.dbconsole.urlRoot = '/admin/dbconsole'
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        // TODO: grails.serverURL = "http://vm-6121.idi.ntnu.no:8080"
     }
 }
-
-grails.dbconsole.urlRoot = '/admin/dbconsole'
 
 // log4j configuration
 log4j = {
@@ -105,11 +104,13 @@ grails.plugins.springsecurity.securityConfigType = "InterceptUrlMap"
 
 grails.plugins.springsecurity.interceptUrlMap = [
         '/secure/**':           ['ROLE_ADMIN'],
-        '/admin/**':           ['ROLE_ADMIN'],
+        '/admin/**':            ['ROLE_ADMIN'],
         '/repositories/**':     ['ROLE_ADMIN', 'ROLE_USER'],
         '/notification/**':     ['ROLE_ADMIN', 'ROLE_USER'],
         '/reflection/**':       ['ROLE_ADMIN', 'ROLE_USER'],
-        '/settings/**':         ['ROLE_ADMIN', 'ROLE_USER']
+        '/settings/**':         ['ROLE_ADMIN', 'ROLE_USER'],
+        '/about/*':             ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/**':                  ['IS_AUTHENTICATED_ANONYMOUSLY']
 ]
 
 environments {

@@ -19,8 +19,9 @@
             <h3>Technology</h3>
             <p>Built with Grails <g:meta name="app.grails.version"/> and the following plugins for grails
             <ul>
+                <li>Twitter Bootstrap v <g:meta name="plugins.twitter-bootstrap" /></li>
                 <li>jQuery v. <g:meta name="plugins.jquery-ui"/></li>
-                <li>Quartz-schedualer v. <g:meta name="plugins.quartz" /></li>
+                <li>Quartz-schedueler v. <g:meta name="plugins.quartz" /></li>
                 <li>Spring Security Core v. <g:meta name="plugins.spring-security-core" /></li>
                 <li>Google Visualization v. <g:meta name="plugins.google-visualization" /></li>
                 <li>Joda Time v. <g:meta name="plugins.joda-time" /></li>
