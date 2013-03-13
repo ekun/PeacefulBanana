@@ -23,7 +23,7 @@ class ReflectionDataController {
 
         def teamMember = user.activeTeam().members
         // Gathering the first ever note created by this team
-        def firstNote = Note.findAllByTeamAndUserInList(user.activeTeam(),teamMember, [sort: "dateCreated", order: "asc", max: 1]) // Get the first!
+        def firstNote = Note.findAllByTeamAndUserInList(user.activeTeam(), teamMember, [sort: "dateCreated", order: "asc", max: 1]) // Get the first!
 
         teamMember.remove(firstNote[0].user)
 
@@ -99,6 +99,8 @@ class ReflectionDataController {
                         while (cells.size() < memberNr+1)
                             cells << ['v': null]
                         cells << ['v':  it.mood]
+
+                        rows.add(['c': cells])
                     }
                 }
                 i++
@@ -106,19 +108,11 @@ class ReflectionDataController {
             memberNr++
         }
 
+        // TODO: calculate values to achieve complete graphs
+
         def table = [cols: columns, rows: rows]
 
         render table as JSON
     }
 
-    def moodAverage() {
-        /**
-         * Gather team average
-         TODO: hvordan regnet ut snittet av mood for teamet om de har forskjellige datoer osv.
-         Kan regne ut mood avg. per bruker først, for så å bruke dette til å finne team avg. Så lenge det er over
-         en 2 ukers periode så vil det bli et greit gjennomsnitt. Kan ha en minimum av si 5 notes for å telles med i team avg.
-         */
-
-        render "" as JSON
-    }
 }

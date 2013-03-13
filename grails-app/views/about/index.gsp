@@ -26,7 +26,6 @@
                 <li>Google Visualization v. <g:meta name="plugins.google-visualization" /></li>
                 <li>Joda Time v. <g:meta name="plugins.joda-time" /></li>
             </ul>
-                
             </p>
     	</div><!--/span-->
     </div><!--/row-->
