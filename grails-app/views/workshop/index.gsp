@@ -11,14 +11,14 @@
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection Workshop</li>
-                <li class="active"><a href="${createLink(action: '')}">Workshops</a></li>
+                <li class="active"><a href="${createLink(controller: 'workshop', action: 'index')}">Workshops</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
         <h1>Workshop <a href="${createLink(action: 'create')}" alt="Create workshop" title="Create workshop"><i class="mega-icon mega-icon-add"></i></a></h1>
         <g:each in="${workshops}">
-            <a href="${createLink(action: 'inspect', id: it.id)}">${it.getDuration()} from
+            <a href="${createLink(controller: 'workshop', action: 'inspect', id: it.id)}">${it.getDuration()} from
                 <joda:time value="${new DateTime(it.dateStart)}">
                     <joda:format value="${it}" pattern="EEE, d MMM yyyy"/>
                 </joda:time>

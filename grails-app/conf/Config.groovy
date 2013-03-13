@@ -162,6 +162,8 @@ grails.plugins.springsecurity.ui.register.emailFrom = 'fredfullbanan@gmail.com'
 grails.plugins.springsecurity.ui.register.emailSubject = 'Peaceful Banana - Registration'
 grails.plugins.springsecurity.ui.register.defaultRoleNames = ['ROLE_USER']
 grails.plugins.springsecurity.ui.password.minLength = 6
+grails.plugins.springsecurity.ui.password.maxLength = 64
+grails.plugins.springsecurity.ui.password.validationRegex = "^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#\$%^&]).*\$"
 
 // Added by the Spring Security OAuth plugin:
 grails.plugins.springsecurity.oauth.domainClass = 'org.peaceful.banana.OAuthID'

@@ -16,7 +16,7 @@
 	        </div><!--/.well -->
 	    </div><!--/span-->
 	 	<div class="span9">
-  			<h2> Status </h2>
+  			<h2>Status</h2>
             <p>User data is pulled from <i class="mini-icon mini-icon-blacktocat"></i> Github.com.</p>
             <div class="span2">
                 <p>Github integration</p>
@@ -26,10 +26,9 @@
                 <p>${gitUser != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT linked your profile with github.">Missing</span>'}</p>
                 <p>${user != null && user.selectedRepo != null ? '<span class="label label-success">Success</span>' : '<span class="label label-important" alt="You have NOT selected a repository.">Missing</span>'}</p>
             </div>
-    	</div><!--/span-->
-        <div class="span9">
+            <br><br><br>
             <hr>
-            <h2> Change password </h2>
+            <h2>Change password</h2>
             <g:if test="${updated}">
                 <div class='alert alert-success'>Your password has been updated.</div>
             </g:if>
@@ -38,7 +37,7 @@
                     <label class="control-label" for="oldPassword">Old Password</label>
                     <div class="controls">
                         <g:field type="password" required="true" name="oldPassword" placeholder="Current password"
-                                 value="${error[0]?.value}"/>
+                                 value="${error[0]?.value}" minlength="6" maxlength="64"/>
                         <span class="help-inline">
                             ${error[0]?.error ? error[0]?.message : ''}
                         </span>

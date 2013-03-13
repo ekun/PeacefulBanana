@@ -32,14 +32,14 @@ class SettingsController {
                 errors << [error: (user.password != springSecurityService.encodePassword(params.oldPassword)),
                         message: 'Incorrect password',
                         value: params.oldPassword]
-                errors << [error: passwordValidator(params.password,new RegisterCommand()),
+                errors << [error: (null != passwordValidator(params.password,new RegisterCommand())),
                         message: g.message(code: passwordValidator(params.password,new RegisterCommand())),
                         value: params.password]
                 errors << [error: params.password != params.confirmPassword,
                         message: g.message(code: password2Validator(params.confirmPassword,new RegisterCommand())),
                         value: params.confirmPassword]
 
-                if (!(errors[0].error && errors[1].error && errors[2].error)) {
+                if (!errors[0].error && !errors[1].error && !errors[2].error) {
                     user.password = params.password
 
                     user.save()
@@ -84,35 +84,6 @@ class SettingsController {
         render("Completed syncing data from github.")
     }
 
-    def ajaxChangePassword() {
-        def user = User.get(springSecurityService.principal.id)
-
-        def registrationCode = new RegistrationCode(username: user.username)
-        registrationCode.save(flush: true)
-
-        String url = generateLink('resetPassword', [t: registrationCode.token])
-
-        def conf = SpringSecurityUtils.securityConfig
-        def body = conf.ui.forgotPassword.emailBody
-        if (body.contains('$')) {
-            body = evaluate(body, [user: user, url: url])
-        }
-        mailService.sendMail {
-            to user.email
-            from conf.ui.forgotPassword.emailFrom
-            subject conf.ui.forgotPassword.emailSubject
-            html body.toString()
-        }
-
-        render "<div class='alert alert-success'>An email has been sent.</div>"
-    }
-
-    protected String generateLink(String action, linkParams) {
-        createLink(base: "$request.scheme://$request.serverName:$request.serverPort$request.contextPath",
-                controller: 'register', action: action,
-                params: linkParams)
-    }
-
     protected String evaluate(s, binding) {
         new SimpleTemplateEngine().createTemplate(s).make(binding)
     }
@@ -122,6 +93,8 @@ class SettingsController {
                 !checkPasswordMaxLength(password) ||
                 !checkPasswordRegex(password)) {
             return 'command.password.error.strength'
+        } else {
+            return null
         }
     }
 
@@ -130,7 +103,7 @@ class SettingsController {
 
         int minLength = conf.ui.password.minLength instanceof Number ? conf.ui.password.minLength : 8
 
-        password && password.length() >= minLength
+        return (password.length() >= minLength)
     }
 
     static boolean checkPasswordMaxLength(String password) {
@@ -138,16 +111,16 @@ class SettingsController {
 
         int maxLength = conf.ui.password.maxLength instanceof Number ? conf.ui.password.maxLength : 64
 
-        password && password.length() <= maxLength
+        return (password.length() <= maxLength)
     }
 
     static boolean checkPasswordRegex(String password) {
         def conf = SpringSecurityUtils.securityConfig
 
-        String passValidationRegex = conf.ui.password.validationRegex ?:
+        String passValidationRegex = conf.ui.password.validationRegex ? conf.ui.password.validationRegex :
             '^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$'
 
-        password && password.matches(passValidationRegex)
+        return (password.matches(passValidationRegex))
     }
 
     static final password2Validator = { value, command ->
