@@ -58,7 +58,7 @@ grails.spring.bean.packages = []
 grails.web.disable.multipart=false
 
 // request parameters to mask when logging exceptions
-grails.exceptionresolver.params.exclude = ['password']
+grails.exceptionresolver.params.exclude = ['password', 'oldPassword', 'password2', 'confirmPassword']
 
 // configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
 grails.hibernate.cache.queries = false
@@ -145,7 +145,6 @@ environments {
                     successUri = "http://vm-6121.idi.ntnu.no:8080/githubResponse"
                 }
             }
-            debug = true
         }
     }
 }
@@ -173,6 +172,7 @@ tomcat.deploy.username="admin"
 tomcat.deploy.password="Teech6ha"
 tomcat.deploy.url="http://vm-6121.idi.ntnu.no:8080/manager/html"
 
+// Mail configuration
 grails {
     mail {
         host = "smtp.gmail.com"
