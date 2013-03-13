@@ -9,13 +9,9 @@ class RegisterController extends grails.plugins.springsecurity.ui.RegisterContro
 
     def resetPassword = { ResetPasswordCommand command ->
 
-        log.error "[DEBUG] " + request.post
-
         String token = params.get("t")
 
         def registrationCode = token ? RegistrationCode.findByToken(token) : null
-
-        log.error registrationCode.token
 
         if (!registrationCode) {
             flash.error = message(code: 'spring.security.ui.resetPassword.badCode')
@@ -30,8 +26,6 @@ class RegisterController extends grails.plugins.springsecurity.ui.RegisterContro
         command.username = registrationCode.username
         command.validate()
 
-        log.error "[DEBUG] " + command.hasErrors()
-
         if (command.hasErrors()) {
             return [token: token, command: command]
         }
@@ -41,8 +35,6 @@ class RegisterController extends grails.plugins.springsecurity.ui.RegisterContro
             user.password = command.password
             user.save()
             registrationCode.delete()
-
-            log.error "[DEBUG] " + status
         }
 
         springSecurityService.reauthenticate registrationCode.username
