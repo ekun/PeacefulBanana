@@ -21,8 +21,8 @@
         <h1 style="margin-bottom: 30px;">Preparation</h1>
         <p>Under can you see your notes created for the periode</p>
         <g:form class="input-append" action="preparation" method="POST">
-            <g:select class="input-xxlarge" name="workshop" from="${workshops}" optionKey="id" value="${params.getLong("workshop")}"
-                      optionValue="${{it.dateStart.toString() + " -> " + it.dateEnd.toString()}}" noSelection="[null:'All time']" />
+            <g:select class="input-xlarge" name="workshop" from="${workshops}" optionKey="id" value="${params.getLong("workshop")}"
+                      optionValue="${{it.dateStart.format("EEE, d MMM yyyy") + " -> " + it.dateEnd.format("EEE, d MMM yyyy")}}" noSelection="[null:'All time']" />
             <button type="submit" class="btn btn-primary">Reload</button>
         </g:form>
         <hr>

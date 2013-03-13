@@ -1,5 +1,6 @@
 package org.peaceful.banana.reflection
 
+import org.joda.time.format.DateTimeFormat
 import org.peaceful.banana.User
 import org.peaceful.banana.gitdata.Commit
 import org.peaceful.banana.gitdata.Repository
@@ -95,7 +96,9 @@ class ReflectionController {
             loggedInUserNotes = user.getNotes()
         }
 
-        [notes: loggedInUserNotes, user: user, workshops: Workshop.findAllByTeam(user.activeTeam())]
+        [notes: loggedInUserNotes, user: user,
+                workshops: Workshop.findAllByTeam(user.activeTeam()),
+                dateFormatter: DateTimeFormat.forPattern("yyyy-MM-dd")]
     }
 
     def ajaxShareNote() {

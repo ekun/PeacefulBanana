@@ -20,20 +20,13 @@
         <g:each in="${workshops}">
             <a href="${createLink(action: 'inspect', id: it.id)}">${it.getDuration()} from
                 <joda:time value="${new DateTime(it.dateStart)}">
-                    <joda:format value="${it}" pattern="d. MMMM yyyy"/>
+                    <joda:format value="${it}" pattern="EEE, d MMM yyyy"/>
                 </joda:time>
                 to
                 <joda:time value="${new DateTime(it.dateEnd)}">
-                    <joda:format value="${it}" pattern="d. MMMM yyyy"/>
+                    <joda:format value="${it}" pattern="EEE, d MMM yyyy"/>
                 </joda:time>
             </a>
-            <joda:time value="${new DateTime(it.dateStart)}">
-                <joda:format value="${it}" pattern="d. MMMM yyyy"/>
-            </joda:time>
-            -->
-            <joda:time value="${new DateTime(it.dateEnd)}">
-                <joda:format value="${it}" pattern="d. MMMM yyyy"/>
-            </joda:time>
             <br>
         </g:each>
     </div><!--/span-->
