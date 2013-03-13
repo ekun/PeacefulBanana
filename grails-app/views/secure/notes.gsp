@@ -55,7 +55,7 @@
                                             maxFractionDigits="2" roundingMode="HALF_DOWN" />
                         </td>
                         <td>
-                            <g:formatNumber number="${((Note.countByShared(true) / Note.count) * 100)}" type="percent"
+                            <g:formatNumber number="${(Note.countByShared(true) / Note.count)}" type="percent"
                                             maxFractionDigits="2" roundingMode="HALF_DOWN" />
                         </td>
                     </tr>
