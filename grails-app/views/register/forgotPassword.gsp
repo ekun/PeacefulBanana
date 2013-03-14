@@ -8,7 +8,9 @@
 <body>
 <div class="container">
     <g:form class="form-signin form-horizontal" action='forgotPassword' name='forgotPasswordForm' autocomplete='off'>
-        <h2 class="form-signin-heading"><g:message code="spring.security.ui.forgotPassword.header" /></h2>
+        <h2 class="form-signin-heading">
+            <a href="${createLink(controller: 'login', action: 'auth')}"><i class="mega-icon mega-icon-arr-left"></i></a>
+            <g:message code="spring.security.ui.forgotPassword.header" /></h2>
         <fieldset>
             <g:if test='${emailSent}'>
                 <div class="alert alert-success">

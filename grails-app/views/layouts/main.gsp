@@ -198,13 +198,12 @@
     <div class="container-fluid">
         <g:if test="${flash.error}">
             <div class="alert alert-error">
-                <strong>Error!</strong> <g:message message="${flash.error}" code="${flash.error}"/>
+                <strong>Error!</strong> ${flash.error}
             </div>
         </g:if>
         <g:if test="${flash.message}">
             <div class="alert">
-                <g:message code="${flash.message}" args="${flash.args}"
-                       default="${flash.default}"/>
+                ${flash.message}
             </div>
         </g:if>
         <g:layoutBody/>

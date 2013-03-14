@@ -1,4 +1,4 @@
-<%@ page import="org.peaceful.banana.gitdata.Commit" %>
+<%@ page import="org.peaceful.banana.User; org.peaceful.banana.gitdata.Commit" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -21,9 +21,26 @@
 	 	<div class="span9">
   			<h1>${selectedRepo != null ? (selectedRepo?.name) : ''} </h1>
             Commit count: ${commits.size()}
-            <g:each in="${commits}">
-                <p><b>${it.login}</b>: ${it.message}</p>
-            </g:each>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <g:sortableColumn property="login" title="User" style="width: 150px;" />
+                        <g:sortableColumn property="createdAt" title="Timestamp" style="width: 170px;" />
+                        <g:sortableColumn property="message" title="Message" />
+                    </tr>
+                </thead>
+                <tbody>
+                    <g:each in="${commits}">
+                        <tr>
+                            <td>${User.findByGitLogin(it.login) ? User.findByGitLogin(it.login).toString() : it.login}</td>
+                            <td>${it.createdAt}</td>
+                            <td>${it.message}</td>
+                        </tr>
+                    </g:each>
+                </tbody>
+
+
+            </table>
     	</div><!--/span-->
     </div><!--/row-->
 </body>

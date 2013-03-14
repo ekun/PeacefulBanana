@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="register"/>
 
     <title>
         <g:message code="springSecurity.login.title"/>
@@ -42,12 +42,13 @@
         width: 100%;
     }
     </style>
+
     <r:require modules="bootstrap"/>
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" action='${postUrl}' method='POST' id='loginForm' autocomplete='off'>
-        <h2 class="form-signin-heading">Please sign in</h2>
+    <form class="form-signin" action='${postUrl}' method='POST' id='loginForm' autocomplete='off' style="width: 300px;">
+        <h2 class="form-signin-heading"><a href="/"><i class="mega-icon mega-icon-arr-left"></i></a>Please sign in</h2>
         <g:if test='${flash.message}'>
             <div class="alert alert-error">${flash.message}</div>
         </g:if>
