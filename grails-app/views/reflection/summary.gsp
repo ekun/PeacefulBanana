@@ -11,7 +11,6 @@
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection</li>
                 <li class="active"><a href="${createLink(action: '')}">Notes</a></li>
-                <li><a href="${createLink(action: 'mood')}">Mood</a></li>
                 <li><a href="${createLink(action: 'preparation')}">Workshop preparation</a></li>
             </ul>
         </div><!--/.well -->

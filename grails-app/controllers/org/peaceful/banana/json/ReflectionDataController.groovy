@@ -26,8 +26,20 @@ class ReflectionDataController {
         def rows = []
         def columns = []
 
+        def startDate = new Date(0)
+        def endDate = new Date()
+
+        if (params.dateStart && params.dateEnd) {
+            startDate = params.getDate("dateStart")
+            endDate = params.getDate("dateEnd").plus(1)
+        }
+
         // Gathering the first ever note created by this team
-        def firstNote = Note.findAllByTeamAndUserInList(user.activeTeam(), teamMember, [sort: "dateCreated", order: "asc", max: 1]) // Get the first!
+        def firstNote = Note.findAllByTeamAndUserInListAndDateCreatedBetween(user.activeTeam(),
+                teamMember,
+                startDate,
+                endDate,
+                [sort: "dateCreated", order: "asc", max: 1]) // Get the first!
 
         if (firstNote) {
             teamMember.remove(firstNote[0].user)
@@ -45,7 +57,10 @@ class ReflectionDataController {
 
             // Gather mood-data with timestampss
             // From the member with the earliest note
-            Note.findAllByUserAndTeam(firstNote[0].user, user.activeTeam(), [sort: "dateCreated", order:'asc']).each {
+            Note.findAllByUserAndTeamAndDateCreatedBetween(firstNote[0].user, user.activeTeam(),
+                    startDate,
+                    endDate,
+                    [sort: "dateCreated", order:'asc']).each {
                 cells = []
                 cells << ['v':  it.dateCreated.dateString] << ['v': it.mood]
                 rows << ['c': cells]
@@ -53,7 +68,10 @@ class ReflectionDataController {
             // From the rest
             teamMember.each {
                 i = 0
-                Note.findAllByUserAndTeam(it, user.activeTeam(), [sort: "dateCreated", order:'asc']).each {
+                Note.findAllByUserAndTeamAndDateCreatedBetween(it, user.activeTeam(),
+                        startDate,
+                        endDate,
+                        [sort: "dateCreated", order:'asc']).each {
                     cells = []
                     if (rows.size() <= i) {
                         if (!cells.empty)

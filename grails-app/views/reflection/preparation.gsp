@@ -12,7 +12,6 @@
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection</li>
                 <li><a href="${createLink(action: 'index')}">Notes</a></li>
-                <li><a href="${createLink(action: 'mood')}">Mood</a></li>
                 <li class="active"><a href="${createLink(action: 'preparation')}">Workshop preparation</a></li>
             </ul>
         </div><!--/.well -->
@@ -78,7 +77,7 @@
     google.setOnLoadCallback(drawChart);
     function drawChart() {
         var jsonData = $.ajax({
-            url: "${createLink(controller: 'reflectionData', action: 'mood')}",
+            url: "${createLink(controller: 'reflectionData', action: 'mood', params: dateParams)}",
             dataType:"json",
             async: true,
             success: function(jsonData) {

@@ -73,12 +73,6 @@ class ReflectionController {
                 new Date(System.currentTimeMillis()).clearTime()).size() > 0, note: note]
     }
 
-    def mood() {
-        def user = User.get(springSecurityService.principal.id)
-
-        // retrieve the users mood-data.
-    }
-
 /**
  * This will show the user every note created by him this last periode so that he can prepair for the workshop
  */
@@ -88,17 +82,22 @@ class ReflectionController {
 
         // get the notes he have created and list them
         def loggedInUserNotes
+        def dateParams
 
         if (params.getLong("workshop") != null) {
             def work = Workshop.findById(params.getLong("workshop"))
             loggedInUserNotes = Note.findByUserAndTeamAndDateCreatedBetween(user, work.team, work.dateStart, work.dateEnd)
+            dateParams = [dateStart: work.dateStart, dateEnd: work.dateEnd]
         } else {
             loggedInUserNotes = user.getNotes()
+            dateParams = []
         }
 
         [notes: loggedInUserNotes, user: user,
                 workshops: Workshop.findAllByTeam(user.activeTeam()),
-                dateFormatter: DateTimeFormat.forPattern("yyyy-MM-dd")]
+                dateFormatter: DateTimeFormat.forPattern("yyyy-MM-dd"),
+                dateParams: dateParams
+        ]
     }
 
     def ajaxShareNote() {
