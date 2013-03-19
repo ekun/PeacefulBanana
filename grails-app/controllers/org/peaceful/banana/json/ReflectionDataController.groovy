@@ -128,9 +128,6 @@ class ReflectionDataController {
                 }
                 memberNr++
             }
-
-            // TODO: calculate values to achieve complete graphs
-
         }
         def table = [cols: columns, rows: rows]
 

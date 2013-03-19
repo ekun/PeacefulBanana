@@ -12,12 +12,19 @@
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection</li>
                 <li><a href="${createLink(action: 'index')}">Notes</a></li>
-                <li class="active"><a href="${createLink(action: 'preparation')}">Workshop preparation</a></li>
+                <li class="active"><a href="${createLink(action: 'preparation')}">Workshop preparation</a>
+                    <ul class="nav nav-list">
+                        <li><a href="#note">Notes</a></li>
+                        <li><a href="#mood">Mood</a></li>
+                    </ul>
+                </li>
+
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
         <h1 style="margin-bottom: 30px;">Preparation</h1>
+        <a id="note"></a>
         <p>Under can you see your notes created for the periode</p>
         <g:form class="input-append" action="preparation" method="POST">
             <g:select class="input-xlarge" name="workshop" from="${workshops}" optionKey="id" value="${params.getLong("workshop")}"
@@ -68,6 +75,7 @@
             </div>
         </div>
         <div class="row">
+            <a id="mood"></a>
             <div id='chart_div' style='width: 700px; height: 480px;'></div>
         </div>
     </div><!--/span-->
