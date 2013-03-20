@@ -1,3 +1,4 @@
+<%@ page import="org.peaceful.banana.gitdata.Repository" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -16,6 +17,12 @@
     </div><!--/span-->
     <div class="span9">
         <h1>Create</h1>
+        <g:if test="${latestWorkshop}">
+            <p>Your latest workshop ended at ${latestWorkshop.dateEnd}.</p>
+        </g:if>
+        <g:else>
+            <p>You have not yet planed any workshops, but your repository was created at ${Repository.findByGithubId(user.selectedRepo).created}, so you might start there?</p>
+        </g:else>
         <div id="target"></div>
         <g:form class="form-horizontal">
             <div class="control-group">

@@ -28,9 +28,13 @@ class WorkshopController {
 
         // Check if the user is a manager / owner of his active team
         if (user.teamRole() == TeamRole.MANAGER || user.activeTeam().owner == user) {
-            [team: user.activeTeam()]
+            def workshop = Workshop.findByDateEndBetweenAndTeam(new Date(0), new Date().plus(1), user.activeTeam())
+
+            // TODO: suggest timeslots for workshops after closed milestone perhaps?
+
+            [team: user.activeTeam(), latestWorkshop: workshop, user: user]
         } else {
-            redirect(controller: 'workshop', action: '')
+            redirect(controller: 'workshop', action: 'index')
         }
     }
 
@@ -56,7 +60,7 @@ class WorkshopController {
 
             [questions: workshop.questions, user: user, tags: commitTags]
         } else {
-            redirect(controller: 'workshop', action: '')
+            redirect(controller: 'workshop', action: 'index')
         }
     }
 
@@ -73,7 +77,7 @@ class WorkshopController {
             renderPdf(template: "workshopQuestionare", model:[workshop: workshop, questions: workshop.questions],
                     controller: 'workshop', filename: 'WorkshopQuestionare')
         } else {
-            redirect(controller: 'workshop', action: '')
+            redirect(controller: 'workshop', action: 'index')
         }
     }
 
@@ -114,6 +118,10 @@ class WorkshopController {
             new WorkshopQuestion(questionText: "Talk about any disappointments or successes of your project. What did you learn from it?",
                     commitTag: "MANDATORY",
                     workshop: newWorkshop).save()
+
+            /* TODO: Check if there has been completed a set of milestones durring this periode
+                     And generate some questions based on this.
+             */
 
             commitTags.each {
                 if (!(it.value < (maxTagCount/3)))
