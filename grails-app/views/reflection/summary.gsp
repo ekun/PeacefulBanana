@@ -25,8 +25,8 @@
             </div>
         </div>
         <div class="row-fluid">
-            <div id="piechart" class="span6" style="width: 600px;"></div>
-            <div id="tagcloud" class="span6 pull-right" style="width: 600px;height: 300px; z-index: -1;">
+            <div id="piechart" class="span6" style="width: 400px;"></div>
+            <div id="tagcloud" class="span6 pull-right" style="width: 500px;height: 250px; z-index: -1;">
             <g:each in="${tagCloud}">
                 <span data-weight="${it.value}">${it.key}</span>
             </g:each>
