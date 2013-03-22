@@ -4,6 +4,7 @@ import org.peaceful.banana.TeamRole
 import org.peaceful.banana.User
 import org.peaceful.banana.gitdata.Commit
 import org.peaceful.banana.gitdata.Issue
+import org.peaceful.banana.gitdata.Milestone
 import org.peaceful.banana.gitdata.Repository
 
 class WorkshopController {
@@ -119,9 +120,20 @@ class WorkshopController {
                     commitTag: "MANDATORY",
                     workshop: newWorkshop).save()
 
-            /* TODO: Check if there has been completed a set of milestones durring this periode
-                     And generate some questions based on this.
-             */
+
+            Milestone.findByRepositoryAndState(Repository.findByGithubId(user.activeTeam().repository), "closed")
+                    .each { milestone ->
+                if (milestone.closed.count { it.closed?.after(milestone?.dueOn) }.intValue() > 0) {
+                    // TODO: SKRIVE BEDRE SPØRSMÅL
+                    new WorkshopQuestion(questionText: "Why did the team not meet the deadline on '" + milestone.title + "'?",
+                            commitTag: "MANDATORY",
+                            workshop: newWorkshop).save()
+
+                    new WorkshopQuestion(questionText: "Was there anything that the differently in order to meet the deadline on '" + milestone.title + "'?",
+                            commitTag: "MANDATORY",
+                            workshop: newWorkshop).save()
+                }
+            }
 
             commitTags.each {
                 if (!(it.value < (maxTagCount/3)))

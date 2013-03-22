@@ -17,7 +17,7 @@
     </div><!--/span-->
     <div class="span9">
         <h3>Create Team</h3>
-        <div class="alert">Please be aware that this might take a while since we need to sync with github inorder to create a team</div>
+        <div class="alert"><strong>Warning</strong> Please be aware that this might take a while since we need to sync with github inorder to create a team</div>
         <!-- Div for Ajax-response -->
         <div id="response">
             <!-- for ajax swap -->

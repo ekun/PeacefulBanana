@@ -11,7 +11,7 @@
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
                 <li class="nav-header">Reflection Workshop</li>
-                <li class="active"><a href="${createLink(action: '')}">Workshops</a></li>
+                <li class="active"><a href="${createLink(controller: 'workshop')}">Workshops</a></li>
             </ul>
         </div><!--/.well -->
     </div><!--/span-->
