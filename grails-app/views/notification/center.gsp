@@ -24,7 +24,7 @@
                 <thead>
                 <tr>
                     <g:sortableColumn property="title" title="Subject" />
-                    <g:sortableColumn property="dateCreated" title="Received" />
+                    <g:sortableColumn property="dateCreated" title="Received" defaultOrder="desc" />
                     <th></th>
                 </tr>
                 </thead>

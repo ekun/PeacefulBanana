@@ -142,7 +142,7 @@ class WorkshopController {
             }
             render "<div class='alert alert-success'>Workshop created..<br>Inspect it <a href='"+createLink(action: 'inspect', id: newWorkshop.id)+"'>here</a>.</div>"
         } else {
-            log.error "Not rights!"
+            log.error "User does not have the rights!"
             response.status = 500
             render "<div class='alert alert-error'>You do not have the rights.</div>"
         }
