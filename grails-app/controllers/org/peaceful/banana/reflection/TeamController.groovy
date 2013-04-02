@@ -153,7 +153,10 @@ class TeamController {
                 user.setActiveTeam(newTeam)
                 user.save(flush: true)
 
-                new Notification(user: user, title: "Congratulations", body: "You have created a team!", notificationType: NotificationType.OTHER).save(flush: true)
+                new Notification(user: user,
+                        title: "Congratulations",
+                        body: "You have created a team!<br><br>",
+                        notificationType: NotificationType.OTHER).save(flush: true)
 
                 // Run repo sync
                 def gitSync = new GitSyncer()

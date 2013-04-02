@@ -21,8 +21,24 @@ class NotificationController {
             }
         }
 
-        [notifications: Notification.findAllByUserAndCleared(user,false,params), notificationsCount: Notification.countByUserAndCleared(user, false),
+        [notifications: Notification.findAllByUserAndCleared(user,false,params),
+                notificationsCount: Notification.countByUserAndCleared(user, false),
                 user: user, selected: selectedNotification]
+    }
+
+    def inspect() {
+        def user = springSecurityService.currentUser
+        def selectedNotification
+
+        if (params.get("id")) {
+            selectedNotification = Notification.findByUserAndId(user, params.getInt("id"))
+            if (selectedNotification && !selectedNotification.unread) {
+                selectedNotification.unread = false
+                selectedNotification.save()
+            }
+        }
+
+        [user: user, selected: selectedNotification]
     }
 
     def unread() {

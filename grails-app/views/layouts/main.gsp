@@ -106,6 +106,12 @@
                                                 Settings
                                             </a>
                                         </li>
+                                        <li>
+                                            <a href="${createLink(controller: 'FAQ')}">
+                                                <i class="icon-book"></i>
+                                                FAQ
+                                            </a>
+                                        </li>
                                         <li class="divider"></li>
                                         <li><g:link controller='logout'><i class="mini-icon mini-icon-logout"></i> Log out</g:link></li>
                                     </ul>

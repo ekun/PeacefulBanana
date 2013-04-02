@@ -2,7 +2,7 @@
 <g:each in="${notifications}">
     <tr ${it?.unread ? 'class=""' : ''}>
         <td>
-            <a href="${createLink(action: 'center', id: it?.id)}">${it?.unread ? '<i class="icon-envelope"></i>' : ''} ${it?.title}</a>
+            <a href="${createLink(action: 'inspect', id: it?.id)}">${it?.unread ? '<i class="icon-envelope"></i>' : ''} ${it?.title}</a>
         </td>
         <td>
             <joda:time value="${new DateTime(it.dateCreated)}">

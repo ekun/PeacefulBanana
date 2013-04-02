@@ -24,10 +24,10 @@ class TemplateTagLib {
                 out << '<li style="padding: 1px 5px; overflow: hidden;">'
                 out << '<!-- Notification -->'
                 if(it.unread)
-                    out << '<a href="'+createLink(controller: 'notification', action: 'center', id: it.id)+
+                    out << '<a href="'+createLink(controller: 'notification', action: 'inspect', id: it.id)+
                             '" style="background-color: #e2f1fb;"><i class="icon-envelope"></i> '
                 else
-                    out << '<a href="'+createLink(controller: 'notification', action: 'center', id: it.id)+'">'
+                    out << '<a href="'+createLink(controller: 'notification', action: 'inspect', id: it.id)+'">'
 
                 out << '<b>'+it.title+'</b>'
                 out << '</a>'
