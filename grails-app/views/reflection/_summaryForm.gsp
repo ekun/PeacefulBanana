@@ -15,17 +15,32 @@
         </div>
     </div>
     <div class="control-group ${hasErrors(bean:note,field:'contributions','error')}">
-        <label class="control-label" for="contributions">Top 2 contributions</label>
+        <label class="control-label" for="contributions">Top 2 contributions for you and/or the team.</label>
         <div class="controls">
             <textarea rows="6" class="span5" id="contributions" name="contributions">${note?.errors?.getFieldValue("contributions")}</textarea>
-            <span class="help-inline"><g:hasErrors bean="${note}"><g:message error="${note?.errors?.getFieldError("contributions")}" /></g:hasErrors></span>
+            <span class="help-block">
+                Your contributions to this particular project, a contribution could be implementation of an feature etc that you are sattisfied with.
+                <g:hasErrors bean="${note}"><g:message error="${note?.errors?.getFieldError("contributions")}" /></g:hasErrors>
+            </span>
         </div>
     </div>
     <div class="control-group ${hasErrors(bean:note,field:'improvements','error')}">
-        <label class="control-label" for="improvements">Top 2 improvements</label>
+        <label class="control-label" for="improvements">Top 2 improvements you personaly and/or the team.</label>
         <div class="controls">
             <textarea rows="6" class="span5" id="improvements" name="improvements">${note?.errors?.getFieldValue("improvements")}</textarea>
-            <span class="help-inline"><g:hasErrors bean="${note}"><g:message message="${note?.errors?.getFieldError("improvements")}" /></g:hasErrors></span>
+            <span class="help-block">
+                Your or what you think the team can possible improvements for this particular project.
+                <g:hasErrors bean="${note}"><g:message message="${note?.errors?.getFieldError("improvements")}" /></g:hasErrors>
+            </span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="warning">Warning</label>
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" id="warning" required> Are you sure you want to submitt your note now?
+            </label>
+            <span class="help-block">You can only submitt one note per team per day.</span>
         </div>
     </div>
     <div class="control-group">

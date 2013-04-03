@@ -11,6 +11,10 @@ class Notification {
 
     static belongsTo = [user: User]
 
+    static mapping = {
+        sort dateCreated: "desc"
+    }
+
     static constraints = {
         notificationType nullable: false
     }

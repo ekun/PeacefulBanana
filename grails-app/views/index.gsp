@@ -31,6 +31,7 @@
                     <li>The full power of Github.com</li>
                     <li>Reflection</li>
                 </ul>
+                <p>Click here to <a href="${createLink(controller: 'register')}">register</a> or here to <a href="${createLink(controller: 'login', action: 'auth')}">login</a></p>
             </sec:ifNotLoggedIn>
     	</div><!--/span-->
     </div><!--/row-->

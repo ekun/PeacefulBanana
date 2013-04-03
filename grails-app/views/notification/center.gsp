@@ -19,27 +19,19 @@
     <div class="span9">
         <h3>Inbox</h3>
         <div id="feedback"></div>
-        <g:if test="${!params.id}">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <g:sortableColumn property="title" title="Subject" />
-                    <g:sortableColumn property="dateCreated" title="Received" defaultOrder="desc" />
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody id="target">
-                    <g:formatNotificationList notifications="${notifications}"/>
-                </tbody>
-            </table>
-            <center><g:paginate controller="notification" maxsteps="5" action="center" total="${notificationsCount}"/></center>
-        </g:if>
-        <g:if test="${params.id}">
-        ${params.id && !selected ? '<div class="alert alert-error">\n' +
-                '<strong>Error</strong> Invalid id.' +
-                '</div>' : ''}
-            <g:formatNotificationLarge notification="${selected}" />
-        </g:if>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <g:sortableColumn property="title" title="Subject" />
+                <g:sortableColumn property="dateCreated" title="Received" defaultOrder="desc" />
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="target">
+                <g:formatNotificationList notifications="${notifications}"/>
+            </tbody>
+        </table>
+        <center><g:paginate controller="notification" maxsteps="5" action="center" total="${notificationsCount}"/></center>
     </div><!--/span-->
 </div><!--/row-->
 <g:javascript>

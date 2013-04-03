@@ -10,16 +10,8 @@ class NotificationController {
     def springSecurityService
 
     def center() {
-        def user = User.get(springSecurityService.principal.id)
+        def user = springSecurityService.currentUser
         def selectedNotification
-
-        if (params.get("id")) {
-            selectedNotification = Notification.findByUserAndId(user, params.getInt("id"))
-            if (selectedNotification) {
-                selectedNotification.unread = false
-                selectedNotification.save()
-            }
-        }
 
         [notifications: Notification.findAllByUserAndCleared(user,false,params),
                 notificationsCount: Notification.countByUserAndCleared(user, false),
@@ -38,17 +30,19 @@ class NotificationController {
             }
         }
 
+        log.error user?.username
+
         [user: user, selected: selectedNotification]
     }
 
     def unread() {
-        def user = User.get(springSecurityService.principal.id)
+        def user = springSecurityService.currentUser
 
         [unread: Notification.findAllByUserAndCleared(user, true), user: user]
     }
 
     def archive() {
-        def user = User.get(springSecurityService.principal.id)
+        def user = springSecurityService.currentUser
         def trashed
 
         if (params.get("id")) {
@@ -64,7 +58,7 @@ class NotificationController {
 
     // for ajax-calls
     def ajaxTrashItem() {
-        def user = User.get(springSecurityService.principal.id) // get the user logged in from session
+        def user = springSecurityService.currentUser // get the user logged in from session
         def fail = false
 
         if (params.get("id")) {
@@ -87,7 +81,7 @@ class NotificationController {
     }
 
     def ajaxGetNotificationList() {
-        def user = User.get(springSecurityService.principal.id) // get the user logged in from session
+        def user = springSecurityService.currentUser // get the user logged in from session
 
         render(template: 'listNotification', model: [notifications: Notification.findAllByUserAndCleared(user,false,params)])
     }
