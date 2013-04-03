@@ -29,7 +29,7 @@
         <div class="controls">
             <textarea rows="6" class="span5" id="improvements" name="improvements">${note?.errors?.getFieldValue("improvements")}</textarea>
             <span class="help-block">
-                Your or what you think the team can possible improvements for this particular project.
+                What you think the team or youself can improve for this particular project.
                 <g:hasErrors bean="${note}"><g:message message="${note?.errors?.getFieldError("improvements")}" /></g:hasErrors>
             </span>
         </div>
