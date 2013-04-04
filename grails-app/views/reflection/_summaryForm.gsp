@@ -2,20 +2,20 @@
 <h3>Summary</h3>
 <form class="form-horizontal" action="${createLink(action: 'summary')}" method='POST' autocomplete='off'>
     <div class="control-group ${hasErrors(bean:note,field:'mood','error')}">
-        <label class="control-label" for="moodSelector">Mood</label>
+        <label class="control-label" for="moodSelector">Your mood</label>
         <div class="controls">
-            <select class="span3" id="moodSelector" name="moodSelector">
+            <select class="span3" id="moodSelector" name="moodSelector" required>
                 <option value="1">Very sad</option>
                 <option value="25">Sad</option>
                 <option value="50" selected="">Neutral</option>
                 <option value="75">Happy</option>
                 <option value="100">Very happy</option>
             </select>
-            <span class="help-inline">Select your mood</span>
+            <span class="help-block">How did you feel about todays work?</span>
         </div>
     </div>
     <div class="control-group ${hasErrors(bean:note,field:'contributions','error')}">
-        <label class="control-label" for="contributions">Top 2 contributions for you and/or the team.</label>
+        <label class="control-label" for="contributions">Top two contributions for you and two for your the team.</label>
         <div class="controls">
             <textarea rows="6" class="span5" id="contributions" name="contributions" required>${note?.errors?.getFieldValue("contributions")}</textarea>
             <span class="help-block">
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="control-group ${hasErrors(bean:note,field:'improvements','error')}">
-        <label class="control-label" for="improvements">Top 2 improvements you personaly and/or the team.</label>
+        <label class="control-label" for="improvements">Top two improvements you personaly and two for your the team.</label>
         <div class="controls">
             <textarea rows="6" class="span5" id="improvements" name="improvements" required>${note?.errors?.getFieldValue("improvements")}</textarea>
             <span class="help-block">
