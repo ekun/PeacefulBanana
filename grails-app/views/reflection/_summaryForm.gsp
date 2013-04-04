@@ -17,7 +17,7 @@
     <div class="control-group ${hasErrors(bean:note,field:'contributions','error')}">
         <label class="control-label" for="contributions">Top 2 contributions for you and/or the team.</label>
         <div class="controls">
-            <textarea rows="6" class="span5" id="contributions" name="contributions">${note?.errors?.getFieldValue("contributions")}</textarea>
+            <textarea rows="6" class="span5" id="contributions" name="contributions" required>${note?.errors?.getFieldValue("contributions")}</textarea>
             <span class="help-block">
                 Your contributions to this particular project, a contribution could be implementation of an feature etc that you are sattisfied with.
                 <g:hasErrors bean="${note}"><g:message error="${note?.errors?.getFieldError("contributions")}" /></g:hasErrors>
@@ -27,7 +27,7 @@
     <div class="control-group ${hasErrors(bean:note,field:'improvements','error')}">
         <label class="control-label" for="improvements">Top 2 improvements you personaly and/or the team.</label>
         <div class="controls">
-            <textarea rows="6" class="span5" id="improvements" name="improvements">${note?.errors?.getFieldValue("improvements")}</textarea>
+            <textarea rows="6" class="span5" id="improvements" name="improvements" required>${note?.errors?.getFieldValue("improvements")}</textarea>
             <span class="help-block">
                 What you think the team or youself can improve for this particular project.
                 <g:hasErrors bean="${note}"><g:message message="${note?.errors?.getFieldError("improvements")}" /></g:hasErrors>

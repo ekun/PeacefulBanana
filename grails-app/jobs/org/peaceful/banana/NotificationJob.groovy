@@ -11,7 +11,11 @@ class NotificationJob {
                 new Notification(
                         user: it.user,
                         title: "Reminder: Daily reflection",
-                        body: "You have not completed your daily reflection! Click here to do this now",
+                        body: "You have not completed your daily reflection for "+new Date().format("EEE, d MMM yyyy")+"!" +
+                                "These notes are registrated on the date they where taken and it is not possible to create notes for dates already passed." +
+                                "If that is the case for this you can ignore this notification." +
+                                "" +
+                                "Click here to do this now",
                         notificationType: NotificationType.REFLECTION).save()
             }
         }
