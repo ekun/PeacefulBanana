@@ -24,13 +24,11 @@ class NotificationController {
 
         if (params.get("id")) {
             selectedNotification = Notification.findByUserAndId(user, params.getInt("id"))
-            if (selectedNotification && !selectedNotification.unread) {
+            if (selectedNotification && selectedNotification.unread) {
                 selectedNotification.unread = false
                 selectedNotification.save()
             }
         }
-
-        log.error user?.username
 
         [user: user, selected: selectedNotification]
     }

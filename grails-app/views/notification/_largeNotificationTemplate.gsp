@@ -1,7 +1,10 @@
+<%@ page import="org.joda.time.DateTime" %>
 <div id="notification-${notification?.id}" class='notification' xmlns="http://www.w3.org/1999/html">
     <h3><span>${notification?.unread ? '<i class="icon-envelope" style="position:relative; top: 7px;"></i>' : ''} <a href="${createLink(controller: "notification", action: "inspect", id: selected?.id)}">${selected?.title}</a></span>
         <div class='pull-right'>
-            <!-- Indicators to clear / markAsUnread or something -->
+            <joda:time value="${new DateTime(selected?.dateCreated)}">
+                <joda:format value="${it}" pattern="yyyy-MM-dd HH:mm:ss" />
+            </joda:time>
             <g:submitToRemote class="btn btn-danger" action="ajaxTrashItem" id="${notification?.id}"
                               update="feedback"
                               value="Archive" />
