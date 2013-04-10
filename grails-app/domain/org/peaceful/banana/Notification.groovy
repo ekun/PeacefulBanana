@@ -17,5 +17,6 @@ class Notification {
 
     static constraints = {
         notificationType nullable: false
+        body: type: "text"
     }
 }
