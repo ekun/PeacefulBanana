@@ -17,8 +17,9 @@
         </div><!--/.well -->
     </div><!--/span-->
     <div class="span9">
-        <h1 style="margin-bottom: 30px;">Your note</h1>
-        <p>Here you can see what you wrote for the team '<a href="${createLink(controller: 'team', action: 'inspect', id: note.team.id)}">${note.team.name}</a>' on ${note.dateCreated}.</p>
+        <g:if test="${note}">
+        <h1 style="margin-bottom: 30px;">${note.user == user ? 'Your note' : note.user.toString() + "'s note"}</h1>
+        <p>Here you can see what you wrote for the team '<a href="${createLink(controller: 'team', action: 'inspect', id: note?.team?.id)}">${note?.team?.name}</a>' on ${note.dateCreated}.</p>
         <hr>
         <div class="row-fluid">
             <div class="span5">
@@ -36,6 +37,7 @@
                 <p>${note.improvements}</p>
             </div>
         </div>
+        </g:if>
     </div><!--/span-->
 </div><!--/row-->
 </body>

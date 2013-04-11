@@ -32,10 +32,17 @@ class ReflectionController {
 
         def note = Note.findById(params.id)
 
-        if (note.user == user) {
-            [note: note]
+        if (note.team.members.contains(user)) {
+            if (note.user != user && !note.shared) {
+                note = null
+                flash.error = true
+                flash.message = "I'm terribly sorry, but I can't show you that note."
+            }
+            [note: note, user: user]
         } else {
-            [note: null]
+            flash.error = true
+            flash.message = "I'm terribly sorry, but I can't show you that note."
+            [note: null, user: user]
         }
     }
 
