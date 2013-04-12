@@ -35,13 +35,11 @@ class ReflectionController {
         if (note.team.members.contains(user)) {
             if (note.user != user && !note.shared) {
                 note = null
-                flash.error = true
-                flash.message = "I'm terribly sorry, but I can't show you that note."
+                flash.error = "I'm terribly sorry, but I can't show you that note."
             }
             [note: note, user: user]
         } else {
-            flash.error = true
-            flash.message = "I'm terribly sorry, but I can't show you that note."
+            flash.error = "I'm terribly sorry, but I can't show you that note."
             [note: null, user: user]
         }
     }

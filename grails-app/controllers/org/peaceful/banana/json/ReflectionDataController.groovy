@@ -83,7 +83,7 @@ class ReflectionDataController {
                         rows << ['c': cells]
                     } else {
                         boolean inserted = false
-                        while (rows.size() >= i && !inserted) {
+                        while (rows.size() > i && !inserted) {
                             if (it.dateCreated.dateString == rows.get(i).c[0].v) {
                                 //log.error i + "("+(memberNr+1)+") :: "+ it.dateCreated.dateString +" == " + rows.get(i).c[0].v
                                 // At the correct date, now add it to the correct user!

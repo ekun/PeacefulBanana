@@ -70,6 +70,11 @@ class TeamController {
         def user = User.get(springSecurityService.principal.id)
         def team = Team.get(params.getInt("id"))// By params.id
 
+        if (!team.members.contains(user)){
+            redirect(controller: 'team', action: 'index')
+        }
+
+
         // Retrieve all users in the team
         // Check if all of the users have set the correct repo
         [team: team, teamMembers: TeamUser.findAllByTeam(team, params), user: user]

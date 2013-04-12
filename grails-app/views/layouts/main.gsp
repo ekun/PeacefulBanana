@@ -85,9 +85,6 @@
                                     <ul class="dropdown-menu" style="margin-top: 3px;">
                                         <!-- li1047/nks -->
                                         <li>
-                                            <a href="${createLink(controller: 'reflection', action: 'mood')}"><i class="icon-thumbs-up"></i> Mood</a>
-                                        </li>
-                                        <li>
                                             <a href="${createLink(controller: 'reflection')}"><i class="icon-book"></i> Notes</a>
                                         </li>
                                         <sec:ifAnyGranted roles="ROLE_ADMIN">
@@ -106,12 +103,6 @@
                                                 Settings
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="${createLink(controller: 'FAQ')}">
-                                                <i class="icon-book"></i>
-                                                FAQ
-                                            </a>
-                                        </li>
                                         <li class="divider"></li>
                                         <li><g:link controller='logout'><i class="mini-icon mini-icon-logout"></i> Log out</g:link></li>
                                     </ul>
@@ -124,13 +115,13 @@
                                        data-toggle="dropdown"
                                        href="#">
                                         <i class="icon-inbox"></i>
-                                        <g:if test="${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec.loggedInUserInfo(field:'username')), true, false).size() > 0}">
-                                            <span class="badge badge-important">${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec.loggedInUserInfo(field:'username')),true,false).size()}</span>
+                                        <g:if test="${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec?.loggedInUserInfo(field:'username')), true, false).size() > 0}">
+                                            <span class="badge badge-important">${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec?.loggedInUserInfo(field:'username')),true,false).size()}</span>
                                         </g:if>
                                     </a>
                                     <ul class="dropdown-menu" style="width: 300px; margin-top: 3px;">
                                         <!-- Notifications -->
-                                        <g:formatNotification notification="${User.findByUsername(sec.loggedInUserInfo(field:'username')).getNotifications()}" />
+                                        <g:formatNotification notification="${User.findByUsername(sec?.loggedInUserInfo(field:'username'))?.getNotifications()}" />
                                         <!-- END Notifications -->
                                         <li class="divider"></li>
                                         <li>
@@ -177,8 +168,8 @@
                                         Team
                                     </a>
                                 </li>
-                                <g:if test="${User.findByUsername(sec.loggedInUserInfo(field:'username')).teamRole() == TeamRole.MANAGER ||
-                                        User.findByUsername(sec.loggedInUserInfo(field:'username'))?.activeTeam()?.owner == User.findByUsername(sec.loggedInUserInfo(field:'username'))}">
+                                <g:if test="${User.findByUsername(sec?.loggedInUserInfo(field:'username'))?.teamRole() == TeamRole.MANAGER ||
+                                        User.findByUsername(sec?.loggedInUserInfo(field:'username'))?.activeTeam()?.owner == User.findByUsername(sec?.loggedInUserInfo(field:'username'))}">
                                     <li class="divider-vertical"></li>
                                     <li ${controllerName.equals('workshop') ? 'class="active"' : ''}>
                                         <a href="${createLink(controller: 'workshop')}" title="Manager status required" alt="Manager status required">
