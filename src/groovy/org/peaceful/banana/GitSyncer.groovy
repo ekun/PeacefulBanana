@@ -116,6 +116,7 @@ class GitSyncer {
                         repository: domainRepo,
                         milestoneNumber: milestone).save(flush: true, failOnError: true)
             } catch(ValidationException e){
+
                 createFailed = true
             }
 

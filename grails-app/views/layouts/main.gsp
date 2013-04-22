@@ -1,4 +1,4 @@
-<%@ page import="org.peaceful.banana.TeamRole; org.peaceful.banana.Notification; org.peaceful.banana.User" %>
+<%@ page import="org.peaceful.banana.Team; org.peaceful.banana.TeamRole; org.peaceful.banana.Notification; org.peaceful.banana.User" %>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -115,7 +115,7 @@
                                        data-toggle="dropdown"
                                        href="#">
                                         <i class="icon-inbox"></i>
-                                        <g:if test="${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec?.loggedInUserInfo(field:'username')), true, false).size() > 0}">
+                                        <g:if test="${User.findByUsername(sec?.loggedInUserInfo(field:'username'))?.getNotifications().size() > 0}">
                                             <span class="badge badge-important">${Notification.findAllByUserAndUnreadAndCleared(User.findByUsername(sec?.loggedInUserInfo(field:'username')),true,false).size()}</span>
                                         </g:if>
                                     </a>
@@ -168,8 +168,7 @@
                                         Team
                                     </a>
                                 </li>
-                                <g:if test="${User.findByUsername(sec?.loggedInUserInfo(field:'username'))?.teamRole() == TeamRole.MANAGER ||
-                                        User.findByUsername(sec?.loggedInUserInfo(field:'username'))?.activeTeam()?.owner == User.findByUsername(sec?.loggedInUserInfo(field:'username'))}">
+                                <g:if test="${User.findByUsername(sec?.loggedInUserInfo(field:'username'))?.teamRole() == TeamRole.MANAGER}">
                                     <li class="divider-vertical"></li>
                                     <li ${controllerName.equals('workshop') ? 'class="active"' : ''}>
                                         <a href="${createLink(controller: 'workshop')}" title="Manager status required" alt="Manager status required">

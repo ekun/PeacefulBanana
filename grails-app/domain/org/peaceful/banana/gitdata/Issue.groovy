@@ -22,6 +22,7 @@ class Issue {
     static constraints = {
         githubId blank: false, unique: true
         closed nullable: true
+        body nullable: true
         milestoneNumber nullable: true
     }
 

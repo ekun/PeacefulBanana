@@ -16,7 +16,7 @@
                     <br>Happy reflecting!
                 </p>
                 <p>
-                <g:if test="${!User.findByUsername(sec.loggedInUserInfo(field:'username')).activeTeam()}">
+                <g:if test="${User.findByUsername(sec?.loggedInUserInfo(field:'username'))?.activeTeam() == null}">
                     I see you haven't selected a team yet, click <a href="${createLink(controller: 'team')}">here</a> to create or select your first team.
                 </g:if>
                 </p>
