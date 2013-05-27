@@ -11,4 +11,5 @@ For more information see [LICENSE.txt](https://github.com/ekun/PeacefulBanana/bl
 
 ## Contributors
 [Marius Nedal Glittum](https://github.com/ekun)
+
 [Even Stene](https://github.com/najtrox)
