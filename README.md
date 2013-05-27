@@ -3,7 +3,7 @@ Created by Marius Nedal Glittum & Even Stene as a master thesis at [NTNU](http:/
 
 ## Requirements
 * Grails 2.1.1
-* GitHub application key (retrieved [here](https://github.com/settings/applications).
+* GitHub application key (retrieved [here](https://github.com/settings/applications).)
 
 ## License
 Released under GNU GENERAL PUBLIC LICENSE v3.0
