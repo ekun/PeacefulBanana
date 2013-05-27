@@ -70,7 +70,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://vm-6121.idi.ntnu.no:8080"
+        // TODO: grails.serverURL = "http://your.domain.here"
     }
 }
 
@@ -122,8 +122,8 @@ environments {
                     scope = 'user,repo'
 
                    // For testing localy
-                    key = '8ee7aa535906d0157db2'
-                    secret = 'b09ebba58897895fa81c8879d5269d54cee6efaa'
+                    key = 'GITHUB KEY'
+                    secret = 'GITHUB SECRET'
                     callback = "http://localhost:8080/oauth/github/callback"
                     successUri = "http://localhost:8080/githubResponse"
                 }
@@ -139,8 +139,8 @@ environments {
                     scope = 'user,repo'
 
                     // For deploy
-                    key = '7261cb7dcc394d1addb0'
-                    secret = '08c76b315f8bde88e2abe84ea63b2c6b337dc9a9'
+                    key = 'GITHUB KEY'
+                    secret = 'GITHUB SECRET'
                     callback = "http://vm-6121.idi.ntnu.no:8080/oauth/github/callback"
                     successUri = "http://vm-6121.idi.ntnu.no:8080/githubResponse"
                 }
@@ -170,9 +170,6 @@ grails.plugins.springsecurity.oauth.domainClass = 'org.peaceful.banana.OAuthID'
 
 grails.plugins.twitterbootstrap.fixtaglib = true
 
-tomcat.deploy.username="deploy"
-tomcat.deploy.password="Teech6ha"
-tomcat.deploy.url="http://vm-6121.idi.ntnu.no:8080/manager/text"
 
 // Mail configuration
 grails {
@@ -180,7 +177,7 @@ grails {
         host = "smtp.gmail.com"
         port = 465
         username = "fredfullbanan@gmail.com"
-        password = "Peaceful123"
+        password = "YOUR PASSWORD"
         props = ["mail.smtp.auth":"true",
                 "mail.smtp.socketFactory.port":"465",
                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",

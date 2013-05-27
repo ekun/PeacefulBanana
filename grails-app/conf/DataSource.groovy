@@ -33,7 +33,7 @@ environments {
             dbCreate = "update"
             url = "jdbc:mysql://127.0.0.1/fredfull?useUnicode=yes&characterEncoding=UTF-8"
             username = "fredfull"
-            password = "Teech6ha"
+            password = "YOUR MYSQL PASSWORD"
             properties {
                 maxActive = 50
                 maxIdle = 25
